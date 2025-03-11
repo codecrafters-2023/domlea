@@ -1,0 +1,201 @@
+/* DomainPage.css */
+
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9f9f9; /* Light background */
+    color: #333; /* Dark text for contrast */
+    margin: 0;
+    padding: 0;
+}
+
+.domain-page {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Searched Domain Box */
+.searched-domain-box {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.searched-domain-box h1 {
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #333;
+}
+
+.searched-domain-box h1 .tld {
+    color: #007bff; /* Accent color for TLD */
+}
+
+.searched-domain-box .domain-description {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.domain-details {
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.detail-card {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.detail-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.detail-card .price {
+    font-size: 2rem;
+    color: #28a745; /* Green color for price */
+    font-weight: bold;
+}
+
+.detail-card .category {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.detail-card .expiry-date {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Related Domains Section */
+.related-domains {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.related-domains h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.related-domains-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.related-domain-item {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.related-domain-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.related-domain-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.related-domain-item .tld {
+    color: #28a745;
+}
+
+.related-domain-item .price {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* Call-to-Action Section */
+.cta-section {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.buy-button {
+    background-color: #007bff; /* Blue accent color for button */
+    color: #fff;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: 600;
+}
+
+.buy-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-3px);
+}
+
+.secure-badge {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 1rem;
+}
+
+/* Loading and Error States */
+.loading, .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 2rem;
+}
+
+.error {
+    color: #dc3545; /* Red color for errors */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .domain-details {
+        flex-direction: column;
+    }
+
+    .searched-domain-box h1 {
+        font-size: 2rem;
+    }
+
+    .detail-card {
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,219 @@
+/* EditDomain.css */
+:root {
+    --sidebar-width: 280px;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --blur-intensity: blur(10px);
+    --accent-color: #6366f1;
+    --text-primary: #1e293b;
+}
+
+.edit-domain-page {
+    /* margin-left: var(--sidebar-width); */
+    min-height: 100vh;
+    padding: 20px 20px;
+    background: rgba(249, 250, 251, 0.8);
+    backdrop-filter: var(--blur-intensity);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: margin 0.3s ease;
+    overflow-y: auto;
+}
+
+.edit-domain-container {
+    background: var(--glass-bg);
+    padding: 20px 30px;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 640px;
+    transition: transform 0.3s ease;
+}
+
+.edit-domain-container:hover {
+    transform: translateY(-2px);
+}
+
+.edit-domain-container h1 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+.edit-domain-container h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.domain-input-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+}
+
+.domain-input-group::before {
+    content: ".";
+    position: absolute;
+    left: calc(100% - 130px);
+    color: var(--accent-color);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 0;
+    z-index: 2;
+}
+
+.form-group input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px 1.2rem!important;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.domain-input-group input {
+    flex: 1;
+}
+
+.tld-select {
+    width: 140px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    padding: 10px 2rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.btn-cancel {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    padding: 10px 2rem!important;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.btn-save:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.btn-cancel:hover {
+    background: rgba(239, 68, 68, 0.2);
+    transform: translateY(-1px);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .edit-domain-page {
+        margin-left: 0;
+        padding: 1.5rem;
+    }
+
+    .edit-domain-container {
+        padding: 2rem;
+        border-radius: 20px;
+    }
+
+    .domain-input-group {
+        flex-direction: column;
+    }
+
+    .domain-input-group::before {
+        display: none;
+    }
+
+    .tld-select {
+        width: 100%;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .edit-domain-container {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    .edit-domain-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .btn-save,
+    .btn-cancel {
+        padding: 1rem;
+    }
+}
