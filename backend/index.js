@@ -20,16 +20,16 @@ app.use(cors({
 connectDB();
 
 // Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-    // Set static folder
-    app.use(express.static('frontend/build'));
+// if (process.env.NODE_ENV === 'production') {
+//     // Set static folder
+//     app.use(express.static('frontend/build'));
 
-    // Handle React routing - return all requests to React app
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend/build', 'index.html'));
-    });
+//     // Handle React routing - return all requests to React app
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'frontend/build', 'index.html'));
+//     });
 
-}
+// }
 
 // Routes
 app.use('/api/auth', authRoutes);
