@@ -64,7 +64,8 @@ export default function Hero() {
     return (
         <div className="hero-container">
             <div className="hero-content">
-                <h1 className="hero-title">Looking For Unique Domain Name?</h1>
+                <h1 className="hero-title">Build Your Online Business</h1>
+                <p className='hero-sub-title'>Explore Our Premium collection of after Market Domains</p>
 
                 <div className="domain-list">
                     {tlds.map((tld, index) => (
@@ -73,7 +74,7 @@ export default function Hero() {
                             className="domain-item"
                             style={{ animationDelay: `${index * 0.1}s` }}
                         >
-                            {tld} <span>${/* Add price here if available */}</span>
+                            {tld} <span>$</span>
                         </div>
                     ))}
                 </div>
@@ -82,7 +83,7 @@ export default function Hero() {
                     <div className="search-form">
                         <input
                             type="text"
-                            placeholder="Enter Company Name"
+                            placeholder="Category to narrow down your search"
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
                             className="search-input"

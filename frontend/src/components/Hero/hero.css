@@ -97,21 +97,31 @@
 
 .hero-title {
     font-size: 60px !important;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     color: #fff;
     font-family: 'poppins';
     font-weight: 700;
 }
 
+.hero-sub-title{
+    color: #fff;
+    font-family: 'poppins';
+    font-weight: 400;
+    margin-bottom: 20px;
+}
 
 .hero-content .domain-list {
     display: flex;
     gap: 1.5rem;
     margin-bottom: 2rem;
     /* flex-wrap: wrap; */
-    justify-content: center;
+    /* justify-content: center; */
     animation: fadeIn 0.8s ease-out 0.2s backwards;
     font-family: 'poppins';
+}
+
+.hero-content .domain-list:nth-child(1){
+    padding: 0 10px 0 0!important;
 }
 
 .domain-item {
@@ -153,9 +163,9 @@
 
 
 .hero-content .search-input {
-    padding: 0.8rem 1.2rem !important;
+    padding: 0.8rem !important;
     font-size: 1rem;
-    min-width: 320px;
+    min-width: 345px;
     transition: all 0.3s ease;
     outline: none;
     width: 50%;
@@ -163,11 +173,11 @@
 }
 
 .hero-content .search-select {
-    padding: 0.8rem 1.2rem!important;
+    padding: 0.8rem!important;
     background: white;
     font-size: 1rem;
     transition: all 0.3s ease;
-    width: 100px;
+    width: 90px;
 }
 
 .hero-content .search-select:focus {
@@ -176,7 +186,7 @@
 }
 
 .hero-content .search-button {
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 1.5rem;
     background: #0984e3;
     color: white;
     border: none;

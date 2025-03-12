@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FiMenu, FiX, FiShoppingCart } from 'react-icons/fi';
+import { FiMenu, FiX} from 'react-icons/fi';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { RiAdminFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
@@ -71,10 +71,10 @@ const Header = () => {
                             <FiSearch />
                         </button> */}
 
-                        <Link to="/cart" className="icon-btn">
+                        {/* <Link to="/cart" className="icon-btn">
                             <FiShoppingCart />
-                            {/* {cartCount > 0 && <span className="badge">{cartCount}</span>} */}
-                        </Link>
+                            {cartCount > 0 && <span className="badge">{cartCount}</span>}
+                        </Link> */}
 
                         <div className="profile-section" ref={profileRef}>
                             {user ? (
@@ -87,9 +87,9 @@ const Header = () => {
                                     </button>
                                     {isProfileOpen && (
                                         <div className="profile-dropdown">
-                                            <Link to="/profile" className="profile-item">
+                                            {/* <Link to="/profile" className="profile-item">
                                                 <FaUser className='icon' /> Profile
-                                            </Link>
+                                            </Link> */}
                                             {user.role === 'admin' && (
                                                 <Link to="/admin" className="profile-item">
                                                     <RiAdminFill className='icon' /> Admin

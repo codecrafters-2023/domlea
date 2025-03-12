@@ -45,8 +45,8 @@ const TrendingDomains = () => {
 
     return (
         <div className="domain-section">
-            <h2>🔥 Trending Premium Domains</h2>
-            <p>Get your dream domain before it's gone!</p>
+            <h2>🔥 After Market Premium Brandable Domains</h2>
+            <p>Grab and Build your Business with a unique Domain Name before your competition Domain Prices are in US Dollars.</p>
 
             <div className="filter-buttons">
                 {/* "All" filter button */}
@@ -85,15 +85,15 @@ const TrendingDomains = () => {
                             </p>
                         </div>
                         <div className="domainsBtn_div">
-                            <button className="buy-btn"><Link to={'https://www.escrow.com'} target="_blank">Make It Yours</Link></button>
-                            <button className="buy-btn"><Link to={'/contact'}>Contact Us</Link></button>
+                            <button className="buy-btn"><Link to={'https://www.escrow.com'} target="_blank">Buy Now</Link></button>
+                            <button className="buy-btn"><Link to={'#'}>Make an Offer</Link></button>
                         </div>
                     </div>
                 ))}
             </div>
 
             <button className="view-all-btn">
-                <Link to={"/domainList"}>View More Domains →</Link>
+                <Link to={"/domainList"}>Expand your search →</Link>
             </button>
         </div>
     );

@@ -4,9 +4,12 @@ import { NavLink } from 'react-router-dom';
 import { FiMenu, FiX, FiHome, FiGlobe, FiPlus, FiUsers, FiSettings, FiLogOut } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import './AdminSidebar.css'
+import { useAuth } from '../../../context/AuthContext';
 
 const AdminSidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const { logout } = useAuth()
 
     const links = [
         { path: '/admin', name: 'Dashboard', icon: <FiHome /> },
@@ -86,8 +89,9 @@ const AdminSidebar = () => {
                 <motion.div
                     className="logout-section"
                     whileHover={{ scale: 1.02 }}
+                    onClick={logout}
                 >
-                    <FiLogOut className="logout-icon" />
+                    <FiLogOut className="logout-icon"/>
                     <span>Logout</span>
                 </motion.div>
             </motion.aside>

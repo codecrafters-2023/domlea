@@ -2,8 +2,71 @@ const express = require('express');
 const Domain = require('../models/Domain');
 const { protect } = require('../middleware/authMiddleware');
 const router = express();
+const { createCanvas, loadImage } = require('canvas');
+const fs = require('fs');
+const path = require('path');
+const cloudinary = require('cloudinary').v2;
+
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const generateDomainImage = async (domainName, tld) => {
+    const width = 400; // Image width
+    const height = 200; // Image height
+
+    // Create a canvas
+    const canvas = createCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+
+    // Define styles
+    const styles = [
+        { textColor: '#c1121f', font: 'bold 40px Arial', backgroundColor: '#ffffff' },
+        { textColor: '#ff5733', font: 'bold 40px Montserrat', backgroundColor: '#ffffff' },
+        { textColor: '#3954ff', font: 'bold 40px Poppins', backgroundColor: '#ffffff' },
+        { textColor: '#386641', font: 'bold 40px Noto Sans', backgroundColor: '#ffffff' },
+        { textColor: '#333333', font: 'bold 40px Raleway', backgroundColor: '#ffffff' },
+    ];
+
+    // Select a style based on the domain name (or use a random style)
+    const style = styles[domainName.length % styles.length]; // Use domain name length to pick a style
+
+    // Set background color
+    ctx.fillStyle = style.backgroundColor;
+    ctx.fillRect(0, 0, width, height);
+
+    // Set text properties
+    ctx.fillStyle = style.textColor;
+    ctx.font = style.font;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Combine domain name and TLD
+    const fullDomain = `${domainName}.${tld}`;
+
+    // Draw domain name and TLD
+    ctx.fillText(fullDomain, width / 2, height / 2);
+
+    // Convert canvas to a buffer
+    const buffer = canvas.toBuffer('image/png');
+
+    // Upload the image to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+            { folder: 'domain_images' }, // Optional: Store images in a folder
+            (error, result) => {
+                if (error) reject(error);
+                else resolve(result);
+            }
+        ).end(buffer);
+    });
 
 
+    return result.secure_url; // Return the public URL of the image
+};
 
 router.get("/userDomainsList", async (req, res) => {
     try {
@@ -37,12 +100,21 @@ router.get("/userDomainsList", async (req, res) => {
             .limit(parseInt(limit))
             .sort({ createdAt: -1 });
 
+        // Generate images for each domain and add imageUrl to the domain object
+        const domainsWithImages = await Promise.all(domains.map(async (domain) => {
+            const imageUrl = await generateDomainImage(
+                domain.name,
+                domain.tld.replace('.', ''), // Remove the dot from TLD
+            );
+            return { ...domain.toObject(), imageUrl };
+        }));
+
         // Count total domains for pagination
         const total = await Domain.countDocuments(query);
 
         res.json({
             success: true,
-            data: domains,
+            data: domainsWithImages,
             total,
             page: parseInt(page),
             pages: Math.ceil(total / limit),
@@ -52,6 +124,8 @@ router.get("/userDomainsList", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+
 // Fetch the premium domain
 router.get("/premium-domains", async (req, res) => {
     try {
