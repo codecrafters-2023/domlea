@@ -18,7 +18,7 @@
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
     width: 100%;
-    height: 100px;
+    height: 70px;
     top: 0;
     z-index: 1000;
 }
@@ -41,13 +41,13 @@
     cursor: pointer;
 }
 
-.logo-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    margin-top: 20px;
-    color: #000;
+.header-logo{
+    /* background-color: #3954ff; */
+    width: 200px;
+}
+
+.header-logo img{
+    width: 80%;
 }
 
 .logo-link img{
@@ -299,7 +299,7 @@
 
 /* Add this to your CSS */
 .content-wrapper {
-    padding-top: 100px;
+    padding-top: 70px;
     /* Adjust this value based on your navbar height */
     /* min-height: calc(100vh - 80px); */
 }
@@ -337,7 +337,7 @@
 
 @media (max-width: 992px) {
     .mobile-menu{
-        top: 100px;
+        top: 70px;
     }
 }
 

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FiMenu, FiX} from 'react-icons/fi';
+import { FiMenu, FiX } from 'react-icons/fi';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import { RiAdminFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
@@ -40,8 +40,11 @@ const Header = () => {
                 <div className="navbar-container">
                     {/* Logo Section - Removed motion */}
                     <div className="logo">
-                        <Link to="/" className="logo-link">
-                        <h1>DOMLEA</h1>
+                        <Link to="/" className="header-logo">
+                            <img
+                                src={process.env.PUBLIC_URL + '/header-logo.png'}
+                                alt="Logo"
+                            />
                             {/* <img src={`${process.env.PUBLIC_URL}/logo.png`} alt="Logo" /> */}
                         </Link>
                     </div>
@@ -108,7 +111,7 @@ const Header = () => {
                             )}
                         </div>
 
-                        
+
 
                         <button
                             className="menu-toggle"
@@ -134,18 +137,18 @@ const Header = () => {
 
                 {/* Mobile Menu */}
                 {/* {isOpen && ( */}
-                    <div className={`mobile-menu ${isOpen ? 'active' : ''}`}>
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.name}
-                                to={item.path}
-                                className="mobile-item"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
-                    </div>
+                <div className={`mobile-menu ${isOpen ? 'active' : ''}`}>
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.name}
+                            to={item.path}
+                            className="mobile-item"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            {item.name}
+                        </Link>
+                    ))}
+                </div>
                 {/* )} */}
             </nav>
 

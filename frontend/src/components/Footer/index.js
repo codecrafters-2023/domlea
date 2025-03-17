@@ -9,7 +9,10 @@ const Footer = () => {
             <div className="footer-container">
                 <div className="footer-top">
                     <div className="footer-brand">
-                        <h2 className="logo">Domlea</h2>
+                        <img
+                            src={process.env.PUBLIC_URL + '/footer-logo.png'}
+                            alt="Logo"
+                        />
                         <p className="tagline">Your Gateway to Digital Success</p>
                         <div className="social-links">
                             <a href="#" className="social-icon">

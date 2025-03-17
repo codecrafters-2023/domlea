@@ -24,6 +24,11 @@
     margin-right: 2rem;
 }
 
+.footer-brand img{
+    width: 85%;
+    margin-bottom: 10px;
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
@@ -149,6 +154,9 @@
     .footer-bottom {
         flex-direction: column;
         text-align: center;
+    }
+    .footer-brand img{
+        width: 65%;
     }
 }
 

@@ -221,7 +221,7 @@
     }
 
     .search-input {
-        width: 100%;
+        min-width: 335px!important;
     }
 
     .domain-list {
