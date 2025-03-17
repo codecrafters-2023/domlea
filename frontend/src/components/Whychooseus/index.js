@@ -77,28 +77,32 @@
 
 import React from "react";
 import "./ValueProposition.css";
+import { FaUsers } from "react-icons/fa";
+import { RiSecurePaymentFill } from "react-icons/ri";
+import { MdWifiProtectedSetup } from "react-icons/md";
+import { MdOutlineMonetizationOn } from "react-icons/md";
 
 const ValueProposition = () => {
     const services = [
         {
-            icon: '🚀',
-            title: 'Instant Domain Activation',
-            description: 'Get your domain live within minutes of purchase with our seamless integration system'
+            icon: <RiSecurePaymentFill />,
+            title: 'Secure payments',
+            description: 'We have partnered up with Escrow.com, one of the biggest & most secure payment processors in the world.'
         },
         {
-            icon: '🔄',
-            title: 'Easy Transfers',
-            description: 'Free domain transfers with our automated migration tools'
+            icon: <MdWifiProtectedSetup />,
+            title: 'Active fraud prevention',
+            description: 'The system actively monitors and prevents fraud for all transactions, with an additional layer of security provided by manually reviewing each transaction.'
         },
         {
-            icon: '💸',
-            title: 'Competitive Pricing',
-            description: 'Price match guarantee with transparent, no-hidden-fee structure'
+            icon: <MdOutlineMonetizationOn />,
+            title: 'Transparent Pricing',
+            description: 'No hidden fees! Our pricing is competitive and straightforward, ensuring you get the best deal.'
         },
         {
-            icon: '🛡️',
-            title: 'Advanced Security',
-            description: 'Free WHOIS privacy protection and SSL certification included with every domain'
+            icon: <FaUsers />,
+            title: 'Expert Support',
+            description: 'Our team is always ready to assist you with any questions or guidance you need.'
         },
     ];
 

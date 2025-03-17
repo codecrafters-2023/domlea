@@ -55,10 +55,16 @@ const DomainSearch = () => {
         fetchData();
     }, [domainName]);
 
-    if (loading) return <div className="loading">Loading...</div>;
+    if (loading) return <div className='loader-div'>
+        <div class="ui-loader loader-blk">
+            <svg viewBox="22 22 44 44" class="multiColor-loader">
+                <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6" class="loader-circle loader-circle-animation"></circle>
+            </svg>
+        </div>
+    </div>;
     if (error) return <div className="error">{error}</div>;
 
-    const firstLetter = domainName.charAt(0).toUpperCase();
+    // const firstLetter = domainName.charAt(0).toUpperCase();
 
     return (
         <>
@@ -70,8 +76,25 @@ const DomainSearch = () => {
                         {domain ? (
 
                             <div className="searched-domain-box">
+                                <div className='Exact-match'>
+                                    Exact Match
+                                </div>
                                 <h1>{domain.name}<span className="tld">{domain.tld}</span></h1>
-                                <p className="domain-description">{domain.description}</p>
+                                <div className="relatedDomain-description">
+                                    <h3 className="description-title">Key Features</h3>
+                                    <ul className="features-list">
+                                        {domain.description.split('\n').map((point, index) => (
+                                            point.trim() && (
+                                                <li key={index} className="feature-item">
+                                                    {/* <svg className="feature-icon" viewBox="0 0 24 24">
+                                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                                                    </svg> */}
+                                                    {point.trim()}
+                                                </li>
+                                            )
+                                        ))}
+                                    </ul>
+                                </div>
                                 <div className="domain-details">
                                     <div className="detail-card">
                                         <h3>Price</h3>

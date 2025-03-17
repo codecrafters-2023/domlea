@@ -24,9 +24,9 @@ const Footer = () => {
                     <div className="footer-column">
                         <h4>Company</h4>
                         <ul>
+                            <li><a href="/">Home</a></li>
                             <li><a href="/about">About Us</a></li>
-                            <li><a href="/blog">Blog</a></li>
-                            <li><a href="/careers">Careers</a></li>
+                            <li><a href="/domainList">Domains</a></li>
                             <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
@@ -34,10 +34,10 @@ const Footer = () => {
                     <div className="footer-column">
                         <h4>Services</h4>
                         <ul>
-                            <li><a href="/domains">Domain Search</a></li>
-                            <li><a href="/hosting">Web Hosting</a></li>
-                            <li><a href="/ssl">SSL Certificates</a></li>
-                            <li><a href="/transfer">Domain Transfer</a></li>
+                            <li><a href="/domainList">Domain Search</a></li>
+                            <li><a href="/">Web Hosting</a></li>
+                            <li><a href="/">SSL Certificates</a></li>
+                            <li><a href="/">Domain Transfer</a></li>
                         </ul>
                     </div>
 
@@ -46,7 +46,6 @@ const Footer = () => {
                         <ul>
                             <li><a href="/privacy">Privacy Policy</a></li>
                             <li><a href="/terms">Terms of Service</a></li>
-                            <li><a href="/gdpr">GDPR Compliance</a></li>
                             <li><a href="/report">Report Abuse</a></li>
                         </ul>
                     </div>

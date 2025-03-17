@@ -28,6 +28,18 @@ body {
     margin-bottom: 2rem;
 }
 
+.Exact-match{
+    text-align: left;
+    background: #ffeea9!important;
+    width: fit-content;
+    padding: 3px 8px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 5px;
+    /* border: 1px solid #f8de74; */
+}
+
 .searched-domain-box h1 {
     font-size: 3rem;
     margin: 0;
