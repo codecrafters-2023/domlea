@@ -165,7 +165,7 @@
 .hero-content .search-input {
     padding: 0.8rem !important;
     font-size: 1rem;
-    min-width: 345px;
+    min-width: 450px;
     transition: all 0.3s ease;
     outline: none;
     width: 50%;

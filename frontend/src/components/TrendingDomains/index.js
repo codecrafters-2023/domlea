@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./trending.css";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaBusinessTime } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -46,8 +46,8 @@ const TrendingDomains = () => {
     return (
         <div className="domain-section">
             <h2>🔥 After Market Premium Brandable Domains</h2>
-            <p>Grab and Build your Business with a unique Domain Name before your competition Domain Prices are in US Dollars.</p>
-
+            <p>Grab and Build your Business with a unique Domain Name before your competitors.</p>
+            <p>Domain Prices are in US Dollars</p>
             <div className="filter-buttons">
                 {/* "All" filter button */}
                 <button
@@ -81,12 +81,13 @@ const TrendingDomains = () => {
                         </div>
                         <div className="domain-info">
                             <p>
-                                <FaCalendarAlt /> {new Date(domain.createdAt).toLocaleDateString() || 0}
+                                <FaBusinessTime />{domain.category}
+                                {/* <FaCalendarAlt /> {new Date(domain.createdAt).toLocaleDateString() || 0} */}
                             </p>
                         </div>
                         <div className="domainsBtn_div">
                             <button className="buy-btn"><Link to={'https://www.escrow.com'} target="_blank">Buy Now</Link></button>
-                            <button className="buy-btn"><Link to={'#'}>Make an Offer</Link></button>
+                            <button className="buy-btn"><Link to={'/contact'}>Make an Offer</Link></button>
                         </div>
                     </div>
                 ))}

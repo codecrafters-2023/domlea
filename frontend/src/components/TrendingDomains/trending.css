@@ -16,7 +16,8 @@
 .domain-section p {
     color: #555;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 8px;
 }
 
 .filter-buttons {
@@ -89,12 +90,13 @@
     color: #145A32;
 }
 
-.domain-info {
+.domain-section .domain-info {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     color: #666;
     margin-bottom: 15px;
+    padding: 0!important;
 }
 
 .domain-info p {
@@ -103,7 +105,7 @@
     gap: 5px;
 }
 
-.domainsBtn_div{
+.domainsBtn_div {
     display: flex;
     gap: 5px;
 }

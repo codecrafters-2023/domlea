@@ -62,6 +62,8 @@ router.post('/forgot-password', async (req, res) => {
         // Send email
         const transporter = nodemailer.createTransport({
             service: 'gmail',
+            pool: true,
+            maxConnections: 5,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS
@@ -74,8 +76,16 @@ router.post('/forgot-password', async (req, res) => {
             text: `Click this link to reset your password: ${process.env.CLIENT_URL}/reset-password/${token}`
         };
 
-        await transporter.sendMail(mailOptions);
-        res.json({ message: 'Email sent' });
+        transporter.sendMail(mailOptions)
+            .then(() => res.json({ message: 'Email sent' }))
+            .catch((error) => {
+                console.error('Email send error:', error);
+                if (error.code === 'ECONNRESET') {
+                    return res.status(500).json({ message: 'Email service unavailable' });
+                }
+                res.status(500).json({ message: error.message });
+            });
+            
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

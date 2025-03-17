@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Domain = require('../models/Domain')
 const { protect, admin } = require('../middleware/authMiddleware');
+const generateDomainImage = require('../utils/imageGenerator');
 
 router.post('/', protect, admin, async (req, res) => {
     try {
@@ -16,6 +17,7 @@ router.post('/', protect, admin, async (req, res) => {
             });
         }
 
+        const imageUrl = await generateDomainImage(name, tld.replace('.', ''));
         // Create domain
         const domain = await Domain.create({
             name: name.toLowerCase(),
@@ -24,7 +26,8 @@ router.post('/', protect, admin, async (req, res) => {
             category,
             expiryDate,
             description: description || '',
-            isPremium
+            isPremium,
+            imageUrl
         });
 
         res.status(201).json({

@@ -102,6 +102,7 @@ const AddDomainPage = () => {
                             <label>Description:</label>
                             <textarea
                                 value={formData.description}
+                                placeholder="Enter each feature on a new line..."
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
                         </div>

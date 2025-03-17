@@ -4,24 +4,29 @@ const domainSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        index: true
     },
     tld: {
         type: String,
         required: true,
+        index: true
         // enum: ['.com', '.in', '.us', '.net', '.org', '.io']
     },
     price: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
+        index: true
     },
+    fullName: String,
     category: {
         type: String,
         required: true,
-        enum: ['Technology', 'Business', 'Education', 'Health', 'Entertainment']
+        // enum: ['Technology', 'Business', 'Education', 'Health', 'Entesrtainment'],
+        index: true
     },
-    expiryDate:{
+    expiryDate: {
         type: Date,
         // default: Date.now
     },
@@ -34,10 +39,19 @@ const domainSchema = new mongoose.Schema({
         type: Boolean,
         default: false, // Default to false
     },
+    imageUrl: { // Add this field
+        type: String,
+        default: '',
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
+});
+
+domainSchema.pre('save', function (next) {
+    this.fullName = `${this.name}${this.tld}`;
+    next();
 });
 
 const Domain = mongoose.model('Domain', domainSchema);

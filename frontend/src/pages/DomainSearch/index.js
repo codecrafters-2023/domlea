@@ -11,79 +11,160 @@ const DomainSearch = () => {
     const [relatedDomains, setRelatedDomains] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [isDomainSearch, setIsDomainSearch] = useState(false);
+
 
     useEffect(() => {
-        const fetchDomain = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/domain/${domainName}`, {
+                const domainRegex = /^[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
+                const isDomain = domainRegex.test(domainName);
+                setIsDomainSearch(isDomain);
+
+                let apiUrl;
+                if (isDomain) {
+                    apiUrl = `${process.env.REACT_APP_API_URL}/users/domain/${domainName}`;
+                } else {
+                    const decodedCategory = decodeURIComponent(domainName);
+                    apiUrl = `${process.env.REACT_APP_API_URL}/users/category/${decodedCategory}`;
+                }
+
+                const response = await axios.get(apiUrl, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
                 });
 
                 if (response.data.success) {
-                    setDomain(response.data.data);
-                    setRelatedDomains(response.data.relatedDomains || []); // Set related domains
+                    if (isDomain) {
+                        setDomain(response.data.data || null);
+                        setRelatedDomains(response.data.relatedDomains || []);
+                    } else {
+                        setRelatedDomains(response.data.data || []);
+                    }
                 } else {
-                    setError('Domain not found');
+                    setError('No results found');
                 }
             } catch (error) {
-                setError('Error fetching domain');
+                setError('Error fetching data');
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchDomain();
+        fetchData();
     }, [domainName]);
 
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">{error}</div>;
+
+    const firstLetter = domainName.charAt(0).toUpperCase();
 
     return (
         <>
             <Header />
             <div className="domain-page">
                 {/* Searched Domain Box */}
-                <div className="searched-domain-box">
-                    <h1>{domain.name}<span className="tld">{domain.tld}</span></h1>
-                    <p className="domain-description">{domain.description}</p>
-                    <div className="domain-details">
-                        <div className="detail-card">
-                            <h3>Price</h3>
-                            <p className="price">${domain.price}</p>
-                        </div>
-                        <div className="detail-card">
-                            <h3>Category</h3>
-                            <p className="category">{domain.category}</p>
-                        </div>
-                        <div className="detail-card">
-                            <h3>Added Date</h3>
-                            <p className="expiry-date">
-                                {new Date(domain.createdAt).toLocaleDateString()}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                {isDomainSearch ? (
+                    <>
+                        {domain ? (
 
-                {/* Related Domains Section */}
-                {relatedDomains.length > 0 && (
-                    <div className="related-domains">
-                        <h2>Related Domains</h2>
-                        <div className="related-domains-list">
-                            {relatedDomains.map((relatedDomain) => (
-                                <div key={relatedDomain._id} className="related-domain-item">
-                                    <Link to={`/domainSearch/${relatedDomain.name}${relatedDomain.tld}`}>
-                                        <span className="domain-name">{relatedDomain.name}</span>
-                                        <span className="tld">{relatedDomain.tld}</span>
-                                    </Link>
-                                    <p className="price">${relatedDomain.price}</p>
+                            <div className="searched-domain-box">
+                                <h1>{domain.name}<span className="tld">{domain.tld}</span></h1>
+                                <p className="domain-description">{domain.description}</p>
+                                <div className="domain-details">
+                                    <div className="detail-card">
+                                        <h3>Price</h3>
+                                        <p className="price">${domain.price}</p>
+                                    </div>
+                                    <div className="detail-card">
+                                        <h3>Category</h3>
+                                        <p className="category">{domain.category}</p>
+                                    </div>
+
                                 </div>
-                            ))}
+                            </div>
+
+                        ) : (
+                            <div className="domain-not-found">
+                                <h2>Domain "{domainName}" not found</h2>
+                            </div>
+                        )}
+
+                        {/* Related Domains Section */}
+                        <div className="related-domains">
+                            <h2>Related Domains</h2>
+                            {/* <h2>Domains Starting with "{firstLetter}"</h2> */}
+                            {relatedDomains.length > 0 ? (
+                                <div className="domain-card-list">
+                                    {relatedDomains.map((relatedDomain) => (
+                                        <div key={relatedDomain._id} className="domain__card">
+                                            <img
+                                                src={relatedDomain.imageUrl || 'https://via.placeholder.com/150'} // Use a placeholder if no image is available
+                                                alt={relatedDomain.name}
+                                                className="domain-image"
+                                            />
+                                            <div className="domain-info">
+                                                <h3 className="domain-name">
+                                                    {relatedDomain.name}
+                                                    <span className="tld">{relatedDomain.tld}</span>
+                                                </h3>
+                                                <p className="price">${relatedDomain.price}</p>
+                                            </div>
+                                            <div className="relatedDomain-description">
+                                                <h3 className="description-title">Key Features</h3>
+                                                <ul className="features-list">
+                                                    {relatedDomain.description.split('\n').map((point, index) => (
+                                                        point.trim() && (
+                                                            <li key={index} className="feature-item">
+                                                                {/* <svg className="feature-icon" viewBox="0 0 24 24">
+                                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                                                    </svg> */}
+                                                                {point.trim()}
+                                                            </li>
+                                                        )
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            {/* <p className="category">{relatedDomain.description}</p> */}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p className="no-domains-message">No related domains found.</p>
+                            )}
                         </div>
+                    </>
+                ) : (
+                    /* Display category domains */
+                    <div className="related-domains">
+                        <h2>Domains in Category: {decodeURIComponent(domainName)}</h2>
+                        {relatedDomains.length > 0 ? (
+                            <div className="domain-card-list">
+                                {relatedDomains.map((domain) => (
+                                    // Fixed: Removed extra div
+                                    <div key={domain._id} className="domain__card">
+                                        <img
+                                            src={domain.imageUrl || 'https://via.placeholder.com/150'}
+                                            alt={domain.name}
+                                            className="domain-image"
+                                        />
+                                        <div className="domain-info">
+                                            <h3 className="domain-name">
+                                                {domain.name}
+                                                <span className="tld">{domain.tld}</span>
+                                            </h3>
+                                            <p className="price">${domain.price}</p>
+                                            {/* <p className="category">{domain.category}</p> */}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="no-domains-message">No domains found in this category.</p>
+                        )}
                     </div>
                 )}
-
                 {/* Call-to-Action Section */}
                 <div className="cta-section">
                     <button className="buy-button"><Link to={'/contact'}>Contact Us</Link></button>

@@ -77,7 +77,6 @@
 
 import React from "react";
 import "./ValueProposition.css";
-import { FaDatabase, FaServer, FaCloud, FaHeadset } from "react-icons/fa";
 
 const ValueProposition = () => {
     const services = [

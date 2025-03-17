@@ -1,0 +1,238 @@
+.domain-details-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+.domain-details-container .domain-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.premium-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.domain-details-container .domain-card .domain-header {
+    background: #f8f9fa;
+    padding: 40px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.domain-name {
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.domain-tld {
+    color: #0984e3;
+    font-weight: 600;
+}
+
+.domain-price {
+    font-size: 2rem;
+    color: #2d3436;
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.domain-price span {
+    font-size: 1.2rem;
+    color: #636e72;
+    margin-left: 8px;
+    font-weight: 400;
+}
+
+.domain-details-container .domain-card .domain-content {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.domain-info {
+    margin-bottom: 30px;
+}
+
+.domain-category {
+    display: inline-block;
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.domain-description {
+    color: #636e72;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    max-width: 800px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 15px 35px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0984e3, #6c5ce7);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #00b894, #55efc4);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.domain-meta {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.meta-item {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.meta-label {
+    color: #636e72;
+    font-size: 0.9rem;
+}
+
+.meta-value {
+    color: #2d3436;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* Domain Description Styles */
+.domain-description {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(249, 250, 251, 0.9);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.description-title {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 5px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+}
+
+.feature-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: #6366f1;
+    margin-top: 3px;
+}
+
+/* Hover Effects */
+.feature-item:hover {
+    transform: translateX(5px);
+}
+
+.feature-item:hover .feature-icon {
+    fill: #8b5cf6;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-item {
+    animation: fadeInUp 0.3s ease forwards;
+    animation-delay: calc(var(--index) * 0.05s);
+}
+
+@media (max-width: 768px) {
+    .domain-content {
+        grid-template-columns: 1fr;
+        padding: 25px;
+    }
+
+    .domain-header {
+        padding: 30px 20px;
+    }
+
+    .domain-name {
+        font-size: 2rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}

@@ -3,19 +3,31 @@ import axios from "axios";
 import "./DomainListing.css";
 import Header from "../../components/Navbar";
 import { Link } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 const DomainListing = () => {
     const [domains, setDomains] = useState([]);
     const [search, setSearch] = useState("");
     const [tld, setTld] = useState("");
-    const [minPrice, setMinPrice] = useState("");
-    const [maxPrice, setMaxPrice] = useState("");
     const [tlds, setTlds] = useState([]);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10);
     const [total, setTotal] = useState(0);
     const [pages, setPages] = useState(0);
 
+    const handlePageChange = (newPage) => {
+        setPage(newPage);
+    };
+
+    // Added applied filters state
+    const [appliedFilters, setAppliedFilters] = useState({
+        search: "",
+        tld: "",
+        minPrice: "",
+        maxPrice: "",
+    });
+
+    // Fetch TLDs (unchanged)
     useEffect(() => {
         const fetchTlds = async () => {
             try {
@@ -29,15 +41,19 @@ const DomainListing = () => {
                 console.error("Error fetching TLDs:", error);
             }
         };
-
         fetchTlds();
     }, []);
 
+    // Fetch domains with applied filters
     useEffect(() => {
         const fetchDomains = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/userDomainsList`, {
-                    params: { search, tld, minPrice, maxPrice, page, limit },
+                    params: {
+                        ...appliedFilters,
+                        page,
+                        limit
+                    },
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -49,12 +65,27 @@ const DomainListing = () => {
                 console.error("Error fetching domains:", error);
             }
         };
-
         fetchDomains();
-    }, [search, tld, minPrice, maxPrice, page, limit]);
+    }, [appliedFilters, page, limit]);
 
-    const handlePageChange = (newPage) => {
-        setPage(newPage);
+    // Handle Apply Filters
+    const handleApplyFilters = () => {
+        setAppliedFilters({
+            search,
+            tld,
+        });
+        setPage(1); // Reset to first page
+    };
+
+    // Handle Remove Filters
+    const handleRemoveFilters = () => {
+        setSearch("");
+        setTld("");
+        setAppliedFilters({
+            search: "",
+            tld: "",
+        });
+        setPage(1);
     };
 
     return (
@@ -65,15 +96,15 @@ const DomainListing = () => {
                 <div className="filters">
                     <input
                         type="text"
-                        placeholder="Search Catagories"
+                        placeholder="Search Categories"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                     <select value={tld} onChange={(e) => setTld(e.target.value)}>
                         <option value="">All TLDs</option>
-                        {tlds.map((tld) => (
-                            <option key={tld} value={tld}>
-                                {tld}
+                        {tlds.map((tldOption) => (
+                            <option key={tldOption} value={tldOption}>
+                                {tldOption}
                             </option>
                         ))}
                     </select>
@@ -82,26 +113,34 @@ const DomainListing = () => {
                         <option value={20}>20 per page</option>
                         <option value={50}>50 per page</option>
                     </select>
+                    {/* Added buttons */}
+                    <button className="apply-button" onClick={handleApplyFilters}>
+                        Apply Filters
+                    </button>
+                    <button className="remove-button" onClick={handleRemoveFilters}>
+                        Remove Filters
+                    </button>
                 </div>
                 <div className="domain-card-container">
                     {domains.length > 0 ? (
                         domains.map((domain) => (
-                            <div key={domain._id} className="domain_card">
-                                <img
-                                    src={domain.imageUrl}
-                                    alt={`${domain.name}${domain.tld}`}
-                                />
-                                <hr />
-                                <div className="domain-card-content">
-                                    <div className="domain-name-price-div">
-                                        <h3>{domain.name}{domain.tld}</h3>
-                                        <div className="domain-price">${domain.price}</div>
-                                    </div>
-                                    {/* <div className="domain-date">
+                            <Link to={`/${domain.name}${domain.tld}`} className="domain-card-link">
+                                <div key={domain._id} className="domain_card">
+                                    <img
+                                        src={domain.imageUrl}
+                                        alt={`${domain.name}${domain.tld}`}
+                                    />
+                                    <hr />
+                                    <div className="domain-card-content">
+                                        <div className="domain-name-price-div">
+                                            <h3>{domain.name}{domain.tld}</h3>
+                                            <div className="domain-price">${domain.price}</div>
+                                        </div>
+                                        {/* <div className="domain-date">
                                         Listed on: {new Date(domain.createdAt).toLocaleDateString()}
                                     </div> */}
-                                </div>
-                                <div className="domain-card-actions">
+                                    </div>
+                                    {/* <div className="domain-card-actions">
                                     <button className="buy-button">
                                         <Link to={'/contact'}>Buy Now</Link>
                                     </button>
@@ -109,8 +148,9 @@ const DomainListing = () => {
                                         <Link to={'/contact'}>Make an Offer
                                         </Link>
                                     </button>
+                                </div> */}
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     ) : (
                         <p className="no-results">No domains found.</p>
@@ -134,6 +174,7 @@ const DomainListing = () => {
                     </button>
                 </div>
             </div>
+            <Footer/>
         </>
     );
 };
