@@ -123,89 +123,156 @@ router.get("/all-tlds", async (req, res) => {
     }
 });
 
-router.get('/check-domain', async (req, res) => {
-    const { domain } = req.query;
 
-    // Remove any extra dots from the domain name
-    const cleanedDomain = domain.replace(/\.+/g, '.');
-
+// Domain Search Service
+router.get("/search-domains", async (req, res) => {
     try {
-        // Split the domain into name and TLD
-        const [name, tld] = cleanedDomain.split('.');
+        const { search, minPrice, maxPrice } = req.query;
+        const responseData = {
+            exactMatch: null,
+            relatedDomains: []
+        };
 
-        // Query the database for the domain
-        const domainExists = await Domain.findOne({ name, tld: `.${tld}` });
+        // Check for exact domain match first
+        if (search && search.includes('.')) {
+            const [name, tld] = search.split('.');
+            const exactDomain = await Domain.findOne({
+                name: name.trim(),
+                tld: `.${tld.trim()}`
+            }).lean();
 
-        res.json({ exists: !!domainExists });
-    } catch (error) {
-        console.error("Error checking domain:", error);
-        res.status(500).json({ error: 'Error checking domain' });
-    }
-});
+            if (exactDomain) {
+                responseData.exactMatch = exactDomain;
+            }
+        }
 
-router.get('/domain/:domainName', async (req, res) => {
-    const { domainName } = req.params;
+        // Build query for related domains
+        const query = {};
+        const firstChar = search?.charAt(0).toLowerCase() || '';
 
-    try {
-        // Split the domain into name and TLD
-        const [name, tld] = domainName.split('.');
+        // Search filters
+        if (search) {
+            query.$or = [
+                { name: { $regex: `^${firstChar}`, $options: "i" } },
+                { category: { $regex: search, $options: "i" } }
+            ];
+        }
 
-        // Query the database for the domain
-        const domain = await Domain.findOne({ name, tld: `.${tld}` });
+        // Price filters
+        if (minPrice || maxPrice) {
+            query.price = {};
+            if (minPrice) query.price.$gte = parseFloat(minPrice);
+            if (maxPrice) query.price.$lte = parseFloat(maxPrice);
+        }
 
-        // Fetch related domains (domains that start with the first letter of the searched domain)
-        const firstLetter = name.substring(0, 1); // Get the first letter
-        const relatedDomains = await Domain.find({
-            name: { $regex: `^${firstLetter}`, $options: 'i' }, // Case-insensitive search for first letter
-            _id: { $ne: domain?._id }, // Exclude the current domain if it exists
-        }).limit(5); // Limit to 5 related domains
+        // Exclude exact match from related domains
+        if (responseData.exactMatch) {
+            query._id = { $ne: responseData.exactMatch._id };
+        }
 
-        // Use the cached imageUrl from the database
-        const relatedDomainsWithImages = relatedDomains.map((relatedDomain) => ({
-            ...relatedDomain.toObject(),
-            imageUrl: relatedDomain.imageUrl || 'https://via.placeholder.com/150', // Use a placeholder if no image is available
-        }));
+        // Get related domains
+        responseData.relatedDomains = await Domain.find(query)
+            .limit(20)
+            .sort({ price: 1 })
+            .lean();
 
         res.json({
             success: true,
-            data: domain, // This will be null if the domain doesn't exist
-            relatedDomains: relatedDomainsWithImages, // Include related domains with image URLs
+            ...responseData
         });
+
     } catch (error) {
-        console.error("Error fetching domain:", error);
-        res.status(500).json({ error: 'Error fetching domain' });
+        console.error("Search error:", error);
+        res.status(500).json({ 
+            success: false, 
+            message: "Error performing search" 
+        });
     }
 });
 
-router.get('/category/:categoryName', async (req, res) => {
-    const { categoryName } = req.params;
+// router.get('/check-domain', async (req, res) => {
+//     const { domain } = req.query;
 
-    try {
-        const categoryName = decodeURIComponent(req.params.categoryName);
-        const domains = await Domain.find({
-            category: { $regex: new RegExp(`^${categoryName}$`, 'i') }
-        });
+//     // Remove any extra dots from the domain name
+//     const cleanedDomain = domain.replace(/\.+/g, '.');
 
-        res.json({
-            success: true,
-            data: domains,
-        });
-    } catch (error) {
-        console.error("Error fetching domains by category:", error);
-        res.status(500).json({ error: 'Error fetching domains by category' });
-    }
-});
+//     try {
+//         // Split the domain into name and TLD
+//         const [name, tld] = cleanedDomain.split('.');
 
-// get domain details
-router.get('/:domainName', async (req, res) => {
-    try {
-        const domain = await Domain.findOne({ fullName: req.params.domainName });
-        if (!domain) return res.status(404).json({ error: 'Domain not found' });
-        res.json(domain);
-    } catch (error) {
-        res.status(500).json({ error: 'Server error' });
-    }
-});
+//         // Query the database for the domain
+//         const domainExists = await Domain.findOne({ name, tld: `.${tld}` });
+
+//         res.json({ exists: !!domainExists });
+//     } catch (error) {
+//         console.error("Error checking domain:", error);
+//         res.status(500).json({ error: 'Error checking domain' });
+//     }
+// });
+
+// router.get('/domain/:domainName', async (req, res) => {
+//     const { domainName } = req.params;
+
+//     try {
+//         // Split the domain into name and TLD
+//         const [name, tld] = domainName.split('.');
+
+//         // Query the database for the domain
+//         const domain = await Domain.findOne({ name, tld: `.${tld}` });
+
+//         // Fetch related domains (domains that start with the first letter of the searched domain)
+//         const firstLetter = name.substring(0, 1); // Get the first letter
+//         const relatedDomains = await Domain.find({
+//             name: { $regex: `^${firstLetter}`, $options: 'i' }, // Case-insensitive search for first letter
+//             _id: { $ne: domain?._id }, // Exclude the current domain if it exists
+//         }).limit(5); // Limit to 5 related domains
+
+//         // Use the cached imageUrl from the database
+//         const relatedDomainsWithImages = relatedDomains.map((relatedDomain) => ({
+//             ...relatedDomain.toObject(),
+//             imageUrl: relatedDomain.imageUrl || 'https://via.placeholder.com/150', // Use a placeholder if no image is available
+//         }));
+
+//         res.json({
+//             success: true,
+//             data: domain, // This will be null if the domain doesn't exist
+//             relatedDomains: relatedDomainsWithImages, // Include related domains with image URLs
+//         });
+//     } catch (error) {
+//         console.error("Error fetching domain:", error);
+//         res.status(500).json({ error: 'Error fetching domain' });
+//     }
+// });
+
+// router.get('/category/:categoryName', async (req, res) => {
+//     const { categoryName } = req.params;
+
+//     try {
+//         const categoryName = decodeURIComponent(req.params.categoryName);
+//         const domains = await Domain.find({
+//             category: { $regex: new RegExp(`^${categoryName}$`, 'i') }
+//         });
+
+//         res.json({
+//             success: true,
+//             data: domains,
+//         });
+//     } catch (error) {
+//         console.error("Error fetching domains by category:", error);
+//         res.status(500).json({ error: 'Error fetching domains by category' });
+//     }
+// });
+
+// // get domain details
+// router.get('/:domainName', async (req, res) => {
+//     try {
+//         const domain = await Domain.findOne({ fullName: req.params.domainName });
+//         if (!domain) return res.status(404).json({ error: 'Domain not found' });
+//         res.json(domain);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// });
 
 
 module.exports = router;

@@ -44,7 +44,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/domainList" element={<DomainList />} />
-            <Route path="/domainsearch/:domainName" element={<DomainSearch />} />
+            <Route path="/domainsearch" element={<DomainSearch />} />
             <Route path="/:domainName" element={<DomainDetails />} />
             {/* </Route> */}
 

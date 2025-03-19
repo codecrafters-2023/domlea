@@ -41,7 +41,7 @@ export default function Hero() {
                 <h1 className="hero-title">Build Your Online Business</h1>
                 <p className='hero-sub-title'>Explore Our Premium collection of after Market Domains</p>
 
-                <div className="search-container">
+                {/*<div className="search-container">
                     <div className="search-form">
                         <input
                             type="text"
@@ -55,7 +55,7 @@ export default function Hero() {
                         </button>
                     </div>
                     {error && <p className="error-message">{error}</p>}
-                </div>
+                </div>*/}
 
                 {/* {relatedDomains.length > 0 && (
                     <div className="related-domains">
