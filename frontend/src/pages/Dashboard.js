@@ -13,8 +13,8 @@ const Dashboard = () => {
         <>
         <Header/>
             <Hero/>
-            <TrendingDomians/>
-            <DomainSearch/>
+            {/* <TrendingDomians/> */}
+            {/* <DomainSearch/> */}
             <ValueProposition/>
             <FAQ/>
             <Testimonials/>

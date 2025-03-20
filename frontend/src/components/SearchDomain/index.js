@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiSearch, FiArrowRight, FiDollarSign } from 'react-icons/fi';
+import { FiSearch, FiArrowRight} from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import './DomainSearch.css';
 
@@ -13,12 +13,12 @@ const DomainSearch = () => {
         const searchTerm = formData.get('search')?.trim() || '';
         const minPrice = formData.get('minPrice')?.trim() || '';
         const maxPrice = formData.get('maxPrice')?.trim() || '';
-        
+
         if (!searchTerm && !minPrice && !maxPrice) {
             setError(true);
             return;
         }
-        
+
         setError(false);
         const params = new URLSearchParams({
             search: searchTerm,
@@ -40,7 +40,7 @@ const DomainSearch = () => {
                         Find Your Perfect <span>Domain</span>
                     </h1>
                     <p className="search-tagline">
-                        Discover premium domains for your next venture. Search by name, 
+                        Discover premium domains for your next venture. Search by name,
                         category, or budget to launch your digital identity.
                     </p>
                 </div>
@@ -58,7 +58,7 @@ const DomainSearch = () => {
                             />
                         </div>
 
-                        <div className="price-range">
+                        {/* <div className="price-range">
                             <div className="input-group">
                                 <FiDollarSign className="input-icon" />
                                 <input
@@ -80,7 +80,7 @@ const DomainSearch = () => {
                                     onChange={clearError}
                                 />
                             </div>
-                        </div>
+                        </div> */}
 
                         {error && (
                             <p className="error-message">

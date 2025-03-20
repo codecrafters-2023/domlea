@@ -1,8 +1,17 @@
 const express = require('express');
 const Domain = require('../models/Domain');
-const { protect } = require('../middleware/authMiddleware');
-const generateDomainImage = require('../utils/imageGenerator');
 const router = express();
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST, // e.g. 'smtp.sendgrid.net'
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD
+    }
+});
 
 
 // Configure Cloudinary
@@ -189,6 +198,46 @@ router.get("/search-domains", async (req, res) => {
         });
     }
 });
+
+// Submit offer route
+router.post('/submit-offer', async (req, res) => {
+    try {
+        const { name, email, mobile, domain } = req.body;
+
+        // Validate required fields
+        if (!name || !email || !mobile || !domain) {
+            return res.status(400).json({ error: 'All fields are required' });
+        }
+
+        // Create email content
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.ADMIN_EMAIL,
+            subject: `New Domain Offer: ${domain}`,
+            html: `
+                <h2>New Domain Offer Received</h2>
+                <p><strong>Domain:</strong> ${domain}</p>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Mobile:</strong> ${mobile}</p>
+                <p><strong>Submission Date:</strong> ${new Date().toLocaleString()}</p>
+            `
+        };
+
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ message: 'Offer submitted successfully' });
+    } catch (error) {
+        console.error('Error submitting offer:', error);
+        res.status(500).json({ error: 'Error submitting offer' });
+    }
+});
+
+
+
+
+
 
 // router.get('/check-domain', async (req, res) => {
 //     const { domain } = req.query;

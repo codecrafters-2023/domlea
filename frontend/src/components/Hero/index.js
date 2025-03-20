@@ -3,36 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import './hero.css';
 
 export default function Hero() {
-    const [domainName, setDomainName] = useState('');
     const [error, setError] = useState('');
-    // const [relatedDomains, setRelatedDomains] = useState([]); // State to store related domains
     const navigate = useNavigate();
 
-    const handleSearch = async () => {
-        const trimmedInput = domainName.trim().replace(/\.+$/, ''); // Remove trailing dots
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const searchTerm = formData.get('search')?.trim() || '';
 
-        if (!trimmedInput) {
-            setError('Please enter a valid domain name or category');
+        if (!searchTerm) {
+            setError(true);
             return;
         }
 
-        // Add this before the domainRegex check
-        if (/\s/.test(trimmedInput)) {
-            setError('Domain names cannot contain spaces');
-            return;
-        }
+        setError(false);
+        const params = new URLSearchParams({
+            search: searchTerm,
+        });
+        navigate(`/domainsearch?${params.toString()}`);
+    };
 
-        // Regular expression to validate domain format (example.com)
-        const domainRegex = /^[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
-
-        if (domainRegex.test(trimmedInput)) {
-            // Valid domain format - navigate to domain search
-            navigate(`/domainSearch/${trimmedInput}`);
-        } else {
-            // Treat as category search - encode special characters
-            const encodedCategory = encodeURIComponent(trimmedInput);
-            navigate(`/domainSearch/${encodedCategory}`);
-        }
+    const clearError = () => {
+        if (error) setError(false);
     };
 
     return (
@@ -41,21 +33,22 @@ export default function Hero() {
                 <h1 className="hero-title">Build Your Online Business</h1>
                 <p className='hero-sub-title'>Explore Our Premium collection of after Market Domains</p>
 
-                {/*<div className="search-container">
-                    <div className="search-form">
+                <div className="search-container">
+                    <form className="search-form" onSubmit={handleSearch}>
                         <input
                             type="text"
-                            placeholder="Enter Category or Domain Name"
-                            value={domainName}
-                            onChange={(e) => setDomainName(e.target.value)}
+                            name='search'
+                            placeholder="Enter Keyword to Start your Search"
+                            // value={domainName}
+                            onChange={clearError}
                             className="search-input"
                         />
-                        <button onClick={handleSearch} className="search-button">
+                        <button type='submit' className="search-button">
                             Search
                         </button>
-                    </div>
+                    </form>
                     {error && <p className="error-message">{error}</p>}
-                </div>*/}
+                </div>
 
                 {/* {relatedDomains.length > 0 && (
                     <div className="related-domains">
