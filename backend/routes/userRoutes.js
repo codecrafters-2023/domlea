@@ -202,7 +202,7 @@ router.get("/search-domains", async (req, res) => {
 // Submit offer route
 router.post('/submit-offer', async (req, res) => {
     try {
-        const { name, email, mobile, domain } = req.body;
+        const { name, email, mobile, domain,offerPrice } = req.body;
 
         // Validate required fields
         if (!name || !email || !mobile || !domain) {
@@ -220,6 +220,7 @@ router.post('/submit-offer', async (req, res) => {
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Mobile:</strong> ${mobile}</p>
+                <p><strong>Offer Price:</strong> ${offerPrice}</p>
                 <p><strong>Submission Date:</strong> ${new Date().toLocaleString()}</p>
             `
         };

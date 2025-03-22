@@ -102,7 +102,7 @@
 
 .newsletter-form button {
     padding: 0.75rem;
-    background: #6366f1;
+    background: linear-gradient(170deg, #3954ff 0, #617eff 78%, #c0e0ff 100%);
     color: #fff;
     border: none;
     border-radius: 0.5rem;
@@ -111,7 +111,7 @@
 }
 
 .newsletter-form button:hover {
-    background: #4f46e5;
+    background: linear-gradient(210deg, #3954ff 0, #617eff 78%, #c0e0ff 100%);
 }
 
 .footer-bottom {

@@ -19,7 +19,7 @@ const SearchDomain = () => {
         name: '',
         email: '',
         mobile: '',
-        // subject: '',
+        offerPrice: '',
         domain: ''
     });
 
@@ -71,7 +71,7 @@ const SearchDomain = () => {
             <Header />
             <div className="results-container">
 
-            {showOfferModal && (
+                {showOfferModal && (
                     <div className="modal-overlay">
                         <div className="offer-modal">
                             <h3>Your Best Offer</h3>
@@ -106,23 +106,23 @@ const SearchDomain = () => {
                                         value={formData.mobile}
                                     />
                                 </div>
-                                {/* <div className="form-group">
-                                    <label>Subject</label>
+                                <div className="form-group">
+                                    <label>Offer Price</label>
                                     <input
                                         type="text"
-                                        name="subject"
+                                        name="offerPrice"
                                         required
                                         onChange={handleChange}
-                                        value={formData.subject}
+                                        value={formData.offerPrice}
                                     />
-                                </div> */}
+                                </div>
                                 <div className="modal-buttons">
                                     <button
                                         type="submit"
                                         className="buy-button"
                                         style={{ flex: 1 }}
                                     >
-                                        Submit Offer
+                                        Submit your Best Offer
                                     </button>
                                     <button
                                         type="button"
@@ -165,7 +165,7 @@ const SearchDomain = () => {
                                         </p>
                                         <div className='exactMatch_btn_div'>
                                             <button className="buy-button">
-                                            <Link to={'https://www.escrow.com'}>Buy Now</Link>
+                                                <Link to={'https://www.escrow.com'}>Buy Now</Link>
                                             </button>
                                             <button className="makeOffer-button" onClick={() => handleOfferClick(results.exactMatch)}>
                                                 Make an Offer
@@ -213,8 +213,11 @@ const SearchDomain = () => {
 
                         {/* No Results Message */}
                         {!results.exactMatch && results.relatedDomains.length === 0 && (
-                            <div className="no-results">
-                                No domains found matching your criteria
+                            <div style={{display:"flex", flexDirection:"column", justifyContent:"center",alignItems:"center", margin:"50px 0"}}>
+                                <div className="no-results">
+                                    No domains found matching your criteria
+                                </div>
+                                <button className='backToSearch_btn'><Link to={'/'}>Back to Search</Link></button>
                             </div>
                         )}
                     </>
