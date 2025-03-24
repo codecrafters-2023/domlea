@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FiMenu, FiX, FiHome, FiGlobe, FiPlus, FiUsers, FiSettings, FiLogOut } from 'react-icons/fi';
+import { LuLayoutPanelLeft } from "react-icons/lu";
 import { motion, AnimatePresence } from 'framer-motion';
 import './AdminSidebar.css'
 import { useAuth } from '../../../context/AuthContext';
@@ -17,6 +18,7 @@ const AdminSidebar = () => {
         { path: '/addDomain', name: 'Add Domain', icon: <FiPlus /> },
         { path: '/users', name: 'Users', icon: <FiUsers /> },
         { path: '/settings', name: 'Settings', icon: <FiSettings /> },
+        { path: '/', name: 'User Panel', icon: <LuLayoutPanelLeft /> },
     ];
 
     return (

@@ -118,7 +118,7 @@ router.get("/all-tlds", async (req, res) => {
         // Fetch all unique TLDs and remove the leading dot
         const tlds = await Domain.distinct("tld");
         const cleanedTlds = tlds.map(tld => tld.replace(/^\./, "")); // Remove leading dot
-        
+
         res.json({
             success: true,
             data: cleanedTlds, // Send TLDs without dots (e.g., "com" instead of ".com")
@@ -157,17 +157,26 @@ router.get("/search-domains", async (req, res) => {
 
         // Build query for related domains
         const query = {};
-        const firstChar = search?.charAt(0).toLowerCase() || '';
 
-        // Search filters
         if (search) {
+            const searchTerm = search.trim();
+            const firstChar = searchTerm.charAt(0).toLowerCase();
+
+            // Match:
+            // 1. Name/category starts with the first character, OR
+            // 2. Name/category contains the full search term, OR
+            // 3. Name/category contains the first character anywhere
             query.$or = [
                 { name: { $regex: `^${firstChar}`, $options: "i" } },
-                { category: { $regex: search, $options: "i" } }
+                { category: { $regex: `^${firstChar}`, $options: "i" } },
+                { name: { $regex: searchTerm, $options: "i" } },
+                { category: { $regex: searchTerm, $options: "i" } },
+                { name: { $regex: firstChar, $options: "i" } },
+                { category: { $regex: firstChar, $options: "i" } }
             ];
         }
 
-        // Price filters
+        // Price filters (unchanged)
         if (minPrice || maxPrice) {
             query.price = {};
             if (minPrice) query.price.$gte = parseFloat(minPrice);
@@ -192,9 +201,9 @@ router.get("/search-domains", async (req, res) => {
 
     } catch (error) {
         console.error("Search error:", error);
-        res.status(500).json({ 
-            success: false, 
-            message: "Error performing search" 
+        res.status(500).json({
+            success: false,
+            message: "Error performing search"
         });
     }
 });
@@ -202,26 +211,78 @@ router.get("/search-domains", async (req, res) => {
 // Submit offer route
 router.post('/submit-offer', async (req, res) => {
     try {
-        const { name, email, mobile, domain,offerPrice } = req.body;
+        const { name, email, mobile, domain, offerPrice } = req.body;
 
         // Validate required fields
         if (!name || !email || !mobile || !domain) {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
-        // Create email content
+        // Create email content with professional template
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: process.env.ADMIN_EMAIL,
             subject: `New Domain Offer: ${domain}`,
             html: `
-                <h2>New Domain Offer Received</h2>
-                <p><strong>Domain:</strong> ${domain}</p>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Mobile:</strong> ${mobile}</p>
-                <p><strong>Offer Price:</strong> ${offerPrice}</p>
-                <p><strong>Submission Date:</strong> ${new Date().toLocaleString()}</p>
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>New Domain Offer Notification</title>
+                </head>
+                <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; color: #333333;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff;">
+                        <tr>
+                            <td style="padding: 20px; background-color: #2c3e50; text-align: center;">
+                                <h1 style="color: #ffffff; margin: 0;">New Domain Offer Received</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 30px 20px;">
+                                <h2 style="color: #2c3e50; margin-top: 0;">Offer Details</h2>
+                                <table cellpadding="10" style="width: 100%;">
+                                    <tr>
+                                        <td style="border-bottom: 1px solid #eeeeee;"><strong>Domain Name:</strong></td>
+                                        <td style="border-bottom: 1px solid #eeeeee;">${domain}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom: 1px solid #eeeeee;"><strong>Offer Price:</strong></td>
+                                        <td style="border-bottom: 1px solid #eeeeee; color: #27ae60;">${offerPrice || 'Not specified'}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border-bottom: 1px solid #eeeeee;"><strong>Submitted:</strong></td>
+                                        <td style="border-bottom: 1px solid #eeeeee;">${new Date().toLocaleString()}</td>
+                                    </tr>
+                                </table>
+                                <h3 style="color: #2c3e50; margin-top: 30px;">Contact Information</h3>
+                                <table cellpadding="10" style="width: 100%;">
+                                    <tr>
+                                        <td><strong>Name:</strong></td>
+                                        <td>${name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email:</strong></td>
+                                        <td><a href="mailto:${email}">${email}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mobile:</strong></td>
+                                        <td><a href="tel:${mobile}">${mobile}</a></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #f8f9fa; text-align: center;">
+                                <p style="margin: 0; color: #666666; font-size: 12px;">
+                                    This is an automated message from ${process.env.COMPANY_NAME || 'Domlea'}.<br>
+                                    © ${new Date().getFullYear()} ${process.env.COMPANY_NAME || 'Domlea'}. All rights reserved.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </body>
+                </html>
             `
         };
 
@@ -234,6 +295,8 @@ router.post('/submit-offer', async (req, res) => {
         res.status(500).json({ error: 'Error submitting offer' });
     }
 });
+
+module.exports = router;
 
 
 
