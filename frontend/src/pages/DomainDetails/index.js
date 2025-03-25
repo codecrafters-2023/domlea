@@ -85,12 +85,12 @@ const DomainDetails = () => {
         fetchResults();
     }, [searchParams]);
 
-    if (!domain) return <div className='loader-div'>
-        <div class="ui-loader loader-blk">
+    if (!domain) return <div className='loader'>
+        {/* <div class="ui-loader loader-blk">
             <svg viewBox="22 22 44 44" class="multiColor-loader">
                 <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6" class="loader-circle loader-circle-animation"></circle>
             </svg>
-        </div>
+        </div> */}
     </div>;
 
     return (
@@ -195,8 +195,19 @@ const DomainDetails = () => {
                         <div className="px-8 py-12 grid md:grid-cols-3 gap-12">
                             {/* Left Column */}
                             <div className="md:col-span-2 space-y-8">
-                                <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium">
-                                    {domain.category}
+                                <div style={{display:"flex",gap:"10px"}}>
+                                    <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium">
+                                        {domain.category}
+                                    </div>
+                                    {/* Action Buttons */}
+                                    <div className="flex flex-col sm:flex-row gap-3">
+                                        <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
+                                            <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
+                                        </button>
+                                        <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all">
+                                            <button onClick={() => handleOfferClick(domain)}>Make an Offer</button>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div className="domain-description">
@@ -216,19 +227,36 @@ const DomainDetails = () => {
                                 </div>
 
                                 {/* Action Buttons */}
-                                <div className="flex flex-col sm:flex-row gap-4">
+                                {/* <div className="flex flex-col sm:flex-row gap-4">
                                     <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 rounded-xl font-bold text-lg transition-all transform ">
                                         <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
                                     </button>
                                     <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-4 py-2 rounded-xl font-bold text-lg transition-all">
                                         <button onClick={() => handleOfferClick(domain)}>Make an Offer</button>
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Right Column - Meta Data */}
                             <div className="bg-gray-50 p-6 rounded-xl space-y-4">
-                                <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                        {/* <span className="text-gray-600">Status</span> */}
+                                        <span className="text-green-600 font-medium">
+                                            {domain.status}
+                                            Active
+                                        </span>
+                                    </div>
+                                <h1 className='text-xl font-semibold'>Why do you need a Keyword-rich Domain?</h1>
+                                <p className='text-base font-light'>
+                                    Your domain name is your identity, any individual, business or organization planning to have an Internet presence, should invest in a keyword-rich domain name.
+                                </p>
+                                <p className='text-base font-light'>
+                                    Having your own strong and easy-to-remember domain name, website and email address will give you and your business creditability. Take Control of Your Business with a Keyword-Rich Domain Name.You can buy or lease this domain to grow your business. Keyword-rich domains can attract type-in traffic.
+                                </p>
+                                <p className='text-base font-light'>
+                                    Approximately 20 percent of all search traffic comes from direct navigation, meaning people often type domain names directly into a browser's address bar, hoping to find relevant content.
+                                </p>
+                                {/* <div className="space-y-4">
                                     <div className="flex justify-between items-center pb-4 border-b border-gray-200">
                                         <span className="text-gray-600">Registration Date</span>
                                         <span className="text-gray-900 font-medium">
@@ -244,11 +272,11 @@ const DomainDetails = () => {
                                     <div className="flex justify-between items-center">
                                         <span className="text-gray-600">Status</span>
                                         <span className="text-green-600 font-medium">
-                                            {/* {domain.status} */}
+                                            {domain.status}
                                             Active
                                         </span>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
