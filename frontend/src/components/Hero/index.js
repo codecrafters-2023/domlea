@@ -42,6 +42,7 @@ export default function Hero() {
                             // value={domainName}
                             onChange={clearError}
                             className="search-input"
+                            autoComplete='off'
                         />
                         <button type='submit' className="search-button">
                             Search

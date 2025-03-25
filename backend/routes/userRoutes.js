@@ -376,16 +376,17 @@ module.exports = router;
 //     }
 // });
 
-// // get domain details
-// router.get('/:domainName', async (req, res) => {
-//     try {
-//         const domain = await Domain.findOne({ fullName: req.params.domainName });
-//         if (!domain) return res.status(404).json({ error: 'Domain not found' });
-//         res.json(domain);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// });
+// get domain details
+router.get('/:domainName', async (req, res) => {
+    try {
+
+        const domain = await Domain.findOne({ fullName: req.params.domainName });
+        if (!domain) return res.status(404).json({ error: 'Domain not found' });
+        res.json(domain);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 
 module.exports = router;

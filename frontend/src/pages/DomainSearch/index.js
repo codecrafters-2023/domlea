@@ -13,42 +13,42 @@ const SearchDomain = () => {
     });
     const [loading, setLoading] = useState(true);
 
-    const [showOfferModal, setShowOfferModal] = useState(false);
-    const [selectedDomain, setSelectedDomain] = useState('');
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        mobile: '',
-        offerPrice: '',
-        domain: ''
-    });
+    // const [showOfferModal, setShowOfferModal] = useState(false);
+    // const [selectedDomain, setSelectedDomain] = useState('');
+    // const [formData, setFormData] = useState({
+    //     name: '',
+    //     email: '',
+    //     mobile: '',
+    //     offerPrice: '',
+    //     domain: ''
+    // });
 
-    const handleOfferClick = (domain) => {
-        setSelectedDomain(`${domain.name}${domain.tld}`);
-        setShowOfferModal(true);
-    };
+    // const handleOfferClick = (domain) => {
+    //     setSelectedDomain(`${domain.name}${domain.tld}`);
+    //     setShowOfferModal(true);
+    // };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
-                ...formData,
-                domain: selectedDomain
-            });
-            alert('Offer submitted successfully!');
-            setShowOfferModal(false);
-            setFormData({ name: '', email: '', mobile: '' });
-        } catch (error) {
-            alert('Error submitting offer');
-        }
-    };
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
+    //             ...formData,
+    //             domain: selectedDomain
+    //         });
+    //         alert('Offer submitted successfully!');
+    //         setShowOfferModal(false);
+    //         setFormData({ name: '', email: '', mobile: '' });
+    //     } catch (error) {
+    //         alert('Error submitting offer');
+    //     }
+    // };
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
+    // const handleChange = (e) => {
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.name]: e.target.value
+    //     });
+    // };
 
 
     useEffect(() => {
@@ -71,7 +71,7 @@ const SearchDomain = () => {
             <Header />
             <div className="results-container">
 
-                {showOfferModal && (
+                {/* {showOfferModal && (
                     <div className="modal-overlay">
                         <div className="offer-modal">
                             <h3>Your Best Offer</h3>
@@ -136,7 +136,7 @@ const SearchDomain = () => {
                             </form>
                         </div>
                     </div>
-                )}
+                )} */}
 
 
                 <h2>Search Results for "{searchParams.get('search')}"</h2>
@@ -149,30 +149,34 @@ const SearchDomain = () => {
                         {results.exactMatch && (
                             <div className="exact-match-section" style={{ width: "800px" }}>
                                 <h3>Exact Match</h3>
-                                <div className="exact-domain-card highlighted">
-                                    <div className="domain-header">
-                                        <h3>
-                                            {results.exactMatch.name}
-                                            <span className="tld">{results.exactMatch.tld}</span>
-                                        </h3>
-                                        <div className="domain-price">
-                                            ${results.exactMatch.price}
+                                <Link to={`/${results.exactMatch.name}${results.exactMatch.tld}`}>
+                                    <div className="exact-domain-card highlighted">
+                                        <div className="domain-header">
+                                            <h3>
+                                                {results.exactMatch.name}
+                                                <span className="tld">{results.exactMatch.tld}</span>
+                                            </h3>
+                                            <div className="domain-price">
+                                                ${results.exactMatch.price}
+                                                <span style={{fontSize:"14px",color:"#000"}}>USD</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="domain-body">
-                                        <p className="category">
-                                            Category: {results.exactMatch.category}
-                                        </p>
-                                        <div className='exactMatch_btn_div'>
-                                            <button className="buy-button">
+                                        <div className="domain-body">
+                                            <p className="category">
+                                                Category: {results.exactMatch.category}
+                                            </p>
+                                            <div className='exactMatch_btn_div'>
+                                                {/* <buton><Link to={`/${results.exactMatch.name}${results.exactMatch.tld}`}>More Detail</Link></buton> */}
+                                                {/* <button className="buy-button">
                                                 <Link to={'https://www.escrow.com'}>Buy Now</Link>
                                             </button>
                                             <button className="makeOffer-button" onClick={() => handleOfferClick(results.exactMatch)}>
                                                 Make an Offer
-                                            </button>
+                                            </button> */}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         )}
 
@@ -182,30 +186,34 @@ const SearchDomain = () => {
                                 <h3>Related Domains</h3>
                                 <div className="domain-grid">
                                     {results.relatedDomains.map((domain) => (
-                                        <div key={domain._id} className="domain-card">
-                                            <div className="domain-header">
-                                                <h3>
-                                                    {domain.name}
-                                                    <span className="tld">{domain.tld}</span>
-                                                </h3>
-                                                <div className="domain-price">
-                                                    ${domain.price}
+                                        <Link to={`/${domain.name}${domain.tld}`}>
+                                            <div key={domain._id} className="domain-card">
+                                                <div className="domain-header">
+                                                    <h3>
+                                                        {domain.name}
+                                                        <span className="tld">{domain.tld}</span>
+                                                    </h3>
+                                                    <div className="domain-price">
+                                                        ${domain.price}
+                                                        <span style={{fontSize:"14px",color:"#000"}}>USD</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="domain-body">
-                                                <p className="category">
-                                                    Category: {domain.category}
-                                                </p>
-                                                <div className='exactMatch_btn_div'>
-                                                    <button className="buy-button">
+                                                <div className="domain-body">
+                                                    <p className="category">
+                                                        Category: {domain.category}
+                                                    </p>
+                                                    <div className='exactMatch_btn_div'>
+                                                        {/* <buton><Link to={`/${domain.name}${domain.tld}`}>More Detail</Link></buton> */}
+                                                        {/* <button className="buy-button">
                                                         <Link to={'https://www.escrow.com'}>Buy Now</Link>
                                                     </button>
                                                     <button className="makeOffer-button" onClick={() => handleOfferClick(domain)}>
                                                         Make an Offer
-                                                    </button>
+                                                    </button> */}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
@@ -213,7 +221,7 @@ const SearchDomain = () => {
 
                         {/* No Results Message */}
                         {!results.exactMatch && results.relatedDomains.length === 0 && (
-                            <div style={{display:"flex", flexDirection:"column", justifyContent:"center",alignItems:"center", margin:"50px 0"}}>
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "50px 0" }}>
                                 <div className="no-results">
                                     No domains found matching your criteria
                                 </div>
@@ -224,7 +232,7 @@ const SearchDomain = () => {
                 )}
             </div>
             <Footer />
-        </div>
+        </div >
     );
 };
 

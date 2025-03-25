@@ -1,6 +1,5 @@
-// pages/DomainDetails.js
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -8,8 +7,50 @@ import './DomainDetail.css';
 
 const DomainDetails = () => {
     const { domainName } = useParams();
+    const [searchParams] = useSearchParams();
     const [domain, setDomain] = useState(null);
+    const [showOfferModal, setShowOfferModal] = useState(false);
+    const [selectedDomain, setSelectedDomain] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        mobile: '',
+        offerPrice: '',
+        domain: ''
+    });
 
+    const [results, setResults] = useState({
+        exactMatch: null,
+        relatedDomains: []
+    });
+    const [loading, setLoading] = useState(true);
+
+    const handleOfferClick = (domain) => {
+        setSelectedDomain(`${domain.name}${domain.tld}`);
+        setShowOfferModal(true);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
+                ...formData,
+                domain: selectedDomain
+            });
+            alert('Offer submitted successfully!');
+            setShowOfferModal(false);
+            setFormData({ name: '', email: '', mobile: '' });
+        } catch (error) {
+            alert('Error submitting offer');
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
 
     useEffect(() => {
         const fetchDomain = async () => {
@@ -29,6 +70,21 @@ const DomainDetails = () => {
         fetchDomain();
     }, [domainName]);
 
+    useEffect(() => {
+        const fetchResults = async () => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/users/search-domains`,
+                    { params: Object.fromEntries(searchParams) }
+                );
+                setResults(response.data);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchResults();
+    }, [searchParams]);
+
     if (!domain) return <div className='loader-div'>
         <div class="ui-loader loader-blk">
             <svg viewBox="22 22 44 44" class="multiColor-loader">
@@ -40,7 +96,79 @@ const DomainDetails = () => {
     return (
         <>
             <Header />
-            <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+
+            {showOfferModal && (
+                <div className="modal-overlay" onClick={() => setShowOfferModal(false)}>
+                    <div className="offer-modal" onClick={(e) => e.stopPropagation()}>
+                        <h3>Your Best Offer</h3>
+                        <form className="offer-form" onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label>Full Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    required
+                                    onChange={handleChange}
+                                    value={formData.name}
+                                    autoComplete='off'
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Email Address</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    required
+                                    onChange={handleChange}
+                                    value={formData.email}
+                                    autoComplete='off'
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Mobile Number</label>
+                                <input
+                                    type="tel"
+                                    name="mobile"
+                                    required
+                                    onChange={handleChange}
+                                    value={formData.mobile}
+                                    autoComplete='off'
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Offer Price</label>
+                                <input
+                                    type="text"
+                                    name="offerPrice"
+                                    required
+                                    onChange={handleChange}
+                                    value={formData.offerPrice}
+                                    autoComplete='off'
+                                />
+                            </div>
+                            <div className="modal-buttons">
+                                <button
+                                    type="submit"
+                                    className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 transition-all transform "
+                                    style={{ flex: 1 }}
+                                >
+                                    Submit your Best Offer
+                                </button>
+                                {/* <button
+                                    type="button"
+                                    className="makeOffer-button"
+                                    style={{ backgroundColor: '#dc2626', flex: 1 }}
+                                    onClick={() => setShowOfferModal(false)}
+                                >
+                                    Cancel
+                                </button> */}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            <div className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     {/* Premium Badge */}
                     {domain.isPremium && (
@@ -89,11 +217,11 @@ const DomainDetails = () => {
 
                                 {/* Action Buttons */}
                                 <div className="flex flex-col sm:flex-row gap-4">
-                                    <button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105">
+                                    <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 rounded-xl font-bold text-lg transition-all transform ">
                                         <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
                                     </button>
-                                    <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105">
-                                        <Link to={'/contact'}>Make an Offer</Link>
+                                    <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-4 py-2 rounded-xl font-bold text-lg transition-all">
+                                        <button onClick={() => handleOfferClick(domain)}>Make an Offer</button>
                                     </button>
                                 </div>
                             </div>
@@ -125,6 +253,62 @@ const DomainDetails = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="results-container">
+                {loading ? (
+                    <div className="loader">Loading...</div>
+                ) : (
+                    <>
+                        {results.relatedDomains.length > 0 && (
+                            <div className="related-domains-section">
+                                <h3 className='text-xl font-semibold'>Related Domains</h3>
+                                <div className="domain-grid">
+                                    {results.relatedDomains.map((domain) => (
+                                        <Link to={`/${domain.name}${domain.tld}`}>
+                                            <div key={domain._id} className="domain-card">
+                                                <div className="domain-header">
+                                                    <h3>
+                                                        {domain.name}
+                                                        <span className="tld">{domain.tld}</span>
+                                                    </h3>
+                                                    <div className="domain-price">
+                                                        ${domain.price}
+                                                        <span style={{ fontSize: "14px", color: "#000" }}>USD</span>
+                                                    </div>
+                                                </div>
+                                                <div className="domain-body">
+                                                    <p className="category">
+                                                        Category: {domain.category}
+                                                    </p>
+                                                    <div className='exactMatch_btn_div'>
+                                                        {/* <buton><Link to={`/${domain.name}${domain.tld}`}>More Detail</Link></buton> */}
+                                                        {/* <button className="buy-button">
+                                                                            <Link to={'https://www.escrow.com'}>Buy Now</Link>
+                                                                        </button>
+                                                                        <button className="makeOffer-button" onClick={() => handleOfferClick(domain)}>
+                                                                            Make an Offer
+                                                                        </button> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* No Results Message */}
+                        {!results.exactMatch && results.relatedDomains.length === 0 && (
+                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "50px 0" }}>
+                                <div className="no-results">
+                                    No domains found matching your criteria
+                                </div>
+                                <button className='backToSearch_btn'><Link to={'/'}>Back to Search</Link></button>
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
             <Footer />
         </>
