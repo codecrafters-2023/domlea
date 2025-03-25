@@ -85,15 +85,15 @@ const DomainDetails = () => {
         fetchResults();
     }, [searchParams]);
 
-    if (!domain) return 
-    <div style={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:"100vh"}}>
-    <div className='loader'>
-        {/* <div class="ui-loader loader-blk">
+    if (!domain) return
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+        <div className='loader'>
+            {/* <div class="ui-loader loader-blk">
             <svg viewBox="22 22 44 44" class="multiColor-loader">
                 <circle cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6" class="loader-circle loader-circle-animation"></circle>
             </svg>
         </div> */}
-    </div>
+        </div>
     </div>;
 
     return (
@@ -188,9 +188,12 @@ const DomainDetails = () => {
                                 {domain.name}
                                 <span className="text-blue-600">{domain.tld}</span>
                             </h1>
-                            <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-full">
-                                <span className="text-3xl font-bold">${domain.price}</span>
-                                <span className="ml-2 text-gray-600">USD</span>
+                            <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-full" style={{width:"200px"}}>
+                                <span style={{marginBottom:"10px",fontSize:"16px"}}>Asking Price</span>
+                                <div className='mt-1'>
+                                    <span className="text-2xl font-bold">${domain.price}</span>
+                                    <span className="ml-2 text-gray-600">USD</span>
+                                </div>
                             </div>
                         </div>
 
@@ -198,12 +201,12 @@ const DomainDetails = () => {
                         <div className="px-8 py-12 grid md:grid-cols-3 gap-12">
                             {/* Left Column */}
                             <div className="md:col-span-2 space-y-8">
-                                <div style={{display:"flex",justifyContent:"space-between"}}>
+                                <div style={{ display: "flex", justifyContent: "space-between" }}>
                                     <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium">
                                         {domain.category}
                                     </div>
                                     {/* Action Buttons */}
-                                    <div className="flex flex-col sm:flex-row gap-3" style={{paddingRight:"50px"}}>
+                                    <div className="flex flex-col sm:flex-row gap-8" style={{ paddingRight: "50px" }}>
                                         <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
                                             <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
                                         </button>
@@ -243,12 +246,12 @@ const DomainDetails = () => {
                             {/* Right Column - Meta Data */}
                             <div className="bg-gray-50 p-6 rounded-xl space-y-4">
                                 <div className="flex justify-between items-center">
-                                        {/* <span className="text-gray-600">Status</span> */}
-                                        <span className="text-green-600 font-medium">
-                                            {domain.status}
-                                            Active
-                                        </span>
-                                    </div>
+                                    {/* <span className="text-gray-600">Status</span> */}
+                                    <span className="text-green-600 font-medium">
+                                        {domain.status}
+                                        Active
+                                    </span>
+                                </div>
                                 <h1 className='text-xl font-semibold'>Why do you need a Keyword-rich Domain?</h1>
                                 <p className='text-base font-light'>
                                     Your domain name is your identity, any individual, business or organization planning to have an Internet presence, should invest in a keyword-rich domain name.
