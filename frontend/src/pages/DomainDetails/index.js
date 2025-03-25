@@ -195,12 +195,12 @@ const DomainDetails = () => {
                         <div className="px-8 py-12 grid md:grid-cols-3 gap-12">
                             {/* Left Column */}
                             <div className="md:col-span-2 space-y-8">
-                                <div style={{display:"flex",gap:"10px"}}>
+                                <div style={{display:"flex",justifyContent:"space-between"}}>
                                     <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium">
                                         {domain.category}
                                     </div>
                                     {/* Action Buttons */}
-                                    <div className="flex flex-col sm:flex-row gap-3">
+                                    <div className="flex flex-col sm:flex-row gap-3" style={{paddingRight:"50px"}}>
                                         <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
                                             <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
                                         </button>
