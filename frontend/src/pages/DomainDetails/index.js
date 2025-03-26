@@ -175,7 +175,7 @@ const DomainDetails = () => {
                 <div className="max-w-7xl mx-auto">
                     {/* Premium Badge */}
                     {domain.isPremium && (
-                        <div className="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-6 py-2 rounded-full inline-flex items-center absolute top-6 right-6 mt-28">
+                        <div className="bg-gradient-to-r from-purple-600 to-blue-500 text-white px-6 py-2 rounded-full inline-flex items-center absolute top-6 right-6" id='premium-domain'>
                             <span className="mr-2">⭐</span>
                             Premium Domain
                         </div>
@@ -188,7 +188,7 @@ const DomainDetails = () => {
                                 {domain.name}
                                 <span className="text-blue-600">{domain.tld}</span>
                             </h1>
-                            <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-full" style={{width:"200px"}}>
+                            <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg" style={{width:"200px"}}>
                                 <span style={{marginBottom:"10px",fontSize:"16px"}}>Asking Price</span>
                                 <div className='mt-1'>
                                     <span className="text-2xl font-bold">${domain.price}</span>
@@ -201,12 +201,12 @@ const DomainDetails = () => {
                         <div className="px-8 py-12 grid md:grid-cols-3 gap-12">
                             {/* Left Column */}
                             <div className="md:col-span-2 space-y-8">
-                                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <div className='domain-desc-btn-div'>
                                     <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium">
                                         {domain.category}
                                     </div>
                                     {/* Action Buttons */}
-                                    <div className="flex flex-col sm:flex-row gap-8" style={{ paddingRight: "50px" }}>
+                                    <div className="flex sm:flex-row gap-8" id='btn_div' style={{ paddingRight: "50px" }}>
                                         <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
                                             <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
                                         </button>

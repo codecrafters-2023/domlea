@@ -218,6 +218,15 @@
     animation-delay: calc(var(--index) * 0.05s);
 }
 
+#premium-domain{
+    margin-top: 60px;
+}
+
+.domain-desc-btn-div{
+    display: flex;
+    justify-content: space-between;
+}
+
 @media (max-width: 768px) {
     .domain-content {
         grid-template-columns: 1fr;
@@ -234,5 +243,15 @@
 
     .action-buttons {
         flex-direction: column;
+    }
+    .domain-desc-btn-div{
+        flex-direction: column;
+    }
+
+    .domain-desc-btn-div #btn_div{
+        display: flex;
+        justify-content: center;
+        padding: 0!important;
+        margin-top: 20px;
     }
 }

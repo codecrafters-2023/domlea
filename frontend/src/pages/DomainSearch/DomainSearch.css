@@ -81,6 +81,7 @@ h2 {
     align-items: baseline;
     gap: 0.5rem;
     text-align: left;
+    font-weight: 600;
 }
 
 .tld {
@@ -90,12 +91,12 @@ h2 {
 }
 
 .domain-price {
-    font-size: 22px!important;
+    font-size: 20px!important;
     color: var(--primary);
     font-weight: 700;
     background: rgba(37, 99, 235, 0.1);
-    padding: 0.3rem 1rem;
-    border-radius: 8px;
+    padding: 0.1rem 1.5rem;
+    border-radius: 5px;
 }
 
 .domain-body{

@@ -48,7 +48,7 @@ export default function Hero() {
                             Search
                         </button>
                     </form>
-                    {error && <p className="error-message">{error}</p>}
+                    {error && <p className="error-message">{"Please fill the Input box."}</p>}
                 </div>
 
                 {/* {relatedDomains.length > 0 && (

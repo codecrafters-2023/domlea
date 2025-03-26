@@ -13,6 +13,8 @@ const SearchDomain = () => {
     });
     const [loading, setLoading] = useState(true);
 
+    console.log(results);
+    
     // const [showOfferModal, setShowOfferModal] = useState(false);
     // const [selectedDomain, setSelectedDomain] = useState('');
     // const [formData, setFormData] = useState({
@@ -157,8 +159,11 @@ const SearchDomain = () => {
                                                 <span className="tld">{results.exactMatch.tld}</span>
                                             </h3>
                                             <div className="domain-price">
-                                                ${results.exactMatch.price}
-                                                <span style={{fontSize:"14px",color:"#000"}}>USD</span>
+                                                <span style={{ fontSize: "15px", color: "#2563eb" }}>Asking Price</span>
+                                                <div>
+                                                    ${results.exactMatch.price}
+                                                    <span style={{ fontSize: "14px", color: "#000" }}>USD</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="domain-body">
@@ -194,8 +199,11 @@ const SearchDomain = () => {
                                                         <span className="tld">{domain.tld}</span>
                                                     </h3>
                                                     <div className="domain-price">
-                                                        ${domain.price}
-                                                        <span style={{fontSize:"14px",color:"#000"}}>USD</span>
+                                                        <span style={{ fontSize: "15px", color: "#2563eb" }}>Asking Price</span>
+                                                        <div>
+                                                            ${domain.price}
+                                                            <span style={{ fontSize: "14px", color: "#000" }}>USD</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="domain-body">
@@ -218,6 +226,9 @@ const SearchDomain = () => {
                                 </div>
                             </div>
                         )}
+                        <div className='flex justify-end mt-3'>
+                            <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/'}>Search Again</Link></button>
+                        </div>
 
                         {/* No Results Message */}
                         {!results.exactMatch && results.relatedDomains.length === 0 && (
