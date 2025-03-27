@@ -103,7 +103,7 @@ const DomainDetails = () => {
             {showOfferModal && (
                 <div className="modal-overlay" onClick={() => setShowOfferModal(false)}>
                     <div className="offer-modal" onClick={(e) => e.stopPropagation()}>
-                        <h3>Your Best Offer</h3>
+                        <h3>Make an Offer to Purchase this Domain Name</h3>
                         <form className="offer-form" onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label>Full Name</label>
@@ -139,7 +139,7 @@ const DomainDetails = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Offer Price</label>
+                                <label>Offer Price in $USD</label>
                                 <input
                                     type="text"
                                     name="offerPrice"
@@ -149,6 +149,10 @@ const DomainDetails = () => {
                                     autoComplete='off'
                                 />
                             </div>
+                            <p style={{ fontSize: "15px" }}>
+                                Please note we feel <span style={{textDecoration:"underline"}}>Buy Now</span> is the best option to secure the domain name.</p>
+                                <p style={{fontSize:"15px"}}>If you negotiate, then you may lose this price. We reserve the right to change the asking price without any notice. Your contact name and information are secure with us. We do not share or sell the info of potential domain buyers.
+                            </p>
                             <div className="modal-buttons">
                                 <button
                                     type="submit"
@@ -188,8 +192,8 @@ const DomainDetails = () => {
                                 {domain.name}
                                 <span className="text-blue-600">{domain.tld}</span>
                             </h1>
-                            <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg" style={{width:"200px"}}>
-                                <span style={{marginBottom:"10px",fontSize:"16px"}}>Asking Price</span>
+                            <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg" style={{ width: "200px" }}>
+                                <span style={{ marginBottom: "10px", fontSize: "16px" }}>Asking Price</span>
                                 <div className='mt-1'>
                                     <span className="text-2xl font-bold">${domain.price}</span>
                                     <span className="ml-2 text-gray-600">USD</span>

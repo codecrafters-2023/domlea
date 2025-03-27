@@ -14,7 +14,7 @@ const SearchDomain = () => {
     const [loading, setLoading] = useState(true);
 
     console.log(results);
-    
+
     // const [showOfferModal, setShowOfferModal] = useState(false);
     // const [selectedDomain, setSelectedDomain] = useState('');
     // const [formData, setFormData] = useState({
@@ -141,7 +141,12 @@ const SearchDomain = () => {
                 )} */}
 
 
+                <div className='flex justify-center items-center gap-5'>
                 <h2>Search Results for "{searchParams.get('search')}"</h2>
+                <div className='flex justify-end mt-3'>
+                    <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/'}>Search Again</Link></button>
+                </div>
+                </div>
 
                 {loading ? (
                     <div className="loader">Loading...</div>
@@ -226,9 +231,7 @@ const SearchDomain = () => {
                                 </div>
                             </div>
                         )}
-                        <div className='flex justify-end mt-3'>
-                            <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/'}>Search Again</Link></button>
-                        </div>
+
 
                         {/* No Results Message */}
                         {!results.exactMatch && results.relatedDomains.length === 0 && (

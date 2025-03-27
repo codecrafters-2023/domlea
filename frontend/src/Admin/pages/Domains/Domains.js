@@ -5,6 +5,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './DomainListPage.css';
 import AdminSidebar from '../../components/Navbar';
+import { toast } from 'react-toastify';
 
 const Domain = () => {
     const [domains, setDomains] = useState([]);
@@ -14,24 +15,59 @@ const Domain = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
     const [selectedTLD, setSelectedTLD] = useState('All');
     const [tlds, setTlds] = useState([]); // State to store all TLDs
+    const [categories, setCategories] = useState([]);
+    const [loadingCategories, setLoadingCategories] = useState(true);
 
-    // Fetch all TLDs from the backend
+
     useEffect(() => {
-        const fetchTlds = async () => {
+        const fetchInitialData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/all-tlds`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    },
-                });
-                setTlds(response.data.data); // Set the fetched TLDs
+                const [categoriesRes, tldsRes] = await Promise.all([
+                    axios.get(`${process.env.REACT_APP_API_URL}/domains/categories`, {
+                        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+                    }),
+                    axios.get(`${process.env.REACT_APP_API_URL}/domains/all-tlds`, {
+                        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+                    })
+                ]);
+
+                if (categoriesRes.data.success) {
+                    setCategories(categoriesRes.data.data);
+                }
+
+                if (tldsRes.data.success) {
+                    setTlds(tldsRes.data.data);
+                }
+
             } catch (error) {
-                console.error('Error fetching TLDs:', error);
+                console.error('Initial data error:', error.response?.data || error.message);
+                toast.error('Failed to load filter options');
+            }
+            finally {
+                setLoadingCategories(false);
             }
         };
 
-        fetchTlds();
+        fetchInitialData();
     }, []);
+
+    // Fetch all TLDs from the backend
+    // useEffect(() => {
+    //     const fetchTlds = async () => {
+    //         try {
+    //             const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/all-tlds`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //                 },
+    //             });
+    //             setTlds(response.data.data); // Set the fetched TLDs
+    //         } catch (error) {
+    //             console.error('Error fetching TLDs:', error);
+    //         }
+    //     };
+
+    //     fetchTlds();
+    // }, []);
 
     // Fetch domains from the backend
     const fetchDomains = async () => {
@@ -74,6 +110,7 @@ const Domain = () => {
                                 }
                             });
                             fetchDomains();
+                            toast.success('Domain deleted successfully');
                         } catch (error) {
                             console.error('Error deleting domain:', error);
                         }
@@ -112,14 +149,23 @@ const Domain = () => {
                             <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
+                                disabled={loadingCategories}
                             >
                                 <option value="All">All Categories</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Business">Business</option>
-                                <option value="Education">Education</option>
-                                <option value="Health">Health</option>
-                                <option value="Entertainment">Entertainment</option>
+                                {loadingCategories ? (
+                                    <option disabled>Loading categories...</option>
+                                ) : (
+                                    categories.map((category) => (
+                                        <option key={category} value={category}>
+                                            {category}
+                                        </option>
+                                    ))
+                                )}
+                                {categories.length === 0 && !loadingCategories && (
+                                    <option disabled>No categories found</option>
+                                )}
                             </select>
+
                             <select
                                 value={selectedTLD}
                                 onChange={(e) => setSelectedTLD(e.target.value)}

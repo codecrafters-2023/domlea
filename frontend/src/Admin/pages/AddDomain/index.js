@@ -60,6 +60,7 @@ const AddDomainPage = () => {
                                     <option value=".net">.net</option>
                                     <option value=".org">.org</option>
                                     <option value=".io">.io</option>
+                                    <option value=".io">.ca</option>
                                 </select>
                             </div>
                         </div>
@@ -85,7 +86,12 @@ const AddDomainPage = () => {
 
                         <div className="form-group">
                             <label>Category:</label>
-                            <select
+                            <input
+                                type="text"
+                                value={formData.category}
+                                onChange={(e) => setFormData({...formData, category: e.target.value })}
+                            />
+                            {/* <select
                                 value={formData.category}
                                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                             >
@@ -95,7 +101,7 @@ const AddDomainPage = () => {
                                 <option value="Education">Education</option>
                                 <option value="Health">Health</option>
                                 <option value="Entertainment">Entertainment</option>
-                            </select>
+                            </select> */}
                         </div>
 
                         <div className="form-group">
@@ -107,7 +113,7 @@ const AddDomainPage = () => {
                             />
                         </div>
 
-                        <div className="form-group" style={{display:"flex", alignItems:"center", gap:"10px"}}>
+                        {/* <div className="form-group" style={{display:"flex", alignItems:"center", gap:"10px"}}>
                             <label style={{margin:"0"}}>
                                 <input
                                     type="checkbox"
@@ -118,7 +124,7 @@ const AddDomainPage = () => {
                                     />
                             </label>
                                     Premium Domain
-                        </div>
+                        </div> */}
 
                         <button type="submit" className="btn-primary">Add Domain</button>
                     </form>

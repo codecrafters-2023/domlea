@@ -3,7 +3,46 @@ const express = require('express');
 const router = express.Router();
 const Domain = require('../models/Domain')
 const { protect, admin } = require('../middleware/authMiddleware');
-const generateDomainImage = require('../utils/imageGenerator');
+const {generateDomainImage, cloudinary} = require('../utils/imageGenerator');
+
+router.get('/categories', protect, admin, async (req, res) => {
+    try {
+        // Verify the collection has documents
+        const count = await Domain.countDocuments();
+        if(count === 0) return res.json({ success: true, data: [] });
+
+        // Get distinct categories that actually exist in documents
+        const categories = await Domain.distinct('category', { category: { $exists: true } });
+        
+        res.json({
+            success: true,
+            data: categories.filter(c => c !== null && c !== "")
+        });
+    } catch (error) {
+        console.error('Category error:', error);
+        res.status(500).json({
+            success: false,
+            message: error.message // Return specific error
+        });
+    }
+});
+
+router.get('/all-tlds', protect, admin, async (req, res) => {
+    try {
+        const tlds = await Domain.distinct('tld', { tld: { $exists: true } });
+        res.json({
+            success: true,
+            data: tlds.filter(t => t && t.trim() !== "")
+        });
+    } catch (error) {
+        console.error('TLD error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch TLDs'
+        });
+    }
+});
+
 
 router.post('/', protect, admin, async (req, res) => {
     try {
@@ -145,7 +184,22 @@ router.put('/:id', protect, admin, async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+const getPublicIdFromUrl = (url) => {
+    const parts = url.split('/');
+    const uploadIndex = parts.indexOf('upload');
+    const publicIdParts = parts.slice(uploadIndex + 1);
+
+    // Remove version prefix if present
+    if (publicIdParts[0].startsWith('v')) {
+        publicIdParts.shift();
+    }
+
+    // Join remaining parts and remove file extension
+    return publicIdParts.join('/').replace(/\.[^/.]+$/, '');
+};
+
+// Updated delete route with image cleanup
+router.delete('/:id', protect, admin, async (req, res) => {
     try {
         const domain = await Domain.findById(req.params.id);
 
@@ -156,11 +210,33 @@ router.delete('/:id', async (req, res) => {
             });
         }
 
+        // Delete image from Cloudinary if exists
+        if (domain.imageUrl) {
+            try {
+                const publicId = getPublicIdFromUrl(domain.imageUrl);
+                const result = await cloudinary.uploader.destroy(publicId);
+
+                if (result.result !== 'ok' && result.result !== 'not found') {
+                    console.error('Cloudinary deletion failed:', result);
+                    return res.status(500).json({
+                        success: false,
+                        message: 'Failed to delete domain image'
+                    });
+                }
+            } catch (error) {
+                console.error('Cloudinary error:', error);
+                return res.status(500).json({
+                    success: false,
+                    message: 'Error deleting domain image'
+                });
+            }
+        }
+
         await domain.deleteOne();
 
         res.json({
             success: true,
-            message: 'Domain removed'
+            message: 'Domain and associated image removed'
         });
 
     } catch (error) {
@@ -171,6 +247,8 @@ router.delete('/:id', async (req, res) => {
         });
     }
 });
+
+
 
 
 

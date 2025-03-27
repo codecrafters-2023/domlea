@@ -95,16 +95,25 @@ const EditDomain = () => {
                             >
                                 <option value=".com">.com</option>
                                 <option value=".in">.in</option>
+                                <option value=".us">.us</option>
                                 <option value=".net">.net</option>
                                 <option value=".org">.org</option>
                                 <option value=".io">.io</option>
+                                <option value=".io">.ca</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="form-group">
                         <label>Category</label>
-                        <select
+                        <input
+                            type="text"
+                            name="category"
+                            value={domain.category}
+                            onChange={handleChange}
+                            placeholder="Enter category"
+                        />
+                        {/* <select
                             name="category"
                             value={domain.category}
                             onChange={handleChange}
@@ -114,7 +123,7 @@ const EditDomain = () => {
                             <option value="Education">Education</option>
                             <option value="Health">Health</option>
                             <option value="Entertainment">Entertainment</option>
-                        </select>
+                        </select> */}
                     </div>
 
                     <div className="form-group">
