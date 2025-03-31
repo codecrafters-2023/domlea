@@ -15,6 +15,8 @@ const AddDomainPage = () => {
         isPremium: false,
     });
 
+    // var category = ''
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
