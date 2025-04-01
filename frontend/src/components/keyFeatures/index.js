@@ -5,12 +5,11 @@ import { FaHandshake, FaMoneyBillWave, FaTruck, FaClipboardCheck, FaUnlock } fro
 const KeyFeatures = () => {
     return (
         <section className="escrow-section">
-            <h2>Over <span>$7.5 billion</span> of transactions protected with Escrow.com</h2>
-            <p>
-                Escrow.com is the world’s most secure payment method from a counterparty
-                risk perspective - safeguarding both buyer and seller, all funds transacted
-                using escrow are kept in trust.
-            </p>
+            {/* <h2>Over <span>$7.5 billion</span> of transactions protected with Escrow.com</h2> */}
+            <h2>We  use Escrow.com to securely transfer the Domain to the buyer.</h2>
+            {/* <p>
+                We  use Escrow.com to securely transfer the Domain to the buyer.
+            </p> */}
             <div className="steps">
                 <div className="step">
                     <FaHandshake className="icon" />
@@ -22,11 +21,11 @@ const KeyFeatures = () => {
                 </div>
                 <div className="step">
                     <FaTruck className="icon" />
-                    <p>3. Seller delivers goods or service to buyer</p>
+                    <p>3. Seller delivers domains to Escrow.com</p>
                 </div>
                 <div className="step">
                     <FaClipboardCheck className="icon" />
-                    <p>4. Buyer approves goods or services</p>
+                    <p>4. Buyer approve domains.</p>
                 </div>
                 <div className="step">
                     <FaUnlock className="icon" />
