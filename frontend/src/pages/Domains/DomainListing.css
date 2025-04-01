@@ -101,7 +101,7 @@ body {
 }
 
 .domain-card-content {
-    padding: 15px;
+    padding: 15px 5px;
 }
 
 .domain-name-price-div{
@@ -127,6 +127,7 @@ body {
     font-size: 15px;
     font-weight: 700;
     color: #3954ff;
+    margin: 0;
     /* margin-bottom: 8px; */
 }
 

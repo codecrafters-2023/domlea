@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import './DomainDetail.css';
+import KeyFeatures from '../../components/keyFeatures';
 
 const DomainDetails = () => {
     const { domainName } = useParams();
-    const [searchParams] = useSearchParams();
     const [domain, setDomain] = useState(null);
     const [showOfferModal, setShowOfferModal] = useState(false);
     const [selectedDomain, setSelectedDomain] = useState('');
@@ -18,12 +18,6 @@ const DomainDetails = () => {
         offerPrice: '',
         domain: ''
     });
-
-    const [results, setResults] = useState({
-        exactMatch: null,
-        relatedDomains: []
-    });
-    const [loading, setLoading] = useState(true);
 
     const handleOfferClick = (domain) => {
         setSelectedDomain(`${domain.name}${domain.tld}`);
@@ -70,20 +64,6 @@ const DomainDetails = () => {
         fetchDomain();
     }, [domainName]);
 
-    useEffect(() => {
-        const fetchResults = async () => {
-            try {
-                const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/users/search-domains`,
-                    { params: Object.fromEntries(searchParams) }
-                );
-                setResults(response.data);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchResults();
-    }, [searchParams]);
 
     if (!domain) return
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
@@ -146,8 +126,8 @@ const DomainDetails = () => {
                                 />
                             </div>
                             <p style={{ fontSize: "15px" }}>
-                                Please note we feel <span style={{textDecoration:"underline"}}>Buy Now</span> is the best option to secure the domain name.</p>
-                                <p style={{fontSize:"15px"}}>If you negotiate, then you may lose this price. We reserve the right to change the asking price without any notice. Your contact name and information are secure with us. We do not share or sell the info of potential domain buyers.
+                                Please note we feel <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> is the best option to secure the domain name.</p>
+                            <p style={{ fontSize: "15px" }}>If you negotiate, then you may lose this price. We reserve the right to change the asking price without any notice. Your contact name and information are secure with us. We do not share or sell the info of potential domain buyers.
                             </p>
                             <div className="modal-buttons">
                                 <button
@@ -289,61 +269,7 @@ const DomainDetails = () => {
                 </div>
             </div>
 
-            <div className="results-container">
-                {loading ? (
-                    <div className="loader">Loading...</div>
-                ) : (
-                    <>
-                        {results.relatedDomains.length > 0 && (
-                            <div className="related-domains-section">
-                                <h3 className='text-xl font-semibold'>Related Domains</h3>
-                                <div className="domain-grid">
-                                    {results.relatedDomains.map((domain) => (
-                                        <Link to={`/${domain.name}${domain.tld}`}>
-                                            <div key={domain._id} className="domain-card">
-                                                <div className="domain-header">
-                                                    <h3>
-                                                        {domain.name}
-                                                        <span className="tld">{domain.tld}</span>
-                                                    </h3>
-                                                    <div className="domain-price">
-                                                        ${domain.price}
-                                                        <span style={{ fontSize: "14px", color: "#000" }}>USD</span>
-                                                    </div>
-                                                </div>
-                                                <div className="domain-body">
-                                                    <p className="category">
-                                                        Category: {domain.category}
-                                                    </p>
-                                                    <div className='exactMatch_btn_div'>
-                                                        {/* <buton><Link to={`/${domain.name}${domain.tld}`}>More Detail</Link></buton> */}
-                                                        {/* <button className="buy-button">
-                                                                            <Link to={'https://www.escrow.com'}>Buy Now</Link>
-                                                                        </button>
-                                                                        <button className="makeOffer-button" onClick={() => handleOfferClick(domain)}>
-                                                                            Make an Offer
-                                                                        </button> */}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* No Results Message */}
-                        {!results.exactMatch && results.relatedDomains.length === 0 && (
-                            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "50px 0" }}>
-                                <div className="no-results">
-                                    No domains found matching your criteria
-                                </div>
-                                <button className='backToSearch_btn'><Link to={'/'}>Back to Search</Link></button>
-                            </div>
-                        )}
-                    </>
-                )}
-            </div>
+            <KeyFeatures />
             <Footer />
         </>
     );

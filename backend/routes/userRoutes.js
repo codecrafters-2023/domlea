@@ -4,9 +4,10 @@ const router = express();
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST, // e.g. 'smtp.sendgrid.net'
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    // host: process.env.SMTP_HOST, // e.g. 'smtp.sendgrid.net'
+    // port: 587,
+    // secure: false, // true for 465, false for other ports
+    service: "gmail", 
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD

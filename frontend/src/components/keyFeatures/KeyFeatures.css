@@ -1,0 +1,48 @@
+.escrow-section {
+    text-align: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+.escrow-section h2 {
+    font-size: 3rem;
+    line-height: 1.18;
+    color: #2b3340;
+    font-weight: 500;
+    margin-bottom: 1.5rem!important;
+    position: relative;
+    margin: 0 auto;
+    max-width: 1180px;
+}
+
+.escrow-section h2 span {
+    color: #007bff;
+}
+
+.escrow-section p {
+    font-size: 16px;
+    color: #666;
+    max-width: 850px;
+    margin: 10px auto;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 200px;
+    margin: 20px;
+}
+
+.icon {
+    font-size: 40px;
+    color: #007bff;
+    margin-bottom: 10px;
+}

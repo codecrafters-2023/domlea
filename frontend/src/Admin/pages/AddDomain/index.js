@@ -6,16 +6,48 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const AddDomainPage = () => {
+
+    const defaultDescription = `Keyword domain for your business!
+
+    Not just a web address but a powerful keyword that aligns perfectly with your business. You do not need to change your business and your main website; obtaining this keyword domain name will be a game-changer.
+    
+    SEO Dominance: With this Domain name, you'll instantly gain a competitive advantage in search engine rankings. Your website will naturally rank higher in relevant search results, driving more organic traffic.
+    
+    Memorable Branding: This Domain name is concise, easy to remember, and communicates exactly what your business is about. It leaves a lasting impression on potential customers.
+    
+    Credibility and Trust: A keyword-rich domain establishes your authority in your niche and instills trust in your audience.
+    
+    Marketing Advantage: Imagine the marketing campaigns you could create; it's a powerful asset for your advertising efforts.
+    
+    Investment Value: Domain names, especially keyword-rich ones, tend to appreciate over time. It's not just an immediate asset but a long-term investment.
+    
+    I'm offering you the exclusive opportunity to own [YourDomain.com]. This domain has enormous potential to drive growth for your business. Please let me know if you'd like to discuss the details, including pricing and transfer options.
+    
+    Don't miss out on this chance to elevate your online presence and achieve new heights in your industry.`;
+
+
     const [formData, setFormData] = useState({
         name: '',
         tld: '.com',
         price: '',
         category: '',
-        description: '',
+        description: defaultDescription,
         isPremium: false,
     });
 
-    // var category = ''
+    const modules = {
+        toolbar: [
+            [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['blockquote', 'code-block'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['link', 'image', 'video'],
+            ['clean']
+        ],
+    };
+
 
     const navigate = useNavigate();
 
@@ -91,7 +123,7 @@ const AddDomainPage = () => {
                             <input
                                 type="text"
                                 value={formData.category}
-                                onChange={(e) => setFormData({...formData, category: e.target.value })}
+                                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                             />
                             {/* <select
                                 value={formData.category}

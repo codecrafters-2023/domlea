@@ -11,7 +11,7 @@ const DomainListing = () => {
     const [tld, setTld] = useState("");
     const [tlds, setTlds] = useState([]);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(20);
     const [total, setTotal] = useState(0);
     const [pages, setPages] = useState(0);
     const [loading, setLoading] = useState(true);

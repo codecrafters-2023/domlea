@@ -158,6 +158,26 @@ textarea:focus {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+.quill {
+    margin-bottom: 40px;
+}
+
+.ql-toolbar {
+    border-radius: 4px 4px 0 0;
+    border-color: #ddd !important;
+}
+
+.ql-container {
+    border-radius: 0 0 4px 4px;
+    border-color: #ddd !important;
+    min-height: 200px;
+}
+
+.ql-editor {
+    min-height: 200px;
+    font-size: 16px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .form-container {
