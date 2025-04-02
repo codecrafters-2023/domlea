@@ -199,7 +199,7 @@ const getPublicIdFromUrl = (url) => {
 };
 
 // Updated delete route with image cleanup
-router.delete('/:id', protect, admin, async (req, res) => {
+router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
     try {
         const domain = await Domain.findById(req.params.id);
 

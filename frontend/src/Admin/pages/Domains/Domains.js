@@ -104,7 +104,7 @@ const Domain = () => {
                     label: 'Yes',
                     onClick: async () => {
                         try {
-                            await axios.delete(`${process.env.REACT_APP_API_URL}/domains/${id}`, {
+                            await axios.delete(`${process.env.REACT_APP_API_URL}/domains/deleteDomain/${id}`, {
                                 headers: {
                                     Authorization: `Bearer ${localStorage.getItem('token')}`
                                 }
