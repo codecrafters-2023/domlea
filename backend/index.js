@@ -16,14 +16,21 @@ connectDB();
 // Middleware
 app.use(express.json());
 const allowedOrigins = [
-  'https://www.domlea.com',
-  'https://domlea.com',
-  process.env.CLIENT_URL || 'http://localhost:3000'
+    'https://www.domlea.com',
+    'https://domlea.com'
 ];
 
 app.use(cors({
-    origin: allowedOrigins, 
-    credentials: true, 
+    origin: function (origin, callback) {
+        console.log("Incoming request from:", origin); // Debugging
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Allow the request
+        } else {
+            console.log("Blocked CORS origin:", origin);
+            callback(new Error('CORS not allowed'));
+        }
+    },
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
