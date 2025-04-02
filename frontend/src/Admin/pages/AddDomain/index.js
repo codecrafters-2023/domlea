@@ -35,26 +35,13 @@ const AddDomainPage = () => {
         isPremium: false,
     });
 
-    const modules = {
-        toolbar: [
-            [{ 'font': [] }, { 'size': ['small', false, 'large', 'huge'] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['blockquote', 'code-block'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link', 'image', 'video'],
-            ['clean']
-        ],
-    };
-
 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/domains`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/domains/addDomain`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
