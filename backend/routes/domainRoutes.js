@@ -74,6 +74,8 @@ router.post('/', protect, admin, async (req, res) => {
             data: domain
         });
 
+        res.json({"domain added" })
+
     } catch (error) {
         console.error(error);
         res.status(500).json({
