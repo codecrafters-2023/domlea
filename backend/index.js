@@ -19,30 +19,18 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
+    origin: '*',
+    credentials: true
 }));
 
 // Database
 connectDB();
 
-// Serve static assets in production
-// if (process.env.NODE_ENV === 'production') {
-//     // Set static folder
-//     app.use(express.static('frontend/build'));
+app.get('/test-cors', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.json({ message: 'CORS test successful' });
+});
 
-//     // Handle React routing - return all requests to React app
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.resolve(__dirname, 'frontend/build', 'index.html'));
-//     });
-
-// }
 
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
