@@ -44,7 +44,7 @@ router.get('/all-tlds', protect, admin, async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', protect, admin, async (req, res) => {
     try {
         const { name, tld, price, category, expiryDate, description, isPremium } = req.body;
 
