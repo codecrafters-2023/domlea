@@ -5,10 +5,8 @@ const AdminPanel = () => {
 
 
     return (
-        <div className='admin-container'>
-            <div>
-                <AdminSidebar />
-            </div>
+        <>
+            <AdminSidebar />
             <div>
                 {/* <!-- Main Content --> */}
                 <div>
@@ -17,7 +15,7 @@ const AdminPanel = () => {
                     </main>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

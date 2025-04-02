@@ -37,12 +37,6 @@ app.use(cors({
 }));
 
 
-app.get('/test-cors', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json({ message: 'CORS test successful' });
-});
-
-
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.use((req, res, next) => {
@@ -62,26 +56,15 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 app.use('/api/auth', authRoutes);
-app.use('/api/domains', (req, res, next) => {
-    console.log('Incoming Request to /api/domains');
-    console.log('Method:', req.method);
-    console.log('Headers:', req.headers);
-    console.log('Body:', req.body);
-    next();
-}, domainRoutes);
+app.use('/api/domains', domainRoutes);
 app.use('/api/users', userRoutes);
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     console.error('Global error:', err);
     res.status(500).json({
         message: 'Internal server error',
         error: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
-});
-
-process.on('unhandledRejection', (err) => {
-    console.error('Unhandled Rejection:', err);
-    process.exit(1);
 });
 
 

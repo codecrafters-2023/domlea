@@ -30,7 +30,7 @@ const AdminSidebar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
             >
-                {isOpen ? <FiX /> : <FiMenu />}
+                {isOpen ? <FiX style={{color:"#000", fontSize:"20px"}}/> : <FiMenu style={{color:"#000", fontSize:"20px"}} />}
             </motion.button>
 
             {/* Backdrop Overlay */}
