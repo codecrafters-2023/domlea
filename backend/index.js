@@ -12,9 +12,21 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+const allowedOrigins = [
+  'https://www.domlea.com',
+  'https://domlea.com',
+  process.env.CLIENT_URL || 'http://localhost:3000'
+];
+
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
-    credentials: true
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 // Database
