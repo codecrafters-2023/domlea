@@ -41,7 +41,7 @@ const AddDomainPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_API_URL}/domains`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/domains/addDomain`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
