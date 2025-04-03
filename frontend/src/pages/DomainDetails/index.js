@@ -164,7 +164,7 @@ const DomainDetails = () => {
                     {/* Domain Header */}
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div className="px-8 py-12 text-center bg-gradient-to-b from-gray-50 to-white">
-                            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+                            <h1 className="text-5xl font-bold text-gray-900 mb-4 domain-title">
                                 {domain.name}
                                 <span className="text-blue-600">{domain.tld}</span>
                             </h1>

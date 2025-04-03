@@ -81,7 +81,13 @@ const AddDomainPage = () => {
                                     <option value=".net">.net</option>
                                     <option value=".org">.org</option>
                                     <option value=".io">.io</option>
-                                    <option value=".io">.ca</option>
+                                    <option value=".ca">.ca</option>
+                                    <option value=".qa">.qa</option>
+                                    <option value=".ae">.ae</option>
+                                    <option value=".asia">.asia</option>
+                                    <option value=".club">.club</option>
+                                    <option value=".shop">.shop</option>
+                                    <option value=".academy">.academy</option>
                                 </select>
                             </div>
                         </div>

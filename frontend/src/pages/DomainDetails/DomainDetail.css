@@ -233,6 +233,10 @@
         padding: 25px;
     }
 
+    .domain-title {
+        font-size: 2rem!important;
+    }
+
     .domain-header {
         padding: 30px 20px;
     }
