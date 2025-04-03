@@ -8,10 +8,14 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
+const server = require('serverless-http')(app);
 const PORT = process.env.PORT || 5000;
 
 // Database
 connectDB();
+
+module.exports = app;
+module.exports.handler = server;
 
 // Middleware
 app.use(express.json());

@@ -26,8 +26,8 @@ const Contact = () => {
                     <div className="contact-card">
                         <FaEnvelope className="icon" />
                         <h3>Email Us:</h3>
-                        <p>hello@wohust.com</p>
-                        <p>info@wohust.com</p>
+                        <p>info@domlea.com</p>
+                        <p>support@domlea.com</p>
                     </div>
 
                     <div className="contact-card">

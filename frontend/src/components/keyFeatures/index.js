@@ -17,7 +17,7 @@ const KeyFeatures = () => {
                 </div>
                 <div className="step">
                     <FaMoneyBillWave className="icon" />
-                    <p>2. Buyer submits payment to Escrow</p>
+                    <p>2. Buyer submits payment to Escrow.com</p>
                 </div>
                 <div className="step">
                     <FaTruck className="icon" />
