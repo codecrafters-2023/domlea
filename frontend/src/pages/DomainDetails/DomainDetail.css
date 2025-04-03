@@ -218,14 +218,39 @@
     animation-delay: calc(var(--index) * 0.05s);
 }
 
-#premium-domain{
+#premium-domain {
     margin-top: 60px;
 }
 
-.domain-desc-btn-div{
+.domain-desc-btn-div {
     display: flex;
     justify-content: space-between;
 }
+
+.detail-domain-name{
+    padding: 10px 48px 48px 48px;
+}
+
+.domain-header-top-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+.domain-header-top-right h1{
+    color: #0984e3;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.domain-header-top-right p{
+    color: #636e72;
+    font-size: 15px;
+    font-weight: 400;
+}
+
 
 @media (max-width: 768px) {
     .domain-content {
@@ -234,7 +259,7 @@
     }
 
     .domain-title {
-        font-size: 2rem!important;
+        font-size: 2rem !important;
     }
 
     .domain-header {
@@ -248,14 +273,19 @@
     .action-buttons {
         flex-direction: column;
     }
-    .domain-desc-btn-div{
+
+    .domain-desc-btn-div {
         flex-direction: column;
     }
 
-    .domain-desc-btn-div #btn_div{
+    .domain-desc-btn-div #btn_div {
         display: flex;
         justify-content: center;
-        padding: 0!important;
+        padding: 0 !important;
         margin-top: 20px;
+    }
+
+    .detail-domain-name{
+        padding: 10px 10px 48px 10px!important;
     }
 }
