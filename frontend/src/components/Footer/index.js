@@ -38,9 +38,9 @@ const Footer = () => {
                         <h4>Services</h4>
                         <ul>
                             <li><a href="/domainList">Domain Search</a></li>
-                            <li><a href="/">Web Hosting</a></li>
+                            {/* <li><a href="/">Web Hosting</a></li>
                             <li><a href="/">SSL Certificates</a></li>
-                            <li><a href="/">Domain Transfer</a></li>
+                            <li><a href="/">Domain Transfer</a></li> */}
                         </ul>
                     </div>
 
@@ -48,8 +48,8 @@ const Footer = () => {
                         <h4>Legal</h4>
                         <ul>
                             <li><a href="/privacy">Privacy Policy</a></li>
-                            <li><a href="/terms">Terms of Service</a></li>
-                            <li><a href="/report">Report Abuse</a></li>
+                            {/* <li><a href="/terms">Terms of Service</a></li>
+                            <li><a href="/report">Report Abuse</a></li> */}
                         </ul>
                     </div>
 

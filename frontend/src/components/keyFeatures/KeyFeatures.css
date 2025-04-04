@@ -9,7 +9,7 @@
     line-height: 1.18;
     color: #2b3340;
     font-weight: 500;
-    margin-bottom: 1.5rem!important;
+    margin-bottom: 1.5rem !important;
     position: relative;
     margin: 0 auto;
     max-width: 1180px;
@@ -51,8 +51,14 @@
     .escrow-section {
         padding: 0px;
     }
+
     .escrow-section h2 {
-        font-size: 24px;
+        font-size: 22px;
         margin: 0 auto;
+    }
+
+    .escrow-section p {
+        font-size: 14px;
+        padding: 10px;
     }
 }
