@@ -55,7 +55,7 @@ const Contact = () => {
                 </div>
             </div>
             <div className="contact-form-container">
-                <h2>Drop us a message for any query</h2>
+                <h2>Contact Us</h2>
                 <form>
                     <div className="form-row">
                         <input
