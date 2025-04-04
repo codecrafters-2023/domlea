@@ -7,9 +7,9 @@ const KeyFeatures = () => {
         <section className="escrow-section">
             {/* <h2>Over <span>$7.5 billion</span> of transactions protected with Escrow.com</h2> */}
             <h2>We  use Escrow.com to securely transfer the Domain to the buyer.</h2>
-            {/* <p>
-                We  use Escrow.com to securely transfer the Domain to the buyer.
-            </p> */}
+            <p>
+            Escrow.com is the world’s most secure payment method, safeguarding both buyers and sellers, all funds sent to Escrow are kept in a trust account.
+            </p>
             <div className="steps">
                 <div className="step">
                     <FaHandshake className="icon" />
