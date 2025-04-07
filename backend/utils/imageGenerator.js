@@ -50,12 +50,11 @@ const generateDomainImage = async (domainName, tld) => {
 
             // Define styles
             const styles = [
-                { textColor: '#c1121f', font: 'bold 25px Arial', backgroundColor: '#ffffff' },
-                { textColor: '#ff5733', font: 'bold 25px Helvetica', backgroundColor: '#E3F2FD' },
-                { textColor: '#2A4B7C', font: 'bold 25px Verdana', backgroundColor: '#F7FFF7' },
-                { textColor: '#1A535C', font: 'bold 25px Georgia', backgroundColor: '#F7FFF7' },
-                { textColor: '#3D3D3D', font: 'bold 25px Courier New', backgroundColor: '#FFEEDD' },
-                { textColor: '#000000', font: 'bold 25px Times New Roman', backgroundColor: '#FFD6E0' },
+                { textColor: '#2C3E50', font: '700 27px Arial', backgroundColor: '#FDFEFE' }, // dark blue-gray on whitesmoke
+                { textColor: '#1D3557', font: '700 27px Verdana', backgroundColor: '#F1FAEE' }, // navy on mint white
+                { textColor: '#000000', font: '700 27px Georgia', backgroundColor: '#FAFAFA' }, // classic black on ultra light gray
+                { textColor: '#5A189A', font: '700 27px Courier New', backgroundColor: '#fff' }, // purple on lavender white
+                { textColor: '#006D77', font: '700 27px Times New Roman', backgroundColor: '#EDF6F9' }, // teal on cloudy white
             ];
 
             // Select a style based on the domain name (or use a random style)
