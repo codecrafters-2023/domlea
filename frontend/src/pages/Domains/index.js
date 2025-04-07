@@ -120,7 +120,7 @@ const DomainListing = () => {
                         Apply Filters
                     </button>
                     <button className="remove-button" onClick={handleRemoveFilters}>
-                        Remove Filters
+                        Clear Filters
                     </button>
                 </div>
                 <div className="domain-card-container">
