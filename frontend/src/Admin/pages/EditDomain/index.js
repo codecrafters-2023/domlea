@@ -135,12 +135,12 @@ const EditDomain = () => {
                     <div className="form-group">
                         <label>Price ($)</label>
                         <input
-                            type="number"
+                            type="text"
                             name="price"
                             value={domain.price}
                             onChange={handleChange}
-                            step="0.01"
-                            min="0"
+                            // step="0.01"
+                            // min="0"
                         />
                     </div>
 

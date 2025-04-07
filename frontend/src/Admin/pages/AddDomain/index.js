@@ -95,7 +95,7 @@ const AddDomainPage = () => {
                         <div className="form-group">
                             <label>Price:</label>
                             <input
-                                type="number"
+                                type="text"
                                 value={formData.price}
                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                                 required

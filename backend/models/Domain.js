@@ -14,9 +14,9 @@ const domainSchema = new mongoose.Schema({
         // enum: ['.com', '.in', '.us', '.net', '.org', '.io']
     },
     price: {
-        type: Number,
+        type: String,
         required: true,
-        min: 0,
+        // min: 0,
         index: true
     },
     fullName: String,
