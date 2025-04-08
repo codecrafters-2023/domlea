@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     // host: process.env.SMTP_HOST, // e.g. 'smtp.sendgrid.net'
     // port: 587,
     // secure: false, // true for 465, false for other ports
-    service: "gmail", 
+    service: "gmail",
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD
@@ -221,7 +221,7 @@ router.post('/submit-offer', async (req, res) => {
 
         // Create email content with professional template
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: `"Domlea" <${process.env.SMTP_USER}>`,
             to: process.env.ADMIN_EMAIL,
             subject: `New Domain Offer: ${domain}`,
             html: `
@@ -299,8 +299,59 @@ router.post('/submit-offer', async (req, res) => {
 
 module.exports = router;
 
+// to send email to admin for newsletter subscription
+router.post('/subscribe', async (req, res) => {
+    try {
+        const { email } = req.body;
 
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.status(400).json({ error: 'Valid email required' }); // Fixed response
+        }
 
+        const mailOptions = {
+            from: `"Domlea" <${process.env.SMTP_USER}>`,
+            to: process.env.ADMIN_EMAIL,
+            subject: `New Newsletter Subscription`,
+            html: `
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .brand-header { background-color: #2c3e50; padding: 20px; text-align: center; }
+        .brand-name { color: white; font-size: 24px; margin: 0; }
+        .content { padding: 25px; font-family: Arial, sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="brand-header">
+        <h1 class="brand-name">${process.env.COMPANY_NAME || 'Domlea'}</h1>
+    </div>
+    <div class="content">
+        <h3>New Newsletter Subscription</h3>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subscription Time:</strong> ${new Date().toLocaleString()}</p>
+        <p><strong>Website:</strong> ${process.env.WEBSITE_URL || 'https://domlea.com'}</p>
+        <hr>
+        <p style="color: #666;">
+            This subscription was received through the 
+            <a href="${process.env.WEBSITE_URL || 'https://domlea.com'}">
+                ${process.env.COMPANY_NAME || 'Domlea'}
+            </a> website.
+        </p>
+    </div>
+</body>
+</html>
+`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ success: true }); // Added proper status code
+    } catch (error) {
+        console.error('Subscription error:', error);
+        res.status(500).json({ error: 'Subscription failed' }); // Fixed response
+    }
+});
 
 
 

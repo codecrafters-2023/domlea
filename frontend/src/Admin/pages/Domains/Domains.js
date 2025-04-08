@@ -198,7 +198,7 @@ const Domain = () => {
                                             <td>{domain.category}</td>
                                             <td>{domain.tld}</td>
                                             <td>{new Date(domain.expiryDate).toLocaleDateString()}</td>
-                                            <td>${domain.price}</td>
+                                            <td>{domain.price} <span style={{fontSize:"14px"}}>{domain.currency}</span></td>
                                             <td>
                                                 <div className="action-buttons">
                                                     <Link to={`/editDomain/${domain._id}`} className="btn-edit">

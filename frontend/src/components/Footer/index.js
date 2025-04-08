@@ -1,9 +1,57 @@
 // Footer.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Footer = () => {
+
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleSubscribe = async (e) => {
+        e.preventDefault();
+        if (!email) {
+            toast.error('Please enter an email address');
+            return;
+        }
+    
+        try {
+            setLoading(true);
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/subscribe`, { email });
+            
+            // Success notification with custom style
+            toast.success('🎉 Thank you for subscribing!', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: { 
+                    background: '#4BB543', 
+                    color: 'white',
+                    fontSize: '16px'
+                }
+            });
+            
+            setEmail('');
+        } catch (error) {
+            // Error notification
+            toast.error('⚠️ Subscription failed. Please try again.', {
+                position: "top-center",
+                style: {
+                    background: '#FF4444',
+                    color: 'white'
+                }
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <footer className="site-footer">
             <div className="footer-container">
@@ -55,9 +103,17 @@ const Footer = () => {
 
                     <div className="footer-column">
                         <h4>Newsletter</h4>
-                        <form className="newsletter-form">
-                            <input type="email" placeholder="Enter your email" />
-                            <button type="submit">Subscribe</button>
+                        <form className="newsletter-form" onSubmit={handleSubscribe}>
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <button type="submit" disabled={loading}>
+                                {loading ? 'Subscribing...' : 'Subscribe'}
+                            </button>
                         </form>
                     </div>
                 </div>

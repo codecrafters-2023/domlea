@@ -19,6 +19,12 @@ const domainSchema = new mongoose.Schema({
         // min: 0,
         index: true
     },
+    currency: {
+        type: String,
+        required: true,
+        enum: ['USD', 'AUD', 'EURO', 'GBP', 'CAD'],
+        index: true
+    },
     fullName: String,
     category: {
         type: String,

@@ -175,8 +175,8 @@ const DomainDetails = () => {
                             <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg" style={{ width: "200px" }}>
                                 <span style={{ marginBottom: "10px", fontSize: "16px" }}>Asking Price</span>
                                 <div className='mt-1'>
-                                    <span className="text-2xl font-bold">${domain.price}</span>
-                                    <span className="ml-2 text-gray-600">USD</span>
+                                    <span className="text-2xl font-bold">{domain.price}</span>
+                                    <span className="ml-2 text-gray-600">{domain.currency}</span>
                                 </div>
                             </div>
                         </div>

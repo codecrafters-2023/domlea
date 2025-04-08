@@ -12,15 +12,13 @@ const EditDomain = () => {
         name: '',
         tld: '',
         price: '',
+        currency: 'USD', // Add this line
         category: '',
         expiryDate: '',
         description: ''
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-
-    console.log(domain);
-
 
     useEffect(() => {
         const fetchDomain = async () => {
@@ -133,14 +131,28 @@ const EditDomain = () => {
                     </div>
 
                     <div className="form-group">
-                        <label>Price ($)</label>
+                        <label>Currency</label>
+                        <select
+                            name="currency"
+                            value={domain.currency}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="USD">USD</option>
+                            <option value="AUD">AUD</option>
+                            <option value="EURO">EURO</option>
+                            <option value="GBP">GBP</option>
+                            <option value="CAD">CAD</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Price</label>
                         <input
                             type="text"
                             name="price"
                             value={domain.price}
                             onChange={handleChange}
-                            // step="0.01"
-                            // min="0"
                         />
                     </div>
 

@@ -46,10 +46,10 @@ router.get('/all-tlds', protect, admin, async (req, res) => {
 
 router.post('/addDomain', protect, admin, async (req, res) => {
     try {
-        const { name, tld, price, category, expiryDate, description, isPremium } = req.body;
+        const { name, tld, price, category, expiryDate, description, isPremium, currency } = req.body;
 
         // Validate required fields
-        if (!name || !tld || !price || !category) {
+        if (!name || !tld || !price || !currency || !category) { // Added !currency
             return res.status(400).json({
                 success: false,
                 message: 'Please include all required fields'
@@ -62,6 +62,7 @@ router.post('/addDomain', protect, admin, async (req, res) => {
             name: name.toLowerCase(),
             tld,
             price,
+            currency, // Added
             category,
             expiryDate,
             description: description || '',

@@ -30,6 +30,7 @@ const AddDomainPage = () => {
         name: '',
         tld: '.com',
         price: '',
+        currency: 'USD',
         category: '',
         description: defaultDescription,
         isPremium: false,
@@ -100,6 +101,20 @@ const AddDomainPage = () => {
                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                                 required
                             />
+                        </div>
+                        <div className="form-group">
+                            <label>Currency:</label>
+                            <select
+                                value={formData.currency}
+                                onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
+                                required
+                            >
+                                <option value="USD">USD</option>
+                                <option value="AUD">AUD</option>
+                                <option value="EURO">EURO</option>
+                                <option value="GBP">GBP</option>
+                                <option value="CAD">CAD</option>
+                            </select>
                         </div>
 
                         <div className="form-group">
