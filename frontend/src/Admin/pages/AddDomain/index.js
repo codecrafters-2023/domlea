@@ -4,6 +4,7 @@ import './DomainForm.css';
 import AdminSidebar from '../../components/Navbar';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 
 const AddDomainPage = () => {
 
@@ -36,6 +37,37 @@ const AddDomainPage = () => {
         isPremium: false,
     });
 
+    const currencyOptions = [
+        { value: 'USD', label: 'USD', symbol: '$', countryCode: 'us' },
+        { value: 'AUD', label: 'AUD', symbol: '$', countryCode: 'au' },
+        { value: 'EURO', label: 'EURO', symbol: '€', countryCode: 'eu' },
+        { value: 'GBP', label: 'GBP', symbol: '£', countryCode: 'gb' },
+        { value: 'CAD', label: 'CAD', symbol: '$', countryCode: 'ca' }
+    ];
+
+    const customStyles = {
+        option: (provided) => ({
+            ...provided,
+            display: 'flex',
+            alignItems: 'center',
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            display: 'flex',
+            alignItems: 'center',
+        }),
+    };
+
+    const formatOptionLabel = ({ label, symbol, countryCode }) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img 
+                src={`https://flagcdn.com/16x12/${countryCode}.png`} 
+                alt={label}
+                style={{ width: '16px', height: '12px' }}
+            />
+            <span>{label} ({symbol})</span>
+        </div>
+    );
 
     const navigate = useNavigate();
 
@@ -55,6 +87,16 @@ const AddDomainPage = () => {
             console.error('Error adding domain:', error);
         }
     };
+
+    // const currencyOptions = [
+    //     { value: 'USD', label: 'USD', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/en/archive/a/a4/20250221172327%21Flag_of_the_United_States.svg' },
+    //     { value: 'AUD', label: 'AUD', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg' },
+    //     { value: 'EURO', label: 'EURO', symbol: '€', flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png' },
+    //     { value: 'GBP', label: 'GBP', symbol: '£', flag: 'https://cdn.britannica.com/25/4825-050-977D8C5E/Flag-United-Kingdom.jpg' },
+    //     { value: 'CAD', label: 'CAD', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/en/archive/c/cf/20190402205956%21Flag_of_Canada.svg' }
+    // ];
+
+
 
     return (
         <>
@@ -104,17 +146,16 @@ const AddDomainPage = () => {
                         </div>
                         <div className="form-group">
                             <label>Currency:</label>
-                            <select
-                                value={formData.currency}
-                                onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
+                            <Select
+                                options={currencyOptions}
+                                value={currencyOptions.find(option => option.value === formData.currency)}
+                                onChange={(selectedOption) => 
+                                    setFormData({ ...formData, currency: selectedOption.value })
+                                }
+                                formatOptionLabel={formatOptionLabel}
+                                styles={customStyles}
                                 required
-                            >
-                                <option value="USD">USD</option>
-                                <option value="AUD">AUD</option>
-                                <option value="EURO">EURO</option>
-                                <option value="GBP">GBP</option>
-                                <option value="CAD">CAD</option>
-                            </select>
+                            />
                         </div>
 
                         <div className="form-group">

@@ -100,7 +100,7 @@ const SearchDomain = () => {
                                                 <span style={{ fontSize: "15px", color: "#2563eb" }}>Asking Price</span>
                                                 <div>
                                                     ${results.exactMatch.price}
-                                                    <span style={{ fontSize: "14px", color: "#000" }}>USD</span>
+                                                    <span style={{ fontSize: "14px", color: "#000" }}>{results.exactMatch.currency}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@ const SearchDomain = () => {
                                                         <span style={{ fontSize: "15px", color: "#2563eb" }}>Asking Price</span>
                                                         <div>
                                                             ${domain.price}
-                                                            <span style={{ fontSize: "14px", color: "#000" }}>USD</span>
+                                                            <span style={{ fontSize: "14px", color: "#000" }}>{domain.currency}</span>
                                                         </div>
                                                     </div>
                                                 </div>

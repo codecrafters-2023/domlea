@@ -4,6 +4,7 @@ import axios from 'axios';
 import AdminSidebar from '../../components/Navbar';
 import './EditDomain.css';
 import { toast } from 'react-toastify';
+import Select from 'react-select';
 
 const EditDomain = () => {
     const { id } = useParams();
@@ -19,6 +20,38 @@ const EditDomain = () => {
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+
+    const currencyOptions = [
+        { value: 'USD', label: 'USD', symbol: '$', countryCode: 'us' },
+        { value: 'AUD', label: 'AUD', symbol: '$', countryCode: 'au' },
+        { value: 'EURO', label: 'EURO', symbol: '€', countryCode: 'eu' },
+        { value: 'GBP', label: 'GBP', symbol: '£', countryCode: 'gb' },
+        { value: 'CAD', label: 'CAD', symbol: '$', countryCode: 'ca' }
+    ];
+
+    const customStyles = {
+        option: (provided) => ({
+            ...provided,
+            display: 'flex',
+            alignItems: 'center',
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            display: 'flex',
+            alignItems: 'center',
+        }),
+    };
+
+    const formatOptionLabel = ({ label, symbol, countryCode }) => (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img 
+                src={`https://flagcdn.com/16x12/${countryCode}.png`} 
+                alt={label}
+                style={{ width: '16px', height: '12px' }}
+            />
+            <span>{label} ({symbol})</span>
+        </div>
+    );
 
     useEffect(() => {
         const fetchDomain = async () => {
@@ -68,6 +101,8 @@ const EditDomain = () => {
 
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">{error}</div>;
+
+    
 
     return (
         <div className="edit-domain-page">
@@ -132,20 +167,18 @@ const EditDomain = () => {
 
                     <div className="form-group">
                         <label>Currency</label>
-                        <select
-                            name="currency"
-                            value={domain.currency}
-                            onChange={handleChange}
+                        <Select
+                            options={currencyOptions}
+                            value={currencyOptions.find(option => option.value === domain.currency)}
+                            onChange={(selectedOption) => 
+                                setDomain({ ...domain, currency: selectedOption.value })
+                            }
+                            formatOptionLabel={formatOptionLabel}
+                            styles={customStyles}
                             required
-                        >
-                            <option value="USD">USD</option>
-                            <option value="AUD">AUD</option>
-                            <option value="EURO">EURO</option>
-                            <option value="GBP">GBP</option>
-                            <option value="CAD">CAD</option>
-                        </select>
+                        />
                     </div>
-
+                    
                     <div className="form-group">
                         <label>Price</label>
                         <input

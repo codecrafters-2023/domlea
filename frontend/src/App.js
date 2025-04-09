@@ -25,6 +25,7 @@ import DomainList from './pages/Domains';
 import DomainSearch from './pages/DomainSearch';
 import DomainDetails from './pages/DomainDetails';
 
+
 function App() {
   return (
     <AnimatePresence>
