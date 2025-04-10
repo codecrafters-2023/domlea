@@ -55,10 +55,10 @@ const domainSchema = new mongoose.Schema({
         type: Boolean,
         default: false, // Default to false
     },
-    imageUrl: { // Add this field
-        type: String,
-        default: '',
-    },
+    // imageUrl: { // Add this field
+    //     type: String,
+    //     default: '',
+    // },
     createdAt: {
         type: Date,
         default: Date.now

@@ -26,8 +26,8 @@ const Contact = () => {
                     <div className="contact-card">
                         <FaEnvelope className="icon" />
                         <h3>Email Us:</h3>
-                        <p>info@domlea.com</p>
-                        <p>support@domlea.com</p>
+                        <p>domains@idirect.com</p>
+                        {/* <p>support@domlea.com</p> */}
                     </div>
 
                     <div className="contact-card">
@@ -40,7 +40,8 @@ const Contact = () => {
                     <div className="contact-card">
                         <FaMapMarkerAlt className="icon" />
                         <h3>Canada</h3>
-                        <p>55 Ontario St S, Milton, ON L9T 2M3, Canada</p>
+                        <h3>America</h3>
+                        {/* <p>55 Ontario St S, Milton, ON L9T 2M3, Canada</p> */}
                     </div>
 
                     <div className="contact-card">

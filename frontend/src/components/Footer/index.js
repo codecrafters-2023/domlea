@@ -119,7 +119,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-bottom">
-                    <p className="copyright">&copy; {new Date().getFullYear()} Domlea. All rights reserved. <Link to={'https://gurmaanitservices.com'} className='copyright_link'>Gurmaan IT services</Link></p>
+                    <p className="copyright">&copy; {new Date().getFullYear()} Domlea. Designed by <Link to={'https://gurmaanitservices.com'} className='copyright_link'>Gurmaan IT services</Link></p>
                     <div className="payment-methods">
                         {/* Add payment method icons */}
                     </div>

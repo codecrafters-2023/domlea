@@ -136,10 +136,10 @@ const DomainListing = () => {
                         domains.map((domain) => (
                             <Link to={`/${domain.name}${domain.tld}`} className="domain-card-link" key={domain._id}>
                                 <div className="domain_card">
-                                    <img
+                                    {/* <img
                                         src={domain.imageUrl}
                                         alt={`${domain.name}${domain.tld}`}
-                                    />
+                                    /> */}
                                     <hr />
                                     <div className="domain-card-content">
                                         <div className="domain-name-price-div">

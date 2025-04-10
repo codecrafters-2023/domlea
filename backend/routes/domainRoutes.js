@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Domain = require('../models/Domain')
 const { protect, admin } = require('../middleware/authMiddleware');
-const {generateDomainImage, cloudinary} = require('../utils/imageGenerator');
+// const {generateDomainImage, cloudinary} = require('../utils/imageGenerator');
 
 router.get('/categories', protect, admin, async (req, res) => {
     try {
@@ -56,7 +56,7 @@ router.post('/addDomain', protect, admin, async (req, res) => {
             });
         }
 
-        const imageUrl = await generateDomainImage(name, tld.replace('.', ''));
+        // const imageUrl = await generateDomainImage(name, tld.replace('.', ''));
         
         const domain = await Domain.create({
             name: name.toLowerCase(),
@@ -69,7 +69,7 @@ router.post('/addDomain', protect, admin, async (req, res) => {
             expiryDate,
             description: description || '',
             isPremium,
-            imageUrl
+            // imageUrl
         });
 
         res.status(201).json({
@@ -223,26 +223,26 @@ router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
         }
 
         // Delete image from Cloudinary if exists
-        if (domain.imageUrl) {
-            try {
-                const publicId = getPublicIdFromUrl(domain.imageUrl);
-                const result = await cloudinary.uploader.destroy(publicId);
+        // if (domain.imageUrl) {
+        //     try {
+        //         const publicId = getPublicIdFromUrl(domain.imageUrl);
+        //         const result = await cloudinary.uploader.destroy(publicId);
 
-                if (result.result !== 'ok' && result.result !== 'not found') {
-                    console.error('Cloudinary deletion failed:', result);
-                    return res.status(500).json({
-                        success: false,
-                        message: 'Failed to delete domain image'
-                    });
-                }
-            } catch (error) {
-                console.error('Cloudinary error:', error);
-                return res.status(500).json({
-                    success: false,
-                    message: 'Error deleting domain image'
-                });
-            }
-        }
+        //         if (result.result !== 'ok' && result.result !== 'not found') {
+        //             console.error('Cloudinary deletion failed:', result);
+        //             return res.status(500).json({
+        //                 success: false,
+        //                 message: 'Failed to delete domain image'
+        //             });
+        //         }
+        //     } catch (error) {
+        //         console.error('Cloudinary error:', error);
+        //         return res.status(500).json({
+        //             success: false,
+        //             message: 'Error deleting domain image'
+        //         });
+        //     }
+        // }
 
         await domain.deleteOne();
 
