@@ -144,7 +144,7 @@ const DomainListing = () => {
                                     <div className="domain-card-content">
                                         <div className="domain-name-price-div">
                                             <h3>{domain.name}{domain.tld}</h3>
-                                            <div className="domain-price">{domain.price} <span style={{fontSize:"14px", margin:"0"}}>{domain.currency}</span></div>
+                                            <div className="domain-price">{domain.currencySymbol}{domain.price} <span style={{fontSize:"14px", margin:"0"}}>{domain.currency}</span></div>
                                         </div>
                                     </div>
                                 </div>

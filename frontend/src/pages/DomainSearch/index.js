@@ -75,10 +75,10 @@ const SearchDomain = () => {
 
 
                 <div className='flex justify-center items-center gap-5'>
-                <h2>Search Results for "{searchParams.get('search')}"</h2>
-                <div className='flex justify-end mt-3'>
-                    <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/'}>Search Again</Link></button>
-                </div>
+                    <h2>Search Results for "{searchParams.get('search')}"</h2>
+                    <div className='flex justify-end mt-3'>
+                        <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/'}>Search Again</Link></button>
+                    </div>
                 </div>
 
                 {loading ? (
@@ -138,8 +138,13 @@ const SearchDomain = () => {
                                                     </h3>
                                                     <div className="domain-price">
                                                         <span style={{ fontSize: "15px", color: "#2563eb" }}>Asking Price</span>
-                                                        <div>
-                                                            {domain.currencySymbol} {domain.price}
+                                                        <div style={{ display: "flex", alignItems: "center" }}>
+                                                            <img
+                                                                src={`https://flagcdn.com/16x12/${domain.countryCode}.png`}
+                                                                alt={domain.currency}
+                                                                style={{ width: '20px', height: '16px', marginRight: "5px" }}
+                                                            />
+                                                            {domain.price}
                                                             <span style={{ fontSize: "14px", color: "#000" }}>{domain.currency}</span>
                                                         </div>
                                                     </div>

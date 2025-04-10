@@ -174,13 +174,14 @@ const DomainDetails = () => {
                             </h1>
                             <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg" style={{ width: "200px" }}>
                                 <span style={{ marginBottom: "10px", fontSize: "16px" }}>Asking Price</span>
-                                <div className='mt-1'>
-                                    <span className="text-2xl font-bold">{domain.price}</span>
-                                    <span className="ml-2 text-gray-600">{domain.currency}</span>
-                                    {/* <img
+                                <div className='mt-1' style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                                    <img
                                         src={`https://flagcdn.com/16x12/${domain.countryCode}.png`}
                                         alt={domain.currency}
-                                    /> */}
+                                        style={{ width: '20px', height: '16px', marginRight: "5px" }}
+                                    />
+                                    <span className="text-2xl font-bold">{domain.price}</span>
+                                    <span className="ml-2 text-gray-600">{domain.currency}</span>
                                 </div>
                             </div>
                         </div>
