@@ -101,20 +101,20 @@ body {
 }
 
 .domain-card-content {
-    padding: 15px 5px;
+    padding: 5px 10px 10px 10px;
 }
 
 .domain-name-price-div{
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: space-between;
 }
 
 .domain-card-content h3 {
-    font-size: 1rem;
+    font-size: 17px;
     font-weight: 600;
     color: #2c3e50;
-    /* margin-bottom: 8px; */
+    margin-bottom: 5px;
 }
 
 .domain-card-content p {
@@ -129,6 +129,10 @@ body {
     color: #3954ff;
     margin: 0;
     padding: 3px 5px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     /* margin-bottom: 8px; */
 }
 
