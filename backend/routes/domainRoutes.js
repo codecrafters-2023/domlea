@@ -46,10 +46,10 @@ router.get('/all-tlds', protect, admin, async (req, res) => {
 
 router.post('/addDomain', protect, admin, async (req, res) => {
     try {
-        const { name, tld, price, category, expiryDate, description, isPremium, currency } = req.body;
+        const { name, tld, price, category, expiryDate, description, isPremium, currency, currencySymbol, countryCode } = req.body;
 
         // Validate required fields
-        if (!name || !tld || !price || !currency || !category) { // Added !currency
+        if (!name || !tld || !price || !currency || !currencySymbol || !countryCode || !category) {
             return res.status(400).json({
                 success: false,
                 message: 'Please include all required fields'
@@ -57,12 +57,14 @@ router.post('/addDomain', protect, admin, async (req, res) => {
         }
 
         const imageUrl = await generateDomainImage(name, tld.replace('.', ''));
-        // Create domain
+        
         const domain = await Domain.create({
             name: name.toLowerCase(),
             tld,
             price,
-            currency, // Added
+            currency,
+            currencySymbol,
+            countryCode,
             category,
             expiryDate,
             description: description || '',
@@ -156,6 +158,15 @@ router.get('/:id', protect, admin, async (req, res) => {
 router.put('/:id', protect, admin, async (req, res) => {
     try {
         const domain = await Domain.findById(req.params.id);
+        const { currency, currencySymbol, countryCode } = req.body;
+        
+        // Validate currency fields
+        if (!currency || !currencySymbol || !countryCode) {
+            return res.status(400).json({
+                success: false,
+                message: 'Currency information is required'
+            });
+        }
 
         if (!domain) {
             return res.status(404).json({

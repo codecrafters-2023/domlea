@@ -13,7 +13,9 @@ const EditDomain = () => {
         name: '',
         tld: '',
         price: '',
-        currency: 'USD', // Add this line
+        currency: 'USD',
+        currencySymbol: '$',
+        countryCode: 'us',
         category: '',
         expiryDate: '',
         description: ''
@@ -170,8 +172,16 @@ const EditDomain = () => {
                         <Select
                             options={currencyOptions}
                             value={currencyOptions.find(option => option.value === domain.currency)}
-                            onChange={(selectedOption) => 
-                                setDomain({ ...domain, currency: selectedOption.value })
+                            // onChange={(selectedOption) => 
+                            //     setDomain({ ...domain, currency: selectedOption.value })
+                            // }
+                            onChange={(selectedOption) =>
+                                setDomain({
+                                    ...domain,
+                                    currency: selectedOption.value,
+                                    currencySymbol: selectedOption.symbol,
+                                    countryCode: selectedOption.countryCode
+                                })
                             }
                             formatOptionLabel={formatOptionLabel}
                             styles={customStyles}

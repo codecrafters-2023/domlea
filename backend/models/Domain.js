@@ -25,6 +25,16 @@ const domainSchema = new mongoose.Schema({
         enum: ['USD', 'AUD', 'EURO', 'GBP', 'CAD'],
         index: true
     },
+    currencySymbol: {
+        type: String,
+        required: true,
+        enum: ['$', '€', '£']
+    },
+    countryCode: {
+        type: String,
+        required: true,
+        enum: ['us', 'au', 'eu', 'gb', 'ca']
+    },
     fullName: String,
     category: {
         type: String,

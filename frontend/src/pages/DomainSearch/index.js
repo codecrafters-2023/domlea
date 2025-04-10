@@ -139,7 +139,7 @@ const SearchDomain = () => {
                                                     <div className="domain-price">
                                                         <span style={{ fontSize: "15px", color: "#2563eb" }}>Asking Price</span>
                                                         <div>
-                                                            ${domain.price}
+                                                            {domain.currencySymbol} {domain.price}
                                                             <span style={{ fontSize: "14px", color: "#000" }}>{domain.currency}</span>
                                                         </div>
                                                     </div>

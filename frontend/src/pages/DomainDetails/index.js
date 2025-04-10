@@ -177,6 +177,10 @@ const DomainDetails = () => {
                                 <div className='mt-1'>
                                     <span className="text-2xl font-bold">{domain.price}</span>
                                     <span className="ml-2 text-gray-600">{domain.currency}</span>
+                                    {/* <img
+                                        src={`https://flagcdn.com/16x12/${domain.countryCode}.png`}
+                                        alt={domain.currency}
+                                    /> */}
                                 </div>
                             </div>
                         </div>
@@ -192,7 +196,7 @@ const DomainDetails = () => {
                                     {/* Action Buttons */}
                                     <div className="flex sm:flex-row gap-8" id='btn_div' style={{ paddingRight: "50px" }}>
                                         <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
-                                            <Link to={'https://www.escrow.com'} target='_blank'>Buy Now</Link>
+                                            <Link to={'https://www.escrow.com/?PID=54867'} target='_blank'>Buy Now</Link>
                                         </button>
                                         <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all">
                                             <button onClick={() => handleOfferClick(domain)}>Make an Offer</button>

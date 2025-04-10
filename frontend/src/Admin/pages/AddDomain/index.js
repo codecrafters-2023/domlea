@@ -32,6 +32,8 @@ const AddDomainPage = () => {
         tld: '.com',
         price: '',
         currency: 'USD',
+        currencySymbol: '$',
+        countryCode: 'us',
         category: '',
         description: defaultDescription,
         isPremium: false,
@@ -60,8 +62,8 @@ const AddDomainPage = () => {
 
     const formatOptionLabel = ({ label, symbol, countryCode }) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img 
-                src={`https://flagcdn.com/16x12/${countryCode}.png`} 
+            <img
+                src={`https://flagcdn.com/16x12/${countryCode}.png`}
                 alt={label}
                 style={{ width: '16px', height: '12px' }}
             />
@@ -149,8 +151,13 @@ const AddDomainPage = () => {
                             <Select
                                 options={currencyOptions}
                                 value={currencyOptions.find(option => option.value === formData.currency)}
-                                onChange={(selectedOption) => 
-                                    setFormData({ ...formData, currency: selectedOption.value })
+                                onChange={(selectedOption) =>
+                                    setFormData({
+                                        ...formData,
+                                        currency: selectedOption.value,
+                                        currencySymbol: selectedOption.symbol,
+                                        countryCode: selectedOption.countryCode
+                                    })
                                 }
                                 formatOptionLabel={formatOptionLabel}
                                 styles={customStyles}
