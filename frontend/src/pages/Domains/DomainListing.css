@@ -40,7 +40,7 @@ body {
 
 .filters input,
 .filters select {
-    padding: 12px;
+    padding: 5px 10px !important;
     font-size: 16px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -217,7 +217,7 @@ body {
 }
 /* Add these styles at the bottom */
 .filters button {
-    padding: 12px 24px;
+    padding: 10px 24px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
