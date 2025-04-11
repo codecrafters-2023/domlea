@@ -76,8 +76,9 @@ const SearchDomain = () => {
 
                 <div className='flex justify-center items-center gap-5'>
                     <h2>Search Results for "{searchParams.get('search')}"</h2>
-                    <div className='flex justify-end mt-3'>
+                    <div className='flex justify-end mt-3 gap-2'>
                         <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/'}>Search Again</Link></button>
+                        <button className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-3 py-1 rounded-sm font-base text-base transition-all"><Link to={'/domainList'}>Domains List</Link></button>
                     </div>
                 </div>
 
@@ -177,7 +178,7 @@ const SearchDomain = () => {
                                 <div className="no-results">
                                     No domains found matching your criteria
                                 </div>
-                                <button className='backToSearch_btn'><Link to={'/'}>Back to Search</Link></button>
+                                {/* <button className='backToSearch_btn'><Link to={'/'}>Back to Search</Link></button> */}
                             </div>
                         )}
                     </>
