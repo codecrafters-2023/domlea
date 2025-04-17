@@ -86,9 +86,9 @@ const Footer = () => {
                         <h4>Services</h4>
                         <ul>
                             <li><a href="/domainList">Domain Search</a></li>
-                            {/* <li><a href="/">Web Hosting</a></li>
-                            <li><a href="/">SSL Certificates</a></li>
-                            <li><a href="/">Domain Transfer</a></li> */}
+                            <li><a href="/terms">Terms and Conditions</a></li>
+                            {/* <li><a href="/">SSL Certificates</a></li> */}
+                            {/* <li><a href="/">Domain Transfer</a></li> */}
                         </ul>
                     </div>
 

@@ -11,7 +11,7 @@ const DomainListing = () => {
     const [tld, setTld] = useState("");
     const [tlds, setTlds] = useState([]);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(20);
+    const [limit, setLimit] = useState(52);
     const [total, setTotal] = useState(0);
     const [pages, setPages] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -111,9 +111,9 @@ const DomainListing = () => {
                         ))}
                     </select>
                     <select value={limit} onChange={(e) => setLimit(parseInt(e.target.value))}>
-                        <option value={10}>10 per page</option>
-                        <option value={20}>20 per page</option>
                         <option value={50}>50 per page</option>
+                        <option value={75}>75 per page</option>
+                        <option value={100}>100 per page</option>
                     </select>
                     {/* Added buttons */}
                     <button className="apply-button" onClick={handleApplyFilters}>

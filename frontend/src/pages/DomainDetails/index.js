@@ -26,6 +26,11 @@ const DomainDetails = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!formData.termsAccepted) {
+            alert('Please accept the terms and conditions');
+            return;
+        }
         try {
             await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
                 ...formData,
@@ -40,9 +45,10 @@ const DomainDetails = () => {
     };
 
     const handleChange = (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name]: value
         });
     };
 
@@ -125,6 +131,21 @@ const DomainDetails = () => {
                                     autoComplete='off'
                                 />
                             </div>
+                            <div className="form-group">
+                                <label style={{ display: "flex", alignItems: "center" }}>
+                                    <input
+                                        type="checkbox"
+                                        name="termsAccepted"
+                                        checked={formData.termsAccepted}
+                                        onChange={handleChange}
+                                        style={{ marginRight: '8px', width: '15px', height: '15px' }}
+                                    />
+                                    I agree to the
+                                    <Link to="/terms" target="_blank" style={{ color: '#0984e3', marginLeft: '4px' }}>
+                                        Terms & Conditions
+                                    </Link>
+                                </label>
+                            </div>
                             <p style={{ fontSize: "15px" }}>
                                 Please note we feel <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> is the best option to secure the domain name. If you negotiate, then you may lose your chance to secure Domain for asking price. We reserve the right to change the asking price any time without any notice. Your contact information is secure with us, we do not share or sell the information.
                             </p>
@@ -174,7 +195,7 @@ const DomainDetails = () => {
                             </h1>
                             <div className="inline-block bg-blue-100 text-blue-800 px-6 py-3 rounded-lg" style={{ width: "200px" }}>
                                 <span style={{ marginBottom: "10px", fontSize: "16px" }}>Asking Price</span>
-                                <div className='mt-1' style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                                <div className='mt-1' style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                     <img
                                         src={`https://flagcdn.com/16x12/${domain.countryCode}.png`}
                                         alt={domain.currency}

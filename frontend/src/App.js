@@ -24,6 +24,7 @@ import { AnimatePresence } from 'framer-motion';
 import DomainList from './pages/Domains';
 import DomainSearch from './pages/DomainSearch';
 import DomainDetails from './pages/DomainDetails';
+import Terms from './pages/Terms';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
             <Route path="/domainList" element={<DomainList />} />
             <Route path="/domainsearch" element={<DomainSearch />} />
             <Route path="/:domainName" element={<DomainDetails />} />
+            <Route path="/terms" element={<Terms />} />
             {/* </Route> */}
 
             {/* ============Admin Routes=============== */}

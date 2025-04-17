@@ -24,11 +24,7 @@ const FAQ = () => {
         <div className="faq-section">
             <div className="overlay"></div>
             <div className="faq-container">
-                <h2 className="faq-title">Frequently Asked Question</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                    invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                </p>
+                <h2 className="faq-title">Frequently Asked Questions!</h2>
                 <div className="faq-content">
                     <img src={process.env.PUBLIC_URL + '/faq-img2.png'} alt="Side Illustration" className="faq-side-image" />
                     <div className="faq-list">
