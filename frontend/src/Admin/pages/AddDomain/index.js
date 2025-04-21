@@ -8,23 +8,31 @@ import Select from 'react-select';
 
 const AddDomainPage = () => {
 
-    const defaultDescription = `Keyword domain for your business!
+    const defaultDescription = `Unlock the Power of a Premium Keyword Domain for Your Business
 
-    Not just a web address but a powerful keyword that aligns perfectly with your business. You do not need to change your business and your main website; obtaining this keyword domain name will be a game-changer.
-    
-    SEO Dominance: With this Domain name, you'll instantly gain a competitive advantage in search engine rankings. Your website will naturally rank higher in relevant search results, driving more organic traffic.
-    
-    Memorable Branding: This Domain name is concise, easy to remember, and communicates exactly what your business is about. It leaves a lasting impression on potential customers.
-    
-    Credibility and Trust: A keyword-rich domain establishes your authority in your niche and instills trust in your audience.
-    
-    Marketing Advantage: Imagine the marketing campaigns you could create; it's a powerful asset for your advertising efforts.
-    
-    Investment Value: Domain names, especially keyword-rich ones, tend to appreciate over time. It's not just an immediate asset but a long-term investment.
-    
-    I'm offering you the exclusive opportunity to own [YourDomain.com]. This domain has enormous potential to drive growth for your business. Please let me know if you'd like to discuss the details, including pricing and transfer options.
-    
-    Don't miss out on this chance to elevate your online presence and achieve new heights in your industry.`;
+We’re offering you an exclusive opportunity to acquire a high-impact keyword domain that perfectly aligns with your business. This isn’t just a web address—it’s a strategic asset that can elevate your brand and accelerate growth.
+
+✅ Perfect Business Alignment
+This domain directly reflects your niche, making it a seamless fit with your brand. There’s no need to replace your main website—you can forward this domain to your existing site or use it to create a targeted lead-generation platform.
+
+✅ SEO Advantage
+Own your niche in search rankings. A keyword-rich domain naturally improves your visibility on search engines, driving more organic traffic and putting you ahead of the competition.
+
+✅ Stronger Branding
+Short, memorable, and highly relevant—this domain sticks with your audience and clearly communicates what your business is all about.
+
+✅ Built-In Trust & Authority
+Keyword domains convey expertise and credibility, helping you gain trust with potential customer’s right from the first click.
+
+✅ Marketing Power
+Imagine the campaigns you could build around this domain. It adds impact to every ad, social post, or email campaign, enhancing your overall marketing strategy.
+
+✅ Long-Term Investment
+High-quality domain names appreciate in value. Beyond its immediate benefits, this is a smart investment in your brand’s future.
+
+This domain name offers immense potential to drive traffic, generate leads, and position your business as a leader in your space. If you’re interested in discussing pricing, transfer options, or how to make the most of this opportunity, we will be happy to connect.
+
+Don’t miss this chance to boost your online presence and stand out in your industry.`;
 
 
     const [formData, setFormData] = useState({
