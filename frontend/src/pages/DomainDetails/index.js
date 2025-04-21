@@ -19,7 +19,7 @@ const DomainDetails = () => {
         domain: ''
     });
 
-    
+
 
     const handleOfferClick = (domain) => {
         setSelectedDomain(`${domain.name}${domain.tld}`);
@@ -265,6 +265,11 @@ const DomainDetails = () => {
 
                             {/* Right Column - Meta Data */}
                             <div className="bg-gray-50 p-6 rounded-xl space-y-4">
+                                <img
+                                    src={process.env.PUBLIC_URL + '/domain2.jpg'}
+                                    alt="Domain search"
+                                    style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+                                />
                                 <div className="flex justify-between items-center">
                                     {/* <span className="text-gray-600">Status</span> */}
                                     <span className="text-green-600 font-medium">
