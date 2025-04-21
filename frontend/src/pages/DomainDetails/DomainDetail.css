@@ -251,6 +251,13 @@
     font-weight: 400;
 }
 
+.modal-overlay input{
+    width: 100%;
+    padding: 3px!important;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 
 @media (max-width: 768px) {
     .domain-content {
