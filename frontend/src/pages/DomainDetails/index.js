@@ -149,8 +149,7 @@ const DomainDetails = () => {
                                 </label>
                             </div>
                             <p style={{ fontSize: "15px" }}>
-                                <strong>Please note:</strong> We believe that choosing the <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> option is the most reliable way to secure this domain name. Entering into negotiations may result in losing the opportunity to acquire the Domain name at the current asking price. The Domain seller reserves the right to modify the asking price at any time without prior notice.</p>
-                            <p style={{ fontSize: "15px" }}>
+                                <strong>Please note:</strong> We believe that choosing the <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> option is the most reliable way to secure this domain name. Entering into negotiations may result in losing the opportunity to acquire the Domain name at the current asking price. The Domain seller reserves the right to modify the asking price at any time without prior notice.
                                 Rest assured, your contact information is kept strictly confidential, we do not share or sell your details under any circumstances.
                             </p>
                             {/* <p style={{ fontSize: "15px" }}>
