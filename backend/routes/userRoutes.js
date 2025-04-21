@@ -429,14 +429,45 @@ router.post('/subscribe', async (req, res) => {
 // });
 
 // get domain details
+// router.get('/:domainName', async (req, res) => {
+//     try {
+
+//         const domain = await Domain.findOne({ fullName: req.params.domainName });
+//         if (!domain) return res.status(404).json({ error: 'Domain not found' });
+//         res.json(domain);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// });
+
 router.get('/:domainName', async (req, res) => {
     try {
+        // Convert to lowercase and remove any accidental whitespace
+        const searchName = req.params.domainName.toLowerCase().trim();
+        
+        const domain = await Domain.findOne({ 
+            fullName: searchName 
+        });
 
-        const domain = await Domain.findOne({ fullName: req.params.domainName });
-        if (!domain) return res.status(404).json({ error: 'Domain not found' });
-        res.json(domain);
+
+        if (!domain) {
+            return res.status(404).json({ 
+                success: false,
+                message: 'Domain not found' 
+            });
+        }
+
+        res.json({
+            success: true,
+            data: domain
+        });
+
     } catch (error) {
-        res.status(500).json({ error: 'Server error' });
+        console.error('Domain detail error:', error);
+        res.status(500).json({ 
+            success: false,
+            message: 'Server error' 
+        });
     }
 });
 

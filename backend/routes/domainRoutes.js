@@ -260,7 +260,30 @@ router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
     }
 });
 
+router.get('/by-name/:fullName', async (req, res) => {
+    try {
+        const fullName = req.params.fullName.toLowerCase();
+        const domain = await Domain.findOne({ fullName });
+        
+        if (!domain) {
+            return res.status(404).json({
+                success: false,
+                message: 'Domain not found'
+            });
+        }
 
+        res.json({
+            success: true,
+            data: domain
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error'
+        });
+    }
+});
 
 
 

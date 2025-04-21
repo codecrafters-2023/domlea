@@ -19,6 +19,8 @@ const DomainDetails = () => {
         domain: ''
     });
 
+    
+
     const handleOfferClick = (domain) => {
         setSelectedDomain(`${domain.name}${domain.tld}`);
         setShowOfferModal(true);
@@ -62,7 +64,7 @@ const DomainDetails = () => {
                     },
                 }
                 );
-                setDomain(response.data);
+                setDomain(response.data.data);
             } catch (error) {
                 console.error('Error fetching domain:', error);
             }
@@ -234,7 +236,14 @@ const DomainDetails = () => {
                                 <div className="domain-description">
                                     <h3 className="description-title">Key Features</h3>
                                     <ul className="features-list">
-                                        {domain.description.split('\n').map((point, index) => (
+                                        {/* {domain.description.split('\n').map((point, index) => (
+                                            point.trim() && (
+                                                <li key={index} className="feature-item">
+                                                    {point.trim()}
+                                                </li>
+                                            )
+                                        ))} */}
+                                        {(domain.description || '').split('\n').map((point, index) => (
                                             point.trim() && (
                                                 <li key={index} className="feature-item">
                                                     {point.trim()}
