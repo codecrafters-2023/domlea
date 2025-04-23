@@ -149,10 +149,11 @@ const DomainListing = () => {
                                 onChange={(e) => setLengthFilter(e.target.value)}
                             >
                                 <option value="">Any length</option>
-                                <option value="5">📏 Up to 5 letters</option>
-                                <option value="10">📐 6-10 letters</option>
-                                <option value="20">📏 11-20 letters</option>
-                                <option value="20+">📐 20+ letters</option>
+                                <option value="4">📏 Up to 4 letters</option>
+                                <option value="8">📐 Up to 8 letters</option>
+                                <option value="15">📏 Up to 15 letters</option>
+                                <option value="20">📐 Up to 20 letters</option>
+                                <option value="20+">📏 20+ letters</option>
                             </select>
                         </div>
 
