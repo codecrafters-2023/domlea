@@ -86,7 +86,7 @@ const DomainListing = () => {
         setSearch("");
         setTld("");
         setLengthFilter("");
-        setLimit(""); 
+        setLimit(52);
         setAppliedFilters({
             search: "",
             tld: "",
