@@ -59,8 +59,9 @@ router.post('/addDomain', protect, admin, async (req, res) => {
         // const imageUrl = await generateDomainImage(name, tld.replace('.', ''));
         
         const domain = await Domain.create({
-            name: name.toLowerCase(),
+            name: name,
             tld,
+            fullName: (name + tld).toLowerCase(),
             price,
             currency,
             currencySymbol,
@@ -89,7 +90,7 @@ router.post('/addDomain', protect, admin, async (req, res) => {
 
 router.get('/getDomains', protect, admin, async (req, res) => {
     try {
-        const { search, category, tld, page = 1, limit = 10 } = req.query;
+        const { search, category, tld, page = 1, limit = 20 } = req.query;
 
         const query = {};
 
@@ -260,30 +261,30 @@ router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
     }
 });
 
-router.get('/by-name/:fullName', async (req, res) => {
-    try {
-        const fullName = req.params.fullName.toLowerCase();
-        const domain = await Domain.findOne({ fullName });
+// router.get('/by-name/:fullName', async (req, res) => {
+//     try {
+//         const fullName = req.params.fullName;
+//         const domain = await Domain.findOne({ fullName });
         
-        if (!domain) {
-            return res.status(404).json({
-                success: false,
-                message: 'Domain not found'
-            });
-        }
+//         if (!domain) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: 'Domain not found'
+//             });
+//         }
 
-        res.json({
-            success: true,
-            data: domain
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: 'Server error'
-        });
-    }
-});
+//         res.json({
+//             success: true,
+//             data: domain
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Server error'
+//         });
+//     }
+// });
 
 
 

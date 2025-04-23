@@ -65,10 +65,10 @@ const domainSchema = new mongoose.Schema({
     }
 });
 
-domainSchema.pre('save', function (next) {
-    this.fullName = `${this.name}${this.tld}`;
-    next();
-});
+// domainSchema.pre('save', function (next) {
+//     this.fullName = `${this.name}${this.tld}`;
+//     next();
+// });
 
 const Domain = mongoose.model('Domain', domainSchema);
 

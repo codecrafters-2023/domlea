@@ -18,7 +18,10 @@ const transporter = nodemailer.createTransport({
 // Configure Cloudinary
 router.get("/userDomainsList", async (req, res) => {
     try {
-        const { search, tld, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
+        const { search, tld, minPrice, maxPrice, page, limit, length } = req.query;
+
+        const parsedPage = Math.max(parseInt(page, 10) || 1, 1);
+        const parsedLimit = Math.max(parseInt(limit, 10) || 10);
 
         let query = {};
 
@@ -39,17 +42,57 @@ router.get("/userDomainsList", async (req, res) => {
             if (maxPrice) query.price.$lte = parseFloat(maxPrice);
         }
 
-        // Calculate skip value for pagination
-        const skip = (page - 1) * limit;
+        // Add name length filtering
+        if (length) {
+            query.nameLength = {};
+            switch (length) {
+                case '5':
+                    query.nameLength.$lte = 5;
+                    break;
+                case '10':
+                    query.nameLength.$gte = 6;
+                    query.nameLength.$lte = 10;
+                    break;
+                case '20':
+                    query.nameLength.$gte = 11;
+                    query.nameLength.$lte = 20;
+                    break;
+                case '20+':
+                    query.nameLength.$gt = 20;
+                    break;
+            }
+        }
 
-        // Fetch domains from the database with pagination
-        const domains = await Domain.find(query)
-            .skip(skip)
-            .limit(parseInt(limit))
-            .sort({ createdAt: -1 })
-            .lean();
+        const skip = (parsedPage - 1) * parsedLimit;
 
-        const total = await Domain.countDocuments(query);
+        // Aggregation pipeline
+        const aggregationPipeline = [
+            {
+                $addFields: {
+                    nameLength: { $strLenCP: "$name" }
+                }
+            },
+            { $match: query },
+            { $sort: { createdAt: -1 } },
+            { $skip: skip },
+            { $limit: parsedLimit  }
+        ];
+
+        // Get paginated results
+        const domains = await Domain.aggregate(aggregationPipeline);
+
+        // Get total count
+        const countPipeline = [
+            {
+                $addFields: {
+                    nameLength: { $strLenCP: "$name" }
+                }
+            },
+            { $match: query },
+            { $count: "total" }
+        ];
+        const totalResult = await Domain.aggregate(countPipeline);
+        const total = totalResult[0]?.total || 0;
 
         res.json({
             success: true,
@@ -442,13 +485,11 @@ router.post('/subscribe', async (req, res) => {
 
 router.get('/:domainName', async (req, res) => {
     try {
-        // Convert to lowercase and remove any accidental whitespace
         const searchName = req.params.domainName.toLowerCase().trim();
         
         const domain = await Domain.findOne({ 
-            fullName: searchName 
+            fullName: searchName // Match against lowercase version
         });
-
 
         if (!domain) {
             return res.status(404).json({ 
@@ -457,9 +498,14 @@ router.get('/:domainName', async (req, res) => {
             });
         }
 
+        // Return domain with original casing
         res.json({
             success: true,
-            data: domain
+            data: {
+                ...domain.toObject(),
+                name: domain.name, // Original casing
+                tld: domain.tld    // Original casing
+            }
         });
 
     } catch (error) {

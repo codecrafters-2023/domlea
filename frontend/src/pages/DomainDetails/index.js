@@ -213,6 +213,12 @@ const DomainDetails = () => {
                             </div>
                         </div>
 
+                        <div className='domain_desc_div'>
+                            <p>
+                                With us, you're not just purchasing a Domain name, you're gaining a partner dedicated to your success. We offer full-service support to help you launch, grow, and thrive with confidence. From website development and SEO to marketing, IT services, and expert guidance, we provide comprehensive business solutions. We’re here to help you build and scale your business from the ground up.
+                            </p>
+                        </div>
+
                         {/* Main Content */}
                         <div className="px-8 py-12 grid md:grid-cols-3 gap-12">
                             {/* Left Column */}
@@ -264,7 +270,7 @@ const DomainDetails = () => {
                             </div>
 
                             {/* Right Column - Meta Data */}
-                            <div className="bg-gray-50 p-6 rounded-xl space-y-4">
+                            <div className="bg-gray-50 p-6 rounded-xl space-y-4" style={{ marginTop: "65px" }}>
                                 <img
                                     src={process.env.PUBLIC_URL + '/domain2.jpg'}
                                     alt="Domain search"

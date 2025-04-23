@@ -258,6 +258,20 @@
     border: 1px solid #ccc;
 }
 
+.domain_desc_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.domain_desc_div p{
+    width: 60%;
+    text-align: center;
+    color: #636e72;
+    font-size: 15px;
+}
+
 
 @media (max-width: 768px) {
     .domain-content {
@@ -294,5 +308,9 @@
 
     .detail-domain-name{
         padding: 10px 10px 48px 10px!important;
+    }
+    .domain_desc_div p{
+        width: 100%;
+        padding: 0 10px;
     }
 }

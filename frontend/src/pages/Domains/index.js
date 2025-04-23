@@ -15,6 +15,7 @@ const DomainListing = () => {
     const [total, setTotal] = useState(0);
     const [pages, setPages] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [lengthFilter, setLengthFilter] = useState("");
 
     const handlePageChange = (newPage) => {
         setPage(newPage);
@@ -75,17 +76,21 @@ const DomainListing = () => {
         setAppliedFilters({
             search,
             tld,
+            length: lengthFilter // Add this
         });
-        setPage(1); // Reset to first page
+        setPage(1);
     };
 
     // Handle Remove Filters
     const handleRemoveFilters = () => {
         setSearch("");
         setTld("");
+        setLengthFilter("");
+        setLimit(""); 
         setAppliedFilters({
             search: "",
             tld: "",
+            length: "" // Add this
         });
         setPage(1);
     };
@@ -95,33 +100,75 @@ const DomainListing = () => {
             <Header />
             <div className="domain-listing-container">
                 <h1 className="domain-listing-title">Search Your Dream Domain</h1>
-                <div className="filters">
-                    <input
-                        type="text"
-                        placeholder="Search Categories"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                    <select value={tld} onChange={(e) => setTld(e.target.value)}>
-                        <option value="">All TLDs</option>
-                        {tlds.map((tldOption) => (
-                            <option key={tldOption} value={tldOption}>
-                                {tldOption}
-                            </option>
-                        ))}
-                    </select>
-                    <select value={limit} onChange={(e) => setLimit(parseInt(e.target.value))}>
-                        <option value={50}>50 per page</option>
-                        <option value={75}>75 per page</option>
-                        <option value={100}>100 per page</option>
-                    </select>
-                    {/* Added buttons */}
-                    <button className="apply-button" onClick={handleApplyFilters}>
-                        Apply Filters
-                    </button>
-                    <button className="remove-button" onClick={handleRemoveFilters}>
-                        Clear Filters
-                    </button>
+                <div className="filters-section">
+                    <div className="filters-header">
+                        <h3 className="filter-title">Filter Domains</h3>
+                        <div className="filter-actions">
+                            <button className="filter-button apply-button" onClick={handleApplyFilters}>
+                                <span>🔍</span> Apply
+                            </button>
+                            <button className="filter-button remove-button" onClick={handleRemoveFilters}>
+                                <span>🗑️</span> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="filter-controls">
+                        <div className="filter-group">
+                            <label className="filter-label">Search by name</label>
+                            <input
+                                type="text"
+                                className="filter-input"
+                                placeholder="Start typing..."
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="filter-group">
+                            <label className="filter-label">Domain ending (TLD)</label>
+                            <select
+                                className="filter-input filter-select"
+                                value={tld}
+                                onChange={(e) => setTld(e.target.value)}
+                            >
+                                <option value="">All TLDs</option>
+                                {tlds.map((tldOption) => (
+                                    <option key={tldOption} value={tldOption}>
+                                        .{tldOption}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="filter-group">
+                            <label className="filter-label">Name length</label>
+                            <select
+                                className="filter-input filter-select"
+                                value={lengthFilter}
+                                onChange={(e) => setLengthFilter(e.target.value)}
+                            >
+                                <option value="">Any length</option>
+                                <option value="5">📏 Up to 5 letters</option>
+                                <option value="10">📐 6-10 letters</option>
+                                <option value="20">📏 11-20 letters</option>
+                                <option value="20+">📐 20+ letters</option>
+                            </select>
+                        </div>
+
+                        <div className="filter-group">
+                            <label className="filter-label">Items per page</label>
+                            <select
+                                className="filter-input filter-select"
+                                value={limit}
+                                onChange={(e) => setLimit(Number(e.target.value))}
+                            >
+                                <option value={50}>50 domains</option>
+                                <option value={75}>75 domains</option>
+                                <option value={100}>100 domains</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div className="domain-card-container">
                     {loading ? (
