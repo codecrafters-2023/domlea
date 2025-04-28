@@ -181,7 +181,10 @@ router.get("/all-tlds", async (req, res) => {
 // Domain Search Service
 router.get("/search-domains", async (req, res) => {
     try {
-        const { search, minPrice, maxPrice } = req.query;
+        const { search, minPrice, maxPrice, page = 1, limit = 20 } = req.query;
+        const parsedPage = Math.max(parseInt(page, 10), 1);
+        const parsedLimit = Math.max(parseInt(limit, 10), 1);
+        const skip = (parsedPage - 1) * parsedLimit;
         const responseData = {
             exactMatch: null,
             relatedDomains: []
@@ -207,10 +210,7 @@ router.get("/search-domains", async (req, res) => {
             const searchTerm = search.trim();
             const firstChar = searchTerm.charAt(0).toLowerCase();
 
-            // Match:
-            // 1. Name/category starts with the first character, OR
-            // 2. Name/category contains the full search term, OR
-            // 3. Name/category contains the first character anywhere
+
             query.$or = [
                 { name: { $regex: `^${firstChar}`, $options: "i" } },
                 { category: { $regex: `^${firstChar}`, $options: "i" } },
@@ -233,16 +233,21 @@ router.get("/search-domains", async (req, res) => {
             query._id = { $ne: responseData.exactMatch._id };
         }
 
+        const total = await Domain.countDocuments(query);
         // Get related domains
         responseData.relatedDomains = await Domain.find(query)
-            .limit(20)
-            .sort({ price: 1 })
-            .lean();
+        .skip(skip)
+        .limit(parsedLimit)
+        .sort({ price: 1 })
+        .lean();
 
-        res.json({
-            success: true,
-            ...responseData
-        });
+    res.json({
+        success: true,
+        ...responseData,
+        total,
+        page: parsedPage,
+        pages: Math.ceil(total / parsedLimit),
+    });
 
     } catch (error) {
         console.error("Search error:", error);

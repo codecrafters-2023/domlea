@@ -12,66 +12,41 @@ const SearchDomain = () => {
         relatedDomains: []
     });
     const [loading, setLoading] = useState(true);
-
-    console.log(results);
-
-    // const [showOfferModal, setShowOfferModal] = useState(false);
-    // const [selectedDomain, setSelectedDomain] = useState('');
-    // const [formData, setFormData] = useState({
-    //     name: '',
-    //     email: '',
-    //     mobile: '',
-    //     offerPrice: '',
-    //     domain: ''
-    // });
-
-    // const handleOfferClick = (domain) => {
-    //     setSelectedDomain(`${domain.name}${domain.tld}`);
-    //     setShowOfferModal(true);
-    // };
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
-    //             ...formData,
-    //             domain: selectedDomain
-    //         });
-    //         alert('Offer submitted successfully!');
-    //         setShowOfferModal(false);
-    //         setFormData({ name: '', email: '', mobile: '' });
-    //     } catch (error) {
-    //         alert('Error submitting offer');
-    //     }
-    // };
-
-    // const handleChange = (e) => {
-    //     setFormData({
-    //         ...formData,
-    //         [e.target.name]: e.target.value
-    //     });
-    // };
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         const fetchResults = async () => {
             try {
                 const response = await axios.get(
                     `${process.env.REACT_APP_API_URL}/users/search-domains`,
-                    { params: Object.fromEntries(searchParams) }
+                    {
+                        params: {
+                            ...Object.fromEntries(searchParams),
+                            page: currentPage,
+                        }
+                    }
                 );
                 setResults(response.data);
+                setTotalPages(response.data.pages);
             } finally {
                 setLoading(false);
             }
         };
         fetchResults();
-    }, [searchParams]);
+    }, [searchParams, currentPage]);
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage);
+        }
+    };
 
     return (
         <div className="search-results-page">
             <Header />
             <div className="results-container">
+
 
 
                 <div className='flex justify-center items-baseline gap-5'>
@@ -182,6 +157,29 @@ const SearchDomain = () => {
                             </div>
                         )}
                     </>
+                )}
+                {!loading && totalPages > 1 && (
+                    <div className="pagination flex justify-center gap-4 my-6">
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className="px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400"
+                        >
+                            Previous
+                        </button>
+
+                        <span className="self-center text-gray-700">
+                            Page {currentPage} of {totalPages}
+                        </span>
+
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className="px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400"
+                        >
+                            Next
+                        </button>
+                    </div>
                 )}
             </div>
             <Footer />
