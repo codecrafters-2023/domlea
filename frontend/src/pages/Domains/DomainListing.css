@@ -348,6 +348,7 @@ body {
     .filter-actions {
         width: 100%;
         justify-content: stretch;
+        flex-direction: column;
     }
     
     .filter-button {

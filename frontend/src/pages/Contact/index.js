@@ -40,15 +40,14 @@ const Contact = () => {
                     <div className="contact-card">
                         <FaMapMarkerAlt className="icon" />
                         <h3>Canada</h3>
-                        <h3>America</h3>
                         {/* <p>55 Ontario St S, Milton, ON L9T 2M3, Canada</p> */}
                     </div>
 
-                    <div className="contact-card">
+                    {/* <div className="contact-card">
                         <FaHeadset className="icon" />
                         <h3>24/7</h3>
                         <p>We Are Working 24/7 </p>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="map-container">

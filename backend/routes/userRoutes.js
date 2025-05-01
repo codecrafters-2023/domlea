@@ -190,6 +190,11 @@ router.get("/search-domains", async (req, res) => {
             relatedDomains: []
         };
 
+        // Declare variables in outer scope
+        let searchTerm = '';
+        let searchTermLower = '';
+        let firstChar = '';
+
         // Check for exact domain match first
         if (search && search.includes('.')) {
             const [name, tld] = search.split('.');
@@ -207,21 +212,26 @@ router.get("/search-domains", async (req, res) => {
         const query = {};
 
         if (search) {
-            const searchTerm = search.trim();
-            const firstChar = searchTerm.charAt(0).toLowerCase();
-
+            searchTerm = search.trim();
+            searchTermLower = searchTerm.toLowerCase();
+            firstChar = searchTerm.charAt(0).toLowerCase();
 
             query.$or = [
-                { name: { $regex: `^${firstChar}`, $options: "i" } },
-                { category: { $regex: `^${firstChar}`, $options: "i" } },
+                // Exact matches
+                { name: searchTerm },
+                { category: searchTerm },
+                
+                // Partial matches
                 { name: { $regex: searchTerm, $options: "i" } },
                 { category: { $regex: searchTerm, $options: "i" } },
+                
+                // First letter anywhere
                 { name: { $regex: firstChar, $options: "i" } },
                 { category: { $regex: firstChar, $options: "i" } }
             ];
         }
 
-        // Price filters (unchanged)
+        // Price filters
         if (minPrice || maxPrice) {
             query.price = {};
             if (minPrice) query.price.$gte = parseFloat(minPrice);
@@ -233,21 +243,48 @@ router.get("/search-domains", async (req, res) => {
             query._id = { $ne: responseData.exactMatch._id };
         }
 
-        const total = await Domain.countDocuments(query);
-        // Get related domains
-        responseData.relatedDomains = await Domain.find(query)
-        .skip(skip)
-        .limit(parsedLimit)
-        .sort({ price: 1 })
-        .lean();
+        // Build aggregation pipeline
+        const aggregationPipeline = [
+            { $match: query },
+            {
+                $addFields: {
+                    score: {
+                        $add: [
+                            // Exact matches
+                            { $cond: [{ $eq: [{ $toLower: "$name" }, searchTermLower] }, 3, 0] },
+                            { $cond: [{ $eq: [{ $toLower: "$category" }, searchTermLower] }, 2, 0] },
+                            
+                            // Partial matches
+                            { $cond: [{ $regexMatch: { input: "$name", regex: searchTerm, options: "i" } }, 1, 0] },
+                            { $cond: [{ $regexMatch: { input: "$category", regex: searchTerm, options: "i" } }, 1, 0] },
+                            
+                            // First letter matches
+                            { $cond: [{ $regexMatch: { input: "$name", regex: firstChar, options: "i" } }, 0.5, 0] },
+                            { $cond: [{ $regexMatch: { input: "$category", regex: firstChar, options: "i" } }, 0.5, 0] }
+                        ]
+                    }
+                }
+            },
+            { $sort: { score: -1, price: 1 } },
+            { $skip: skip },
+            { $limit: parsedLimit }
+        ];
 
-    res.json({
-        success: true,
-        ...responseData,
-        total,
-        page: parsedPage,
-        pages: Math.ceil(total / parsedLimit),
-    });
+        // Get paginated results
+        const [totalResult, domains] = await Promise.all([
+            Domain.countDocuments(query),
+            Domain.aggregate(aggregationPipeline)
+        ]);
+
+        responseData.relatedDomains = domains;
+
+        res.json({
+            success: true,
+            ...responseData,
+            total: totalResult,
+            page: parsedPage,
+            pages: Math.ceil(totalResult / parsedLimit),
+        });
 
     } catch (error) {
         console.error("Search error:", error);
@@ -401,93 +438,6 @@ router.post('/subscribe', async (req, res) => {
         res.status(500).json({ error: 'Subscription failed' }); // Fixed response
     }
 });
-
-
-
-// router.get('/check-domain', async (req, res) => {
-//     const { domain } = req.query;
-
-//     // Remove any extra dots from the domain name
-//     const cleanedDomain = domain.replace(/\.+/g, '.');
-
-//     try {
-//         // Split the domain into name and TLD
-//         const [name, tld] = cleanedDomain.split('.');
-
-//         // Query the database for the domain
-//         const domainExists = await Domain.findOne({ name, tld: `.${tld}` });
-
-//         res.json({ exists: !!domainExists });
-//     } catch (error) {
-//         console.error("Error checking domain:", error);
-//         res.status(500).json({ error: 'Error checking domain' });
-//     }
-// });
-
-// router.get('/domain/:domainName', async (req, res) => {
-//     const { domainName } = req.params;
-
-//     try {
-//         // Split the domain into name and TLD
-//         const [name, tld] = domainName.split('.');
-
-//         // Query the database for the domain
-//         const domain = await Domain.findOne({ name, tld: `.${tld}` });
-
-//         // Fetch related domains (domains that start with the first letter of the searched domain)
-//         const firstLetter = name.substring(0, 1); // Get the first letter
-//         const relatedDomains = await Domain.find({
-//             name: { $regex: `^${firstLetter}`, $options: 'i' }, // Case-insensitive search for first letter
-//             _id: { $ne: domain?._id }, // Exclude the current domain if it exists
-//         }).limit(5); // Limit to 5 related domains
-
-//         // Use the cached imageUrl from the database
-//         const relatedDomainsWithImages = relatedDomains.map((relatedDomain) => ({
-//             ...relatedDomain.toObject(),
-//             imageUrl: relatedDomain.imageUrl || 'https://via.placeholder.com/150', // Use a placeholder if no image is available
-//         }));
-
-//         res.json({
-//             success: true,
-//             data: domain, // This will be null if the domain doesn't exist
-//             relatedDomains: relatedDomainsWithImages, // Include related domains with image URLs
-//         });
-//     } catch (error) {
-//         console.error("Error fetching domain:", error);
-//         res.status(500).json({ error: 'Error fetching domain' });
-//     }
-// });
-
-// router.get('/category/:categoryName', async (req, res) => {
-//     const { categoryName } = req.params;
-
-//     try {
-//         const categoryName = decodeURIComponent(req.params.categoryName);
-//         const domains = await Domain.find({
-//             category: { $regex: new RegExp(`^${categoryName}$`, 'i') }
-//         });
-
-//         res.json({
-//             success: true,
-//             data: domains,
-//         });
-//     } catch (error) {
-//         console.error("Error fetching domains by category:", error);
-//         res.status(500).json({ error: 'Error fetching domains by category' });
-//     }
-// });
-
-// get domain details
-// router.get('/:domainName', async (req, res) => {
-//     try {
-
-//         const domain = await Domain.findOne({ fullName: req.params.domainName });
-//         if (!domain) return res.status(404).json({ error: 'Domain not found' });
-//         res.json(domain);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// });
 
 router.get('/:domainName', async (req, res) => {
     try {

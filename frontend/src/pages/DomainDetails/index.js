@@ -10,6 +10,7 @@ const DomainDetails = () => {
     const { domainName } = useParams();
     const [domain, setDomain] = useState(null);
     const [showOfferModal, setShowOfferModal] = useState(false);
+    const [showBuyNowModal, setShowBuyNowModal] = useState(false);
     const [selectedDomain, setSelectedDomain] = useState('');
     const [formData, setFormData] = useState({
         name: '',
@@ -229,8 +230,14 @@ const DomainDetails = () => {
                                     </div>
                                     {/* Action Buttons */}
                                     <div className="flex sm:flex-row gap-8" id='btn_div' style={{ paddingRight: "50px" }}>
-                                        <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
+                                        {/* <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
                                             <Link to={'https://www.escrow.com/?PID=54867'} target='_blank'>Buy Now</Link>
+                                        </button> */}
+                                        <button
+                                            className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform "
+                                            onClick={() => setShowBuyNowModal(true)}
+                                        >
+                                            Buy Now
                                         </button>
                                         <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all">
                                             <button onClick={() => handleOfferClick(domain)}>Make an Offer</button>
@@ -293,32 +300,75 @@ const DomainDetails = () => {
                                 <p className='text-base font-light'>
                                     Approximately 20 percent of all search traffic comes from direct navigation, meaning people often type domain names directly into a browser's address bar, hoping to find relevant content.
                                 </p>
-                                {/* <div className="space-y-4">
-                                    <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-                                        <span className="text-gray-600">Registration Date</span>
-                                        <span className="text-gray-900 font-medium">
-                                            {new Date(domain.createdAt).toLocaleDateString()}
-                                        </span>
-                                    </div>
-                                    <div className="flex justify-between items-center pb-4 border-b border-gray-200">
-                                        <span className="text-gray-600">Last Updated</span>
-                                        <span className="text-gray-900 font-medium">
-                                            {new Date(domain.updatedAt).toLocaleDateString()}
-                                        </span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Status</span>
-                                        <span className="text-green-600 font-medium">
-                                            {domain.status}
-                                            Active
-                                        </span>
-                                    </div>
-                                </div> */}
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            {/* ===========buy now modal================= */}
+            {showBuyNowModal && (
+                <div className="modal-overlay" onClick={() => setShowBuyNowModal(false)}>
+                    <div className="buynow-modal" onClick={(e) => e.stopPropagation()}>
+                        {/* Modal Header */}
+                        <div className="modal-header">
+                            <h2 className="modal-title">Secure This Domain</h2>
+                            <button
+                                className="modal-close-btn"
+                                onClick={() => setShowBuyNowModal(false)}
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        {/* Modal Content */}
+                        <div className="modal-content">
+                            <div className="contact-card">
+                                <div className="icon-container bg-blue-100">
+                                    <svg className="contact-icon" viewBox="0 0 24 24">
+                                        <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z" />
+                                    </svg>
+                                </div>
+                                <div className="contact-details">
+                                    <h3 className="contact-title">Direct Purchase Assistance</h3>
+                                    <p className="contact-subtitle">Our domain experts are ready to help</p>
+
+                                    <div className="contact-method">
+                                        <svg className="method-icon" viewBox="0 0 24 24">
+                                            <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z" />
+                                        </svg>
+                                        <div>
+                                            <p className="method-label">24/7 Support Line</p>
+                                            <p className="method-value">+1 (416) 951-2158</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="contact-method">
+                                        <svg className="method-icon" viewBox="0 0 24 24">
+                                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                                        </svg>
+                                        <div>
+                                            <p className="method-label">Email Support</p>
+                                            <p className="method-value">domains@idirect.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="modal-actions">
+                                <button
+                                    className="modal-confirm-btn"
+                                    onClick={() => setShowBuyNowModal(false)}
+                                >
+                                    Close Window
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <KeyFeatures />
             <Footer />

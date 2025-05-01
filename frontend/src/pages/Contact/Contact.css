@@ -70,12 +70,12 @@
 
 .contact-info {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    /* gap: 20px; */
     max-width: 700px;
 }
 
-.contact-card {
+.contact-container .contact-info .contact-card {
     background: white;
     padding: 30px 20px;
     border-radius: 10px;
@@ -83,28 +83,29 @@
     text-align: center;
     transition: all 0.3s ease-in-out;
     width: 320px;
+    margin: 1rem 0!important;
     /* max-width: 320px; */
 }
 
-.contact-card:hover {
+.contact-container .contact-info .contact-card:hover {
     transform: translateY(-5px);
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.contact-card .icon {
+.contact-container .contact-info .contact-card .icon {
     font-size: 24px;
     color: #3954ff;
     margin-bottom: 10px;
 }
 
-.contact-card h3 {
+.contact-container .contact-info .contact-card h3 {
     font-size: 18px;
     font-weight: 600;
     color: #222;
     margin-bottom: 8px;
 }
 
-.contact-card p {
+.contact-container .contact-info .contact-card p {
     font-size: 14px;
     color: #555;
     margin: 3px 0;
@@ -113,7 +114,7 @@
 .map-container {
     max-width: 500px;
     width: 100%;
-    height: 370px;
+    height: 500px;
     /* border-radius: 10px; */
     overflow: hidden;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);

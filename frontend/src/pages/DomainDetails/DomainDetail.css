@@ -227,7 +227,7 @@
     justify-content: space-between;
 }
 
-.detail-domain-name{
+.detail-domain-name {
     padding: 10px 48px 48px 48px;
 }
 
@@ -239,37 +239,184 @@
     padding-bottom: 50px;
 }
 
-.domain-header-top-right h1{
+.domain-header-top-right h1 {
     color: #0984e3;
     font-size: 30px;
     font-weight: 600;
 }
 
-.domain-header-top-right p{
+.domain-header-top-right p {
     color: #636e72;
     font-size: 15px;
     font-weight: 400;
 }
 
-.modal-overlay input{
+.modal-overlay input {
     width: 100%;
-    padding: 3px!important;
+    padding: 3px !important;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-.domain_desc_div{
+.domain_desc_div {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.domain_desc_div p{
+.domain_desc_div p {
     width: 60%;
     text-align: center;
     color: #636e72;
     font-size: 15px;
+    font-weight: 600;
+}
+
+/* Buy Now Modal Styles */
+.buynow-modal {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    width: auto;
+    max-width: 600px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    color: #2d3436;
+    font-weight: 700;
+    margin: 0;
+    background: linear-gradient(135deg, #0984e3, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #636e72;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    transform: rotate(90deg);
+    color: #ff7675;
+}
+
+.contact-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1.5rem 0;
+}
+
+.icon-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.contact-icon {
+    width: 30px;
+    height: 30px;
+    fill: #0984e3;
+}
+
+.contact-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+}
+
+.contact-subtitle {
+    text-align: center;
+    color: #636e72;
+    margin-bottom: 2rem;
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.contact-method:hover {
+    transform: translateX(10px);
+}
+
+.method-icon {
+    width: 24px;
+    height: 24px;
+    fill: #0984e3;
+    flex-shrink: 0;
+}
+
+.method-label {
+    color: #636e72;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.method-value {
+    color: #2d3436;
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.modal-confirm-btn {
+    background: linear-gradient(135deg, #0984e3, #6c5ce7);
+    color: white;
+    padding: 12px 35px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-confirm-btn:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -306,10 +453,11 @@
         margin-top: 20px;
     }
 
-    .detail-domain-name{
-        padding: 10px 10px 48px 10px!important;
+    .detail-domain-name {
+        padding: 10px 10px 48px 10px !important;
     }
-    .domain_desc_div p{
+
+    .domain_desc_div p {
         width: 100%;
         padding: 0 10px;
     }
