@@ -25,21 +25,30 @@ const Contact = () => {
                 <div className="contact-info">
                     <div className="contact-card">
                         <FaEnvelope className="icon" />
-                        <h3>Email Us:</h3>
-                        <p>domains@idirect.com</p>
+                        <div>
+                            <h3>Email Us:</h3>
+                            <p>domains@idirect.com</p>
+                        </div>
                         {/* <p>support@domlea.com</p> */}
                     </div>
 
                     <div className="contact-card">
                         <FaPhoneAlt className="icon" />
-                        <h3>Call Us:</h3>
-                        <p>+1 (416)951-2158</p>
+                        <div>
+                            <h3>Call Us:</h3>
+                            <p>+1 (416)951-2158</p>
+                        </div>
                         {/* <p>Tel. + (124) 1523-567-9874</p> */}
                     </div>
 
                     <div className="contact-card">
                         <FaMapMarkerAlt className="icon" />
-                        <h3>Canada</h3>
+                        <div>
+                            <h3>Our Location:</h3>
+                            <p><strong>Head Office: </strong>Gurmaan IT Services, Sangrur Punjab IN, 148026</p>
+                            <p><strong>Second Office: </strong>Canada</p>
+                        </div>
+
                         {/* <p>55 Ontario St S, Milton, ON L9T 2M3, Canada</p> */}
                     </div>
 
@@ -104,7 +113,7 @@ const Contact = () => {
                     <button type="submit" className="contact_btn">Send Message</button>
                 </form>
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 };
