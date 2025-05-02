@@ -1,6 +1,6 @@
 import React from "react";
 import "./Contact.css";
-import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaHeadset } from "react-icons/fa";
+import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import Header from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
