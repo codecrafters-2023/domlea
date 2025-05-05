@@ -141,6 +141,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                     <option value=".club">.club</option>
                                     <option value=".shop">.shop</option>
                                     <option value=".academy">.academy</option>
+                                    <option value=".xyz">.xyz</option>
                                 </select>
                             </div>
                         </div>
