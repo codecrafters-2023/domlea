@@ -70,6 +70,7 @@ router.post('/addDomain', protect, admin, async (req, res) => {
             expiryDate,
             description: description || '',
             isPremium,
+            websiteUrl: req.body.websiteUrl || '',
             // imageUrl
         });
 
@@ -178,7 +179,7 @@ router.put('/:id', protect, admin, async (req, res) => {
 
         const updatedDomain = await Domain.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            { ...req.body, websiteUrl: req.body.websiteUrl || '' },
             { new: true, runValidators: true }
         );
 

@@ -51,6 +51,11 @@ const domainSchema = new mongoose.Schema({
         default: '',
         trim: true
     },
+    websiteUrl: {
+        type: String,
+        default: '',
+        trim: true
+    },
     isPremium: {
         type: Boolean,
         default: false, // Default to false

@@ -44,6 +44,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
         countryCode: 'us',
         category: '',
         description: defaultDescription,
+        websiteUrl: '',
         isPremium: false,
     });
 
@@ -201,6 +202,17 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                 <option value="Health">Health</option>
                                 <option value="Entertainment">Entertainment</option>
                             </select> */}
+                        </div>
+
+                        <div className="form-group">
+                            <label>Website URL:</label>
+                            <input
+                                type="url"
+                                value={formData.websiteUrl}
+                                onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                placeholder="https://example.com"
+                                pattern="https?://.+"
+                            />
                         </div>
 
                         <div className="form-group">

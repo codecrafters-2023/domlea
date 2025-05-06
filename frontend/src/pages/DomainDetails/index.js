@@ -212,6 +212,18 @@ const DomainDetails = () => {
                                     <span className="ml-2 text-gray-600">{domain.currency}</span>
                                 </div>
                             </div>
+                                {domain.websiteUrl && (
+                                    <div className="mt-5">
+                                        <a
+                                            href={domain.websiteUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all transform inline-block"
+                                        >
+                                            Visit Website
+                                        </a>
+                                    </div>
+                                )}
                         </div>
 
                         <div className='domain_desc_div'>

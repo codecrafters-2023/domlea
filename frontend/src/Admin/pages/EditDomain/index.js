@@ -18,7 +18,8 @@ const EditDomain = () => {
         countryCode: 'us',
         category: '',
         expiryDate: '',
-        description: ''
+        description: '',
+        websiteUrl: '',
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -46,8 +47,8 @@ const EditDomain = () => {
 
     const formatOptionLabel = ({ label, symbol, countryCode }) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img 
-                src={`https://flagcdn.com/16x12/${countryCode}.png`} 
+            <img
+                src={`https://flagcdn.com/16x12/${countryCode}.png`}
                 alt={label}
                 style={{ width: '16px', height: '12px' }}
             />
@@ -104,7 +105,7 @@ const EditDomain = () => {
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">{error}</div>;
 
-    
+
 
     return (
         <div className="edit-domain-page">
@@ -189,7 +190,7 @@ const EditDomain = () => {
                             required
                         />
                     </div>
-                    
+
                     <div className="form-group">
                         <label>Price</label>
                         <input
@@ -207,6 +208,18 @@ const EditDomain = () => {
                             name="date"
                             value={domain.expiryDate}
                             onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Website URL</label>
+                        <input
+                            type="url"
+                            name="websiteUrl"
+                            value={domain.websiteUrl}
+                            onChange={handleChange}
+                            placeholder="https://example.com"
+                            pattern="https?://.+"
                         />
                     </div>
 
