@@ -1,3 +1,4 @@
+import Banner from "../components/Banner";
 import FAQ from "../components/Faq";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
@@ -18,6 +19,7 @@ const Dashboard = () => {
             <ValueProposition/>
             <FAQ/>
             <Testimonials/>
+            <Banner/>
             {/* <Pricing/> */}
             {/* <BlogSection/> */}
             <Footer/>

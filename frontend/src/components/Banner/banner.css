@@ -1,0 +1,119 @@
+/* BusinessBanner.css */
+.business-banner {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 2rem 0;
+    border-bottom: 3px solid #e0e0e0;
+}
+
+.banner-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.company_logo {
+    width: 80%;
+    height: auto;
+
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    font-size: 2.2rem;
+    margin: 0;
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+.company {
+    font-size: 1.6rem;
+    margin: 0;
+    color: #4d4d4d;
+    font-weight: 500;
+}
+
+.address-block {
+    margin-top: 1rem;
+    line-height: 1.4;
+    color: #666;
+    text-align: center;
+}
+
+.phone-block {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+.phone-label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.right-section {
+    /* background-color: #f8f8f8; */
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.tagline-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.flag-image {
+    width: 100%;
+    height: auto;
+}
+
+.banner_tagline {
+    font-size: 1.3rem;
+    color: #cc0000;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .banner-content {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .left-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .right-section {
+        width: 100%;
+        text-align: center;
+    }
+
+    .tagline-wrapper {
+        flex-direction: column;
+    }
+}
