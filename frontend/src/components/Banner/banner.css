@@ -31,9 +31,7 @@
     flex-direction: column;
     gap: 0.5rem;
     width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .name {
@@ -54,7 +52,6 @@
     margin-top: 1rem;
     line-height: 1.4;
     color: #666;
-    text-align: center;
 }
 
 .phone-block {
