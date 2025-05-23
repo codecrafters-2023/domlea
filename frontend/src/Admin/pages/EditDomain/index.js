@@ -20,6 +20,7 @@ const EditDomain = () => {
         expiryDate: '',
         description: '',
         websiteUrl: '',
+        isPremium: false,
     });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -99,7 +100,8 @@ const EditDomain = () => {
     };
 
     const handleChange = (e) => {
-        setDomain({ ...domain, [e.target.name]: e.target.value });
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        setDomain({ ...domain, [e.target.name]: value });
     };
 
     if (loading) return <div className="loading">Loading...</div>;
@@ -231,6 +233,18 @@ const EditDomain = () => {
                             onChange={handleChange}
                             rows="4"
                         />
+                    </div>
+
+                    <div className="form-group checkbox-group">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="isPremium"
+                                checked={domain.isPremium}
+                                onChange={handleChange}
+                            />
+                            Premium Domain
+                        </label>
                     </div>
 
                     {error && <div className="error-message">{error}</div>}

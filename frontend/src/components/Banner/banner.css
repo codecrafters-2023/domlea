@@ -2,7 +2,7 @@
 .business-banner {
     width: 100%;
     background-color: #ffffff;
-    padding: 2rem 0;
+    padding: 1rem 0;
     border-bottom: 3px solid #e0e0e0;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .company_logo {
-    width: 80%;
+    width: 70%;
     height: auto;
 
 }
@@ -79,7 +79,7 @@
 }
 
 .flag-image {
-    width: 100%;
+    width: 90%;
     height: auto;
 }
 

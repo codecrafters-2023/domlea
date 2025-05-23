@@ -224,7 +224,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                             />
                         </div>
 
-                        {/* <div className="form-group" style={{display:"flex", alignItems:"center", gap:"10px"}}>
+                        <div className="form-group" style={{display:"flex", alignItems:"center", gap:"10px"}}>
                             <label style={{margin:"0"}}>
                                 <input
                                     type="checkbox"
@@ -235,7 +235,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                     />
                             </label>
                                     Premium Domain
-                        </div> */}
+                        </div>
 
                         <button type="submit" className="btn-primary">Add Domain</button>
                     </form>

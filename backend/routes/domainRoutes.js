@@ -9,11 +9,11 @@ router.get('/categories', protect, admin, async (req, res) => {
     try {
         // Verify the collection has documents
         const count = await Domain.countDocuments();
-        if(count === 0) return res.json({ success: true, data: [] });
+        if (count === 0) return res.json({ success: true, data: [] });
 
         // Get distinct categories that actually exist in documents
         const categories = await Domain.distinct('category', { category: { $exists: true } });
-        
+
         res.json({
             success: true,
             data: categories.filter(c => c !== null && c !== "")
@@ -57,7 +57,7 @@ router.post('/addDomain', protect, admin, async (req, res) => {
         }
 
         // const imageUrl = await generateDomainImage(name, tld.replace('.', ''));
-        
+
         const domain = await Domain.create({
             name: name,
             tld,
@@ -161,7 +161,7 @@ router.put('/:id', protect, admin, async (req, res) => {
     try {
         const domain = await Domain.findById(req.params.id);
         const { currency, currencySymbol, countryCode } = req.body;
-        
+
         // Validate currency fields
         if (!currency || !currencySymbol || !countryCode) {
             return res.status(400).json({
@@ -262,11 +262,35 @@ router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
     }
 });
 
+router.get('/premium', async (req, res) => {
+    try {
+        // Remove pagination and get all premium domains
+        const domains = await Domain.find({ isPremium: true })
+            .sort({ createdAt: -1 });
+
+        console.log(`Found ${domains.length} premium domains`);
+
+        res.json({
+            success: true,
+            data: domains,
+            count: domains.length
+        });
+
+    } catch (error) {
+        console.error('Premium domains error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error',
+            error: error.message
+        });
+    }
+});
+
 // router.get('/by-name/:fullName', async (req, res) => {
 //     try {
 //         const fullName = req.params.fullName;
 //         const domain = await Domain.findOne({ fullName });
-        
+
 //         if (!domain) {
 //             return res.status(404).json({
 //                 success: false,

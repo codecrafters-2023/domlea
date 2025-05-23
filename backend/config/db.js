@@ -14,6 +14,7 @@ const connectDB = async () => {
       });
       console.log('MongoDB connected');
     } catch (err) {
+      
       if (retryCount < MAX_RETRIES) {
         retryCount++;
         console.log(`MongoDB connection retry (${retryCount}/${MAX_RETRIES})`);

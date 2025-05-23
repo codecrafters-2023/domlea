@@ -1,0 +1,355 @@
+:root {
+    --primary: #4f46e5;
+    --secondary: #818cf8;
+    --accent: #10b981;
+    --background: #ffffff;
+    --surface: #f8fafc;
+    --text: #0f172a;
+    --border: #e2e8f0;
+}
+
+.domain-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+.premium-domain-heading{
+    font-size: 2.5rem;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.domain-layout {
+    background: var(--background);
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.domain-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+    position: relative;
+}
+
+.domain-header {
+    z-index: 2;
+}
+
+.domain-status {
+    display: block;
+    color: var(--primary);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.domain_name {
+    font-size: 1.9rem;
+    margin: 0;
+    line-height: 1;
+    color: var(--text);
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.domain-tld {
+    color: var(--secondary);
+    font-size: 1.7rem;
+    font-weight: 300;
+}
+
+.price-bubble {
+    position: relative;
+    padding: 1rem;
+    background: var(--background);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.price-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+}
+
+.currency {
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-right: 0.5rem;
+}
+
+.amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.price-aura {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, var(--primary) 0%, transparent 100%);
+    opacity: 0.1;
+    border-radius: 1.5rem;
+}
+
+.domain-body {
+    padding: 1.5rem; 
+    border-top: 1px solid var(--border);
+}
+
+.info-tabs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.tab {
+    padding: 1rem 0;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.6;
+    position: relative;
+    cursor: pointer;
+}
+
+.tab.active {
+    opacity: 1;
+    font-weight: 600;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.detail-card {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.detail-card.full {
+    grid-column: span 3;
+}
+
+.detail-card h4 {
+    color: var(--secondary);
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+}
+
+.detail-card p {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--text);
+}
+
+.score {
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stats-visual {
+    display: grid;
+    gap: 2rem;
+}
+
+.stat-item {
+    background: var(--surface);
+    padding: 2rem;
+    border-radius: 1.5rem;
+}
+
+.stat-progress {
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-progress::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--progress);
+    background: var(--primary);
+    border-radius: 4px;
+    transition: width 0.8s ease;
+}
+
+.stat-label {
+    margin-top: 1rem;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.cta-container {
+    position: relative;
+    /* margin-top: 4rem; */
+    text-align: center;
+}
+
+.main-cta {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1.5rem 4rem;
+    border-radius: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cta-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    background: rgba(255,255,255,0.6);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: sparkle 1.5s infinite;
+}
+
+@keyframes sparkle {
+    0% { transform: translateY(0) scale(0); }
+    50% { transform: translateY(-40px) scale(1); }
+    100% { transform: translateY(-80px) scale(0); }
+}
+
+.security-assurance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    color: var(--secondary);
+    margin-top: 1.5rem;
+}
+
+.security-assurance svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: var(--accent);
+}
+
+.advanced-loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background);
+    z-index: 1000;
+}
+
+.holographic-loader {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(from 180deg at 50% 50%, 
+        var(--primary) 0deg, 
+        var(--secondary) 120deg, 
+        var(--accent) 240deg, 
+        var(--primary) 360deg);
+    animation: rotate 1s linear infinite;
+    position: relative;
+}
+
+.holographic-loader::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: var(--background);
+    border-radius: 50%;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1200px) {
+    .domain-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3rem;
+        padding: 3rem;
+    }
+    
+    .domain-name {
+        font-size: 3rem;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .detail-card.full {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .domain-container {
+        padding: 0 1rem;
+    }
+    
+    .domain-hero {
+        padding: 2rem;
+    }
+    
+    .domain-name {
+        font-size: 2.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .domain-tld {
+        font-size: 1.8rem;
+    }
+    
+    .amount {
+        font-size: 3rem;
+    }
+    
+    .domain-body {
+        padding: 2rem;
+    }
+}
