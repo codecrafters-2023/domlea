@@ -143,6 +143,8 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                     <option value=".shop">.shop</option>
                                     <option value=".academy">.academy</option>
                                     <option value=".xyz">.xyz</option>
+                                    <option value=".quest">.quest</option>
+                                    <option value=".land">.land</option>
                                 </select>
                             </div>
                         </div>

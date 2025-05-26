@@ -32,7 +32,7 @@ const PremiumDomains = () => {
     return (
         <div className="domain-container" ref={ref}>
             <AnimatePresence>
-                <h1 className='premium-domain-heading'>Domain of the Week</h1>
+                <h1 className='premium-domain-heading'>Domain of the Day</h1>
                 {loading ? (
                     <motion.div
                         className="advanced-loader"
@@ -52,7 +52,7 @@ const PremiumDomains = () => {
                         >
                             <div className="domain-hero">
                                 <div className="domain-header">
-                                    <span className="domain-status">Featured Premium</span>
+                                    <span className="domain-status">Ultra Premium Domain</span>
                                     <motion.h1
                                         className="domain_name"
                                         animate={inView ? { x: 0 } : { x: -50 }}
@@ -67,13 +67,17 @@ const PremiumDomains = () => {
                                     whileHover={{ scale: 1.05 }}
                                 >
                                     <div className="price-content">
-                                        <img
-                                            src={`https://flagcdn.com/16x12/${domain.countryCode}.png`}
-                                            alt={domain.currency}
-                                            style={{ width: '20px', height: '16px', marginRight: "5px" }}
-                                        />
-                                        <span className="amount">{domain.price.toLocaleString()}</span>
+                                        <span className='amount-discount'>10% Discount!</span>
+                                            <div className="price-inner-div">
+                                                <img
+                                                src={`https://flagcdn.com/16x12/${domain.countryCode}.png`}
+                                                alt={domain.currency}
+                                                style={{ width: '20px', height: '16px', marginRight: "5px" }}
+                                            />
+                                            <span className="amount">
+                                                {domain.price.toLocaleString()}</span>
                                         <span className="currency">{domain.currency}</span>
+                                            </div>
                                     </div>
                                     <div className="price-aura"></div>
                                 </motion.div>

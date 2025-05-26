@@ -58,7 +58,8 @@
     color: var(--text);
     display: flex;
     align-items: baseline;
-    gap: 1rem;
+    /* gap: 1rem; */
+    font-weight: 700;
 }
 
 .domain-tld {
@@ -81,6 +82,13 @@
     z-index: 2;
     display: flex;
     align-items: baseline;
+    /* display: flex; */
+    flex-direction: column;
+}
+
+.price-inner-div{
+    display: flex;
+    align-items: baseline;
 }
 
 .currency {
@@ -93,6 +101,26 @@
     font-size: 2.5rem;
     font-weight: 800;
     color: var(--text);
+    position: relative;
+
+}
+
+.amount::after {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: -8px;
+    transform: rotate(15deg);
+    width: 150%;
+    height: 2px;
+    background: #000000;
+}
+
+.amount-discount{
+    font-size: 1.1rem;
+    color: orangered;
+    /* text-decoration: line-through; */
+    margin-left: 0.5rem;
 }
 
 .price-aura {
@@ -260,7 +288,7 @@
     justify-content: center;
     gap: 0.8rem;
     color: var(--secondary);
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
 }
 
 .security-assurance svg {
@@ -351,5 +379,9 @@
     
     .domain-body {
         padding: 2rem;
+    }
+
+    .price-bubble{
+        margin: 0 auto;
     }
 }

@@ -24,10 +24,10 @@ const Banner = () => {
                             <p>L9T 2M5</p>
                         </div>
 
-                        <div className="phone-block">
+                        {/* <div className="phone-block">
                             <span className="phone-label">Direct Phone:</span>
                             <span className="phone-number">+1 (416) 951-2158</span>
-                        </div>
+                        </div> */}
                         <h2 className="banner_tagline">MAKE CANADA YOUR HOME</h2>
                     </div>
 
