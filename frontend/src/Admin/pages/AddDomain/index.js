@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './DomainForm.css';
 import AdminSidebar from '../../components/Navbar';
@@ -7,8 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
 const AddDomainPage = () => {
+    const [isDescriptionModified, setIsDescriptionModified] = useState(false)
 
-    const defaultDescription = `Unlock the Power of a Premium Keyword Domain for Your Business
+    const defaultDescriptionTemplate = (domain) => `Unlock the Power of a Premium Keyword Domain for Your Business
+
+    Buy or Lease ${domain}
 
 We’re offering you an exclusive opportunity to acquire a high-impact keyword domain that perfectly aligns with your business. This isn’t just a web address—it’s a strategic asset that can elevate your brand and accelerate growth.
 
@@ -43,10 +46,30 @@ Don’t miss this chance to boost your online presence and stand out in your ind
         currencySymbol: '$',
         countryCode: 'us',
         category: '',
-        description: defaultDescription,
-        websiteUrl: '',
+        description: defaultDescriptionTemplate('yourdomain.com'),
+        websiteUrl: 'https://listings.iprorealty.com',
         isPremium: false,
     });
+
+    // Automatically update description when domain changes
+    useEffect(() => {
+        if (!isDescriptionModified) {
+            const domain = formData.name ? `${formData.name}${formData.tld}` : 'yourdomain.com';
+            setFormData(prev => ({
+                ...prev,
+                description: defaultDescriptionTemplate(domain)
+            }));
+        }
+    }, [formData.name, formData.tld, isDescriptionModified]);
+
+    // Handle description changes
+    const handleDescriptionChange = (e) => {
+        if (!isDescriptionModified) setIsDescriptionModified(true);
+        setFormData({ ...formData, description: e.target.value });
+    };
+
+
+
 
     const currencyOptions = [
         { value: 'USD', label: 'USD', symbol: '$', countryCode: 'us' },
@@ -98,15 +121,6 @@ Don’t miss this chance to boost your online presence and stand out in your ind
             console.error('Error adding domain:', error);
         }
     };
-
-    // const currencyOptions = [
-    //     { value: 'USD', label: 'USD', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/en/archive/a/a4/20250221172327%21Flag_of_the_United_States.svg' },
-    //     { value: 'AUD', label: 'AUD', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg' },
-    //     { value: 'EURO', label: 'EURO', symbol: '€', flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Europe.svg/255px-Flag_of_Europe.svg.png' },
-    //     { value: 'GBP', label: 'GBP', symbol: '£', flag: 'https://cdn.britannica.com/25/4825-050-977D8C5E/Flag-United-Kingdom.jpg' },
-    //     { value: 'CAD', label: 'CAD', symbol: '$', flag: 'https://upload.wikimedia.org/wikipedia/en/archive/c/cf/20190402205956%21Flag_of_Canada.svg' }
-    // ];
-
 
 
     return (
@@ -193,26 +207,17 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                 value={formData.category}
                                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                             />
-                            {/* <select
-                                value={formData.category}
-                                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                            >
-                                <option value="">Select</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Business">Business</option>
-                                <option value="Education">Education</option>
-                                <option value="Health">Health</option>
-                                <option value="Entertainment">Entertainment</option>
-                            </select> */}
+
                         </div>
 
                         <div className="form-group">
                             <label>Website URL:</label>
                             <input
                                 type="url"
+                                // defaultValue={'https://listings.iprorealty.com'}
                                 value={formData.websiteUrl}
                                 onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
-                                placeholder="https://example.com"
+                                // placeholder="https://example.com"
                                 pattern="https?://.+"
                             />
                         </div>
@@ -222,21 +227,22 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                             <textarea
                                 value={formData.description}
                                 placeholder="Enter each feature on a new line..."
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                // onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={handleDescriptionChange}
                             />
                         </div>
 
-                        <div className="form-group" style={{display:"flex", alignItems:"center", gap:"10px"}}>
-                            <label style={{margin:"0"}}>
+                        <div className="form-group" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                            <label style={{ margin: "0" }}>
                                 <input
                                     type="checkbox"
                                     checked={formData.isPremium}
                                     onChange={(e) =>
                                         setFormData({ ...formData, isPremium: e.target.checked })
                                     }
-                                    />
+                                />
                             </label>
-                                    Premium Domain
+                            Premium Domain
                         </div>
 
                         <button type="submit" className="btn-primary">Add Domain</button>

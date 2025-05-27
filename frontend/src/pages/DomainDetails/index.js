@@ -153,9 +153,6 @@ const DomainDetails = () => {
                                 <strong>Please note:</strong> We believe that choosing the <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> option is the most reliable way to secure this domain name. Entering into negotiations may result in losing the opportunity to acquire the Domain name at the current asking price. The Domain seller reserves the right to modify the asking price at any time without prior notice.
                                 Rest assured, your contact information is kept strictly confidential, we do not share or sell your details under any circumstances.
                             </p>
-                            {/* <p style={{ fontSize: "15px" }}>
-                                Please note we feel <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> is the best option to secure the domain name. If you negotiate, then you may lose your chance to secure Domain for asking price. We reserve the right to change the asking price any time without any notice. Your contact information is secure with us, we do not share or sell the information.
-                            </p> */}
                             <div className="modal-buttons">
                                 <button
                                     type="submit"
@@ -164,14 +161,7 @@ const DomainDetails = () => {
                                 >
                                     Submit your Best Offer
                                 </button>
-                                {/* <button
-                                    type="button"
-                                    className="makeOffer-button"
-                                    style={{ backgroundColor: '#dc2626', flex: 1 }}
-                                    onClick={() => setShowOfferModal(false)}
-                                >
-                                    Cancel
-                                </button> */}
+                               
                             </div>
                         </form>
                     </div>
