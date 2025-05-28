@@ -20,8 +20,17 @@ body {
     text-align: center;
     color: #2c3e50;
     font-size: 2.5rem;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     font-weight: 700;
+    text-transform: capitalize;
+}
+
+.domain-listing-container .domain-listing-inner-title{
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 600;
     text-transform: capitalize;
 }
 

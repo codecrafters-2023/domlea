@@ -6,6 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import './DomainListPage.css';
 import AdminSidebar from '../../components/Navbar';
 import { toast } from 'react-toastify';
+import ReactPaginate from 'react-paginate';
 
 const Domain = () => {
     const [domains, setDomains] = useState([]);
@@ -51,23 +52,6 @@ const Domain = () => {
         fetchInitialData();
     }, []);
 
-    // Fetch all TLDs from the backend
-    // useEffect(() => {
-    //     const fetchTlds = async () => {
-    //         try {
-    //             const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/all-tlds`, {
-    //                 headers: {
-    //                     Authorization: `Bearer ${localStorage.getItem('token')}`,
-    //                 },
-    //             });
-    //             setTlds(response.data.data); // Set the fetched TLDs
-    //         } catch (error) {
-    //             console.error('Error fetching TLDs:', error);
-    //         }
-    //     };
-
-    //     fetchTlds();
-    // }, []);
 
     // Fetch domains from the backend
     const fetchDomains = async () => {
@@ -121,6 +105,10 @@ const Domain = () => {
                 }
             ]
         });
+    };
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected + 1); // react-paginate is zero-indexed
     };
 
     return (
@@ -198,7 +186,7 @@ const Domain = () => {
                                             <td>{domain.category}</td>
                                             <td>{domain.tld}</td>
                                             <td>{new Date(domain.expiryDate).toLocaleDateString()}</td>
-                                            <td>{domain.price} <span style={{fontSize:"14px"}}>{domain.currency}</span></td>
+                                            <td>{domain.price} <span style={{ fontSize: "14px" }}>{domain.currency}</span></td>
                                             <td>
                                                 <div className="action-buttons">
                                                     <Link to={`/editDomain/${domain._id}`} className="btn-edit">
@@ -215,7 +203,27 @@ const Domain = () => {
                             </table>
                         </div>
 
-                        <div className="pagination">
+                        <div className="pagination-container">
+                            <ReactPaginate
+                                previousLabel={'←'}
+                                nextLabel={'→'}
+                                breakLabel={'...'}
+                                pageCount={totalPages}
+                                marginPagesDisplayed={1}
+                                pageRangeDisplayed={3}
+                                onPageChange={handlePageClick}
+                                containerClassName={'pagination'}
+                                activeClassName={'active'}
+                                pageClassName={'page-item'}
+                                pageLinkClassName={'page-link'}
+                                previousClassName={'page-item prev'}
+                                nextClassName={'page-item next'}
+                                breakClassName={'page-item break'}
+                                disabledClassName={'disabled'}
+                            />
+                        </div>
+
+                        {/* <div className="pagination">
                             {Array.from({ length: totalPages }, (_, i) => (
                                 <button
                                     key={i + 1}
@@ -225,7 +233,7 @@ const Domain = () => {
                                     {i + 1}
                                 </button>
                             ))}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

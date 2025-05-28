@@ -99,7 +99,8 @@ const DomainListing = () => {
         <>
             <Header />
             <div className="domain-listing-container">
-                <h1 className="domain-listing-title">Search Your Dream Domain</h1>
+                {/* <h1 className="domain-listing-title">Search Your Dream Domain</h1> */}
+                <h1 className="domain-listing-inner-title">For Domain Search use filter and click apply button</h1>
                 <div className="filters-section">
                     <div className="filters-header">
                         <h3 className="filter-title">Filter Domains</h3>

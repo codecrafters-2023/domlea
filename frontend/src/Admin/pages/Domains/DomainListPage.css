@@ -53,7 +53,7 @@
 
 .filters input,
 .filters select {
-    padding: 0.875rem 1rem!important;
+    padding: 0.875rem 1rem !important;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.9);
@@ -135,25 +135,63 @@
     transition: all 0.2s ease;
 }
 
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--glass-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
 .pagination {
     display: flex;
     gap: 0.5rem;
-    justify-content: center;
-    margin-top: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.pagination button {
+.page-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-link,
+.page-item.prev a,
+.page-item.next a,
+.page-item.break a {
     padding: 0.5rem 1rem;
     border: 1px solid #e2e8f0;
     background: var(--glass-bg);
     border-radius: 8px;
     transition: all 0.2s ease;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: var(--text-primary);
 }
 
-.pagination button.active {
+.page-item.active .page-link {
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     color: white;
     border-color: transparent;
+}
+
+.page-item:not(.active):hover .page-link {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-item.break a {
+    border: none;
+    pointer-events: none;
 }
 
 @media (max-width: 768px) {
