@@ -15,7 +15,7 @@
 }
 
 .results-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 2rem auto;
     padding: 0 1.5rem;
     flex: 1;
@@ -218,7 +218,7 @@ h2 {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
     border: 1px solid #f1f5f9;
-    width: 270px;
+    width: 322px;
     display: flex;
     flex-direction: column;
     justify-content: center;

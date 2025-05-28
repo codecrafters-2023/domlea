@@ -80,7 +80,7 @@ const SearchDomain = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="domain-body">
+                                        <div className="domain__body">
                                             <p className="category">
                                                 Category: {results.exactMatch.category}
                                             </p>

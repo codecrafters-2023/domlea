@@ -46,8 +46,20 @@ router.get("/userDomainsList", async (req, res) => {
         if (length) {
             query.nameLength = {};
             switch (length) {
+                case '3':
+                    query.nameLength.$lte = 3;
+                    break;
                 case '4':
                     query.nameLength.$lte = 4;
+                    break;
+                case '5':
+                    query.nameLength.$lte = 5;
+                    break;
+                case '6':
+                    query.nameLength.$lte = 6;
+                    break;
+                case '7':
+                    query.nameLength.$lte = 7;
                     break;
                 case '8':
                     query.nameLength.$lte = 8;
