@@ -107,7 +107,15 @@ const EditDomain = () => {
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">{error}</div>;
 
-
+    const handleTldChange = (e) => {
+        const newTld = e.target.value;
+        setDomain({
+            ...domain,
+            tld: newTld,
+            // Update fullName immediately in state
+            fullName: `${domain.name}${newTld}`.toLowerCase()
+        });
+    };
 
     return (
         <div className="edit-domain-page">
@@ -128,7 +136,7 @@ const EditDomain = () => {
                             <select
                                 name="tld"
                                 value={domain.tld}
-                                onChange={handleChange}
+                                onChange={handleTldChange} // Use the new handler
                                 className="tld-select"
                             >
                                 <option value=".com">.com</option>

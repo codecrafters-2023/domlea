@@ -157,10 +157,50 @@ router.get('/:id', protect, admin, async (req, res) => {
 });
 
 
+// router.put('/:id', protect, admin, async (req, res) => {
+//     try {
+//         const domain = await Domain.findById(req.params.id);
+//         const { currency, currencySymbol, countryCode } = req.body;
+
+//         // Validate currency fields
+//         if (!currency || !currencySymbol || !countryCode) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'Currency information is required'
+//             });
+//         }
+
+//         if (!domain) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: 'Domain not found'
+//             });
+//         }
+
+//         const updatedDomain = await Domain.findByIdAndUpdate(
+//             req.params.id,
+//             { ...req.body, websiteUrl: req.body.websiteUrl || '' },
+//             { new: true, runValidators: true }
+//         );
+
+//         res.json({
+//             success: true,
+//             data: updatedDomain
+//         });
+
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Server error'
+//         });
+//     }
+// });
+
 router.put('/:id', protect, admin, async (req, res) => {
     try {
         const domain = await Domain.findById(req.params.id);
-        const { currency, currencySymbol, countryCode } = req.body;
+        const { currency, currencySymbol, countryCode, name, tld } = req.body;
 
         // Validate currency fields
         if (!currency || !currencySymbol || !countryCode) {
@@ -177,9 +217,22 @@ router.put('/:id', protect, admin, async (req, res) => {
             });
         }
 
+        // Recalculate fullName if name or tld changes
+        let fullName;
+        if (name || tld) {
+            const newName = name || domain.name;
+            const newTld = tld || domain.tld;
+            fullName = `${newName}${newTld}`.toLowerCase();
+        }
+
         const updatedDomain = await Domain.findByIdAndUpdate(
             req.params.id,
-            { ...req.body, websiteUrl: req.body.websiteUrl || '' },
+            { 
+                ...req.body,
+                // Only update fullName if it was recalculated
+                ...(fullName && { fullName }),
+                websiteUrl: req.body.websiteUrl || '' 
+            },
             { new: true, runValidators: true }
         );
 
@@ -198,20 +251,6 @@ router.put('/:id', protect, admin, async (req, res) => {
 });
 
 
-const getPublicIdFromUrl = (url) => {
-    const parts = url.split('/');
-    const uploadIndex = parts.indexOf('upload');
-    const publicIdParts = parts.slice(uploadIndex + 1);
-
-    // Remove version prefix if present
-    if (publicIdParts[0].startsWith('v')) {
-        publicIdParts.shift();
-    }
-
-    // Join remaining parts and remove file extension
-    return publicIdParts.join('/').replace(/\.[^/.]+$/, '');
-};
-
 // Updated delete route with image cleanup
 router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
     try {
@@ -223,28 +262,6 @@ router.delete('/deleteDomain/:id', protect, admin, async (req, res) => {
                 message: 'Domain not found'
             });
         }
-
-        // Delete image from Cloudinary if exists
-        // if (domain.imageUrl) {
-        //     try {
-        //         const publicId = getPublicIdFromUrl(domain.imageUrl);
-        //         const result = await cloudinary.uploader.destroy(publicId);
-
-        //         if (result.result !== 'ok' && result.result !== 'not found') {
-        //             console.error('Cloudinary deletion failed:', result);
-        //             return res.status(500).json({
-        //                 success: false,
-        //                 message: 'Failed to delete domain image'
-        //             });
-        //         }
-        //     } catch (error) {
-        //         console.error('Cloudinary error:', error);
-        //         return res.status(500).json({
-        //             success: false,
-        //             message: 'Error deleting domain image'
-        //         });
-        //     }
-        // }
 
         await domain.deleteOne();
 
@@ -286,30 +303,6 @@ router.get('/premium', async (req, res) => {
     }
 });
 
-// router.get('/by-name/:fullName', async (req, res) => {
-//     try {
-//         const fullName = req.params.fullName;
-//         const domain = await Domain.findOne({ fullName });
-
-//         if (!domain) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: 'Domain not found'
-//             });
-//         }
-
-//         res.json({
-//             success: true,
-//             data: domain
-//         });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({
-//             success: false,
-//             message: 'Server error'
-//         });
-//     }
-// });
 
 
 
