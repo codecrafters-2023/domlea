@@ -100,18 +100,19 @@ const DomainListing = () => {
             <Header />
             <div className="domain-listing-container">
                 {/* <h1 className="domain-listing-title">Search Your Dream Domain</h1> */}
-                <h1 className="domain-listing-inner-title">For Domain Search use filter and click apply button</h1>
+                {/* <h1 className="domain-listing-inner-title">For Domain Search use filter and click apply button</h1> */}
                 <div className="filters-section">
                     <div className="filters-header">
-                        <h3 className="filter-title">Filter Domains</h3>
-                        <div className="filter-actions">
+                        <h3 className="filter-title">Complete Premium Domain listings</h3>
+                        <h3 className="filter-title2">Use filter to narrow down your desired domain search click apply button to began</h3>
+                        {/* <div className="filter-actions">
                             <button className="filter-button apply-button" onClick={handleApplyFilters}>
                                 <span>🔍</span> Apply
                             </button>
                             <button className="filter-button remove-button" onClick={handleRemoveFilters}>
                                 <span>🗑️</span> Clear
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="filter-controls">
@@ -174,6 +175,14 @@ const DomainListing = () => {
                                 <option value={100}>100 domains</option>
                             </select>
                         </div>
+                    </div>
+                    <div className="filter-actions">
+                        <button className="filter-button apply-button" onClick={handleApplyFilters}>
+                            <span>🔍</span> Apply
+                        </button>
+                        <button className="filter-button remove-button" onClick={handleRemoveFilters}>
+                            <span>🗑️</span> Clear
+                        </button>
                     </div>
                 </div>
                 <div className="domain-card-container">
