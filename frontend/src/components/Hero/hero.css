@@ -107,6 +107,13 @@
     color: #fff;
     font-family: 'poppins';
     font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.hero-sub-title2{
+    color: #fff;
+    font-family: 'poppins';
+    font-weight: 400;
     margin-bottom: 20px;
 }
 

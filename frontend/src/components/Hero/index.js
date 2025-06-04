@@ -32,6 +32,7 @@ export default function Hero() {
             <div className="hero-content">
                 <h1 className="hero-title">Build Your Online Business</h1>
                 <p className='hero-sub-title'>Explore Our Premium collection of after Market Domains</p>
+                <p className='hero-sub-title2'>Effortlessly discover and take control</p>
 
                 <div className="search-container">
                     <form className="search-form" onSubmit={handleSearch}>
