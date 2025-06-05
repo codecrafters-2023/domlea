@@ -159,6 +159,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                     <option value=".xyz">.xyz</option>
                                     <option value=".quest">.quest</option>
                                     <option value=".land">.land</option>
+                                    <option value=".biz">.biz</option>
                                 </select>
                             </div>
                         </div>
