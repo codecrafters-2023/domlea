@@ -47,7 +47,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
         countryCode: 'us',
         category: '',
         description: defaultDescriptionTemplate('yourdomain.com'),
-        websiteUrl: 'https://www.gtalistings.com/',
+        websiteUrl: 'https://www.gtalistings.com',
         isPremium: false,
     });
 
