@@ -225,7 +225,15 @@
 .domain-desc-btn-div {
     display: flex;
     justify-content: space-between;
+    /* padding: 0 20px; */
 }
+
+/* .domain-desc-btn-div #btn_div {
+    display: flex;
+    justify-content: center;
+    padding: 0 !important;
+    margin-top: 20px;
+} */
 
 .detail-domain-name {
     padding: 10px 48px 30px 48px;
@@ -323,8 +331,8 @@
 }
 
 .icon-container {
-    width: 60px;
-    height: 60px;
+    width: 150px;
+    height: 150px;
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -338,11 +346,20 @@
     fill: #0984e3;
 }
 
-.contact-title {
+.contact-title{
     text-align: center;
     font-size: 1.5rem;
     color: #2d3436;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+}
+
+.contact-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
 
 .contact-subtitle {

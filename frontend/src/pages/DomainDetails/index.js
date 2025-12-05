@@ -85,7 +85,7 @@ const DomainDetails = () => {
         <>
             <Header />
 
-            {showOfferModal && (
+            {/* {showOfferModal && (
                 <div className="modal-overlay" onClick={() => setShowOfferModal(false)}>
                     <div className="offer-modal" onClick={(e) => e.stopPropagation()}>
                         <h3>Make an Offer to Purchase this Domain Name</h3>
@@ -166,7 +166,7 @@ const DomainDetails = () => {
                         </form>
                     </div>
                 </div>
-            )}
+            )} */}
 
             <div className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
@@ -202,6 +202,7 @@ const DomainDetails = () => {
                                     <span className="ml-2 text-gray-600">{domain.currency}</span>
                                 </div>
                             </div>
+                            <div style={{display:"flex", alignItems:"center", justifyContent:"center",gap:"15px"}}>
                                 {domain.websiteUrl && (
                                     <div className="mt-5">
                                         <a
@@ -214,6 +215,13 @@ const DomainDetails = () => {
                                         </a>
                                     </div>
                                 )}
+                                <button
+                                    className="mt-5 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all transform "
+                                    onClick={() => setShowBuyNowModal(true)}
+                                >
+                                    Buy Now
+                                </button>
+                            </div>
                         </div>
 
                         <div className='domain_desc_div'>
@@ -226,15 +234,11 @@ const DomainDetails = () => {
                         <div className="px-8 py-12 grid md:grid-cols-3 gap-12">
                             {/* Left Column */}
                             <div className="md:col-span-2 space-y-8">
-                                <div className='domain-desc-btn-div'>
+                                {/* <div className='domain-desc-btn-div'>
                                     <div className="inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-medium">
                                         {domain.category}
                                     </div>
-                                    {/* Action Buttons */}
                                     <div className="flex sm:flex-row gap-8" id='btn_div' style={{ paddingRight: "50px" }}>
-                                        {/* <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform ">
-                                            <Link to={'https://www.escrow.com/?PID=54867'} target='_blank'>Buy Now</Link>
-                                        </button> */}
                                         <button
                                             className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all transform "
                                             onClick={() => setShowBuyNowModal(true)}
@@ -242,10 +246,10 @@ const DomainDetails = () => {
                                             Buy Now
                                         </button>
                                         <button className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-3 py-1 rounded-lg font-base text-base transition-all">
-                                            <button onClick={() => handleOfferClick(domain)}>Make an Offer</button>
+                                            <Link to="mailto:domains@idirect.com">Make an Offer</Link>
                                         </button>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="domain-description">
                                     <h3 className="description-title">Key Features</h3>
@@ -279,7 +283,7 @@ const DomainDetails = () => {
                             </div>
 
                             {/* Right Column - Meta Data */}
-                            <div className="bg-gray-50 p-6 rounded-xl space-y-4" style={{ marginTop: "65px" }}>
+                            <div className="bg-gray-50 p-6 rounded-xl space-y-4" style={{ marginTop: "35px" }}>
                                 <img
                                     src={process.env.PUBLIC_URL + '/domain2.jpg'}
                                     alt="Domain search"
@@ -328,33 +332,41 @@ const DomainDetails = () => {
                         {/* Modal Content */}
                         <div className="modal-content">
                             <div className="contact-card">
-                                <div className="icon-container bg-blue-100">
+                                {/* <div className="icon-container bg-blue-100">
                                     <svg className="contact-icon" viewBox="0 0 24 24">
                                         <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z" />
-                                    </svg>
-                                </div>
+                                    </svg> */}
+                                    <div className='icon-container'>
+
+                                    <img className="contact-img" src={process.env.PUBLIC_URL + '/sam.webp'} alt='sam'/> 
+                                    </div>
+                                {/* </div> */}
                                 <div className="contact-details">
-                                    <h3 className="contact-title">Direct Purchase Assistance</h3>
-                                    <p className="contact-subtitle">Our domain experts are ready to help</p>
+                                    <h3 className="contact-title">Sam Farmaha</h3>
+                                    <p className="contact-subtitle">Domain Broker</p>
 
                                     <div className="contact-method">
                                         <svg className="method-icon" viewBox="0 0 24 24">
                                             <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z" />
                                         </svg>
+                                        <Link to="tel:+14169512158" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <div>
-                                            <p className="method-label">24/7 Support Line</p>
+                                            <p className="method-label"> Support Line</p>
                                             <p className="method-value">+1 (416) 951-2158</p>
                                         </div>
+                                        </Link>
                                     </div>
 
                                     <div className="contact-method">
                                         <svg className="method-icon" viewBox="0 0 24 24">
                                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                                         </svg>
+                                        <Link to="mailto:domains@idirect.com" style={{ textDecoration: 'none', color: 'inherit' }}>
                                         <div>
                                             <p className="method-label">Email Support</p>
                                             <p className="method-value">domains@idirect.com</p>
                                         </div>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
