@@ -203,23 +203,12 @@ const DomainDetails = () => {
                                 </div>
                             </div>
                             <div style={{display:"flex", alignItems:"center", justifyContent:"center",gap:"15px"}}>
-                                {domain.websiteUrl && (
-                                    <div className="mt-5">
-                                        <a
-                                            href={domain.websiteUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all transform inline-block"
-                                        >
-                                            Visit Demo Website
-                                        </a>
-                                    </div>
-                                )}
+                                
                                 <button
                                     className="mt-5 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all transform "
                                     onClick={() => setShowBuyNowModal(true)}
                                 >
-                                    Buy Now
+                                    Secure This Domain
                                 </button>
                             </div>
                         </div>
@@ -250,6 +239,18 @@ const DomainDetails = () => {
                                         </button>
                                     </div>
                                 </div> */}
+                                {domain.websiteUrl && (
+                                    <div className="mt-5" style={{ display: "flex", justifyContent: "end", marginRight: "100px" }}>
+                                        <a
+                                            href={domain.websiteUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all transform inline-block"
+                                        >
+                                            Visit Demo Website
+                                        </a>
+                                    </div>
+                                )}
 
                                 <div className="domain-description">
                                     <h3 className="description-title">Key Features</h3>
@@ -283,7 +284,7 @@ const DomainDetails = () => {
                             </div>
 
                             {/* Right Column - Meta Data */}
-                            <div className="bg-gray-50 p-6 rounded-xl space-y-4" style={{ marginTop: "35px" }}>
+                            <div className="bg-gray-50 p-6 rounded-xl space-y-4" style={{ marginTop: "75px" }}>
                                 <img
                                     src={process.env.PUBLIC_URL + '/domain2.jpg'}
                                     alt="Domain search"
