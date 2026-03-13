@@ -12,7 +12,6 @@ const DomainListing = () => {
     const [tlds, setTlds] = useState([]);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(52);
-    const [total, setTotal] = useState(0);
     const [pages, setPages] = useState(0);
     const [loading, setLoading] = useState(true);
     const [lengthFilter, setLengthFilter] = useState("");
@@ -62,7 +61,7 @@ const DomainListing = () => {
                 });
                 setLoading(false);
                 setDomains(response.data.data);
-                setTotal(response.data.total);
+                // setTotal(response.data.total);
                 setPages(response.data.pages);
             } catch (error) {
                 console.error("Error fetching domains:", error);
