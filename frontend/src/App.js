@@ -1,3 +1,4 @@
+// App.js
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -25,7 +26,7 @@ import DomainList from './pages/Domains';
 import DomainSearch from './pages/DomainSearch';
 import DomainDetails from './pages/DomainDetails';
 import Terms from './pages/Terms';
-
+import RakutenPopup from './components/PopUp/RakutenPopup';
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
       <Router>
         <AuthProvider>
           {/* <Header /> */}
+          {/* Add the RakutenPopup here - it will show on all pages */}
+          <RakutenPopup />
+          
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
