@@ -53,7 +53,7 @@ const RakutenPopup = () => {
                             <X size={20} />
                         </button>
 
-                        <div className="popup-header">
+                        <div className="popup-header"> 
                             <img
                                 src="https://www.rakuten.com/favicon.ico"
                                 alt="Rakuten Logo"
