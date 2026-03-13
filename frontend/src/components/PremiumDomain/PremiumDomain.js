@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import './PremiumDomains.css';
 import axios from 'axios';
@@ -9,49 +10,7 @@ const PremiumDomains = () => {
     const [domain, setDomain] = useState(null);
     const [loading, setLoading] = useState(true);
     const { ref, inView } = useInView({ threshold: 0.1 });
-    const [showOfferModal, setShowOfferModal] = useState(false);
     const [showBuyNowModal, setShowBuyNowModal] = useState(false);
-    const [selectedDomain, setSelectedDomain] = useState('');
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        mobile: '',
-        offerPrice: '',
-        domain: ''
-    });
-
-    const handleOfferClick = (domain) => {
-        setSelectedDomain(`${domain.name}${domain.tld}`);
-        setShowOfferModal(true);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!formData.termsAccepted) {
-            alert('Please accept the terms and conditions');
-            return;
-        }
-        try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
-                ...formData,
-                domain: selectedDomain
-            });
-            alert('Offer submitted successfully!');
-            setShowOfferModal(false);
-            setFormData({ name: '', email: '', mobile: '' });
-        } catch (error) {
-            alert('Error submitting offer');
-        }
-    };
-
-    const handleChange = (e) => {
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        setFormData({
-            ...formData,
-            [e.target.name]: value
-        });
-    };
 
     useEffect(() => {
         const fetchPremiumDomain = async () => {

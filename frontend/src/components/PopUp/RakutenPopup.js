@@ -1,4 +1,3 @@
-// components/RakutenPopup.js
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink } from 'lucide-react';
@@ -6,7 +5,6 @@ import './RakutenPopup.css';
 
 const RakutenPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [hasClosed, setHasClosed] = useState(false);
 
     useEffect(() => {
         // Check if user has closed the popup in this session
@@ -24,7 +22,7 @@ const RakutenPopup = () => {
 
     const handleClose = () => {
         setIsVisible(false);
-        setHasClosed(true);
+        // setHasClosed(true);
         // Store in sessionStorage that user closed popup for this session
         sessionStorage.setItem('rakutenPopupClosed', 'true');
     };

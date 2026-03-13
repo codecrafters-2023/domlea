@@ -9,51 +9,8 @@ import KeyFeatures from '../../components/keyFeatures';
 const DomainDetails = () => {
     const { domainName } = useParams();
     const [domain, setDomain] = useState(null);
-    const [showOfferModal, setShowOfferModal] = useState(false);
     const [showBuyNowModal, setShowBuyNowModal] = useState(false);
-    const [selectedDomain, setSelectedDomain] = useState('');
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        mobile: '',
-        offerPrice: '',
-        domain: ''
-    });
 
-
-
-    const handleOfferClick = (domain) => {
-        setSelectedDomain(`${domain.name}${domain.tld}`);
-        setShowOfferModal(true);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!formData.termsAccepted) {
-            alert('Please accept the terms and conditions');
-            return;
-        }
-        try {
-            await axios.post(`${process.env.REACT_APP_API_URL}/users/submit-offer`, {
-                ...formData,
-                domain: selectedDomain
-            });
-            alert('Offer submitted successfully!');
-            setShowOfferModal(false);
-            setFormData({ name: '', email: '', mobile: '' });
-        } catch (error) {
-            alert('Error submitting offer');
-        }
-    };
-
-    const handleChange = (e) => {
-        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-        setFormData({
-            ...formData,
-            [e.target.name]: value
-        });
-    };
 
     useEffect(() => {
         const fetchDomain = async () => {
@@ -84,90 +41,6 @@ const DomainDetails = () => {
     return (
         <>
             <Header />
-
-            {/* {showOfferModal && (
-                <div className="modal-overlay" onClick={() => setShowOfferModal(false)}>
-                    <div className="offer-modal" onClick={(e) => e.stopPropagation()}>
-                        <h3>Make an Offer to Purchase this Domain Name</h3>
-                        <form className="offer-form" onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label>Full Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    required
-                                    onChange={handleChange}
-                                    value={formData.name}
-                                    autoComplete='off'
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Email Address</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    required
-                                    onChange={handleChange}
-                                    value={formData.email}
-                                    autoComplete='off'
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Mobile Number</label>
-                                <input
-                                    type="tel"
-                                    name="mobile"
-                                    required
-                                    onChange={handleChange}
-                                    value={formData.mobile}
-                                    autoComplete='off'
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Offer Price in $USD</label>
-                                <input
-                                    type="text"
-                                    name="offerPrice"
-                                    required
-                                    onChange={handleChange}
-                                    value={formData.offerPrice}
-                                    autoComplete='off'
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label style={{ display: "flex", alignItems: "center" }}>
-                                    <input
-                                        type="checkbox"
-                                        name="termsAccepted"
-                                        checked={formData.termsAccepted}
-                                        onChange={handleChange}
-                                        style={{ marginRight: '8px', width: '15px', height: '15px' }}
-                                    />
-                                    I agree to the
-                                    <Link to="/terms" target="_blank" style={{ color: '#0984e3', marginLeft: '4px' }}>
-                                        Terms & Conditions
-                                    </Link>
-                                </label>
-                            </div>
-                            <p style={{ fontSize: "15px" }}>
-                                <strong>Please note:</strong> We believe that choosing the <Link to={'https://escrow.com'} target='_blank'><span style={{ textDecoration: "underline" }}>Buy Now</span></Link> option is the most reliable way to secure this domain name. Entering into negotiations may result in losing the opportunity to acquire the Domain name at the current asking price. The Domain seller reserves the right to modify the asking price at any time without prior notice.
-                                Rest assured, your contact information is kept strictly confidential, we do not share or sell your details under any circumstances.
-                            </p>
-                            <div className="modal-buttons">
-                                <button
-                                    type="submit"
-                                    className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 transition-all transform "
-                                    style={{ flex: 1 }}
-                                >
-                                    Submit your Best Offer
-                                </button>
-                               
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )} */}
-
             <div className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     {/* Premium Badge */}
@@ -202,8 +75,8 @@ const DomainDetails = () => {
                                     <span className="ml-2 text-gray-600">{domain.currency}</span>
                                 </div>
                             </div>
-                            <div style={{display:"flex", alignItems:"center", justifyContent:"center",gap:"15px"}}>
-                                
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px" }}>
+
                                 <button
                                     className="mt-5 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all transform "
                                     onClick={() => setShowBuyNowModal(true)}
@@ -337,10 +210,10 @@ const DomainDetails = () => {
                                     <svg className="contact-icon" viewBox="0 0 24 24">
                                         <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z" />
                                     </svg> */}
-                                    <div className='icon-container'>
+                                <div className='icon-container'>
 
-                                    <img className="contact-img" src={process.env.PUBLIC_URL + '/sam.webp'} alt='sam'/> 
-                                    </div>
+                                    <img className="contact-img" src={process.env.PUBLIC_URL + '/sam.webp'} alt='sam' />
+                                </div>
                                 {/* </div> */}
                                 <div className="contact-details">
                                     <h3 className="contact-title">Sam Farmaha</h3>
@@ -351,10 +224,10 @@ const DomainDetails = () => {
                                             <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6 22.615.121-.055 2.102-1.029 2.11-1.033z" />
                                         </svg>
                                         <Link to="tel:+14169512158" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                        <div>
-                                            <p className="method-label"> Support Line</p>
-                                            <p className="method-value">+1 (416) 951-2158</p>
-                                        </div>
+                                            <div>
+                                                <p className="method-label"> Support Line</p>
+                                                <p className="method-value">+1 (416) 951-2158</p>
+                                            </div>
                                         </Link>
                                     </div>
 
@@ -363,10 +236,10 @@ const DomainDetails = () => {
                                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                                         </svg>
                                         <Link to="mailto:domains@idirect.com" style={{ textDecoration: 'none', color: 'inherit' }}>
-                                        <div>
-                                            <p className="method-label">Email Support</p>
-                                            <p className="method-value">domains@idirect.com</p>
-                                        </div>
+                                            <div>
+                                                <p className="method-label">Email Support</p>
+                                                <p className="method-value">domains@idirect.com</p>
+                                            </div>
                                         </Link>
                                     </div>
                                 </div>

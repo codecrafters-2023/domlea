@@ -30,14 +30,6 @@ const Testimonials = () => {
         }
     ];
 
-    const companies = [
-        'company-logo1.svg',
-        'company-logo2.svg',
-        'company-logo3.svg',
-        'company-logo4.svg',
-        'company-logo5.svg'
-    ];
-
     return (
         <section className="testimonials-section">
             <div className="testimonials-container">
