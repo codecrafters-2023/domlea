@@ -6,7 +6,7 @@ import './RakutenPopup.css';
 
 const RakutenPopup = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasClosed, setHasClosed] = useState(false);
+//   const [hasClosed, setHasClosed] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const RakutenPopup = () => {
 
   const handleClose = () => {
     setIsVisible(false);
-    setHasClosed(true);
+    // setHasClosed(true);
     // Store in sessionStorage that user closed popup for this session
     sessionStorage.setItem('rakutenPopupClosed', 'true');
   };
