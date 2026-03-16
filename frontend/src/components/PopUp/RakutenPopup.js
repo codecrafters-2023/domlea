@@ -1,7 +1,7 @@
 // components/RakutenPopup.js
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Gift, Users, ChevronRight } from 'lucide-react';
+import { X, ExternalLink, Gift, ChevronRight } from 'lucide-react';
 import './RakutenPopup.css';
 
 const RakutenPopup = () => {
