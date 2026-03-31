@@ -161,6 +161,7 @@ Don’t miss this chance to boost your online presence and stand out in your ind
                                     <option value=".land">.land</option>
                                     <option value=".biz">.biz</option>
                                     <option value=".ai">.ai</option>
+                                    <option value=".co">.co</option>
                                 </select>
                             </div>
                         </div>

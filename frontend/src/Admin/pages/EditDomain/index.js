@@ -157,6 +157,7 @@ const EditDomain = () => {
                                 <option value=".land">.land</option>
                                 <option value=".biz">.biz</option>
                                 <option value=".ai">.ai</option>
+                                <option value=".co">.co</option>
                             </select>
                         </div>
                     </div>
