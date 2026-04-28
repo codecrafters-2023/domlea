@@ -26,7 +26,7 @@ import DomainList from './pages/Domains';
 import DomainSearch from './pages/DomainSearch';
 import DomainDetails from './pages/DomainDetails';
 import Terms from './pages/Terms';
-import RakutenPopup from './components/PopUp/RakutenPopup';
+// import RakutenPopup from './components/PopUp/RakutenPopup';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
         <AuthProvider>
           {/* <Header /> */}
           {/* Add the RakutenPopup here - it will show on all pages */}
-          <RakutenPopup />
+          {/* <RakutenPopup /> */}
           
           <Routes>
             <Route path="/login" element={<Login />} />
