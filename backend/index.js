@@ -6,6 +6,7 @@ const domainRoutes = require('./routes/domainRoutes');
 const userRoutes = require('./routes/userRoutes')
 const cors = require('cors');
 const path = require('path');
+const helmet = require("helmet");
 
 const app = express();
 const server = require('serverless-http')(app);
@@ -23,6 +24,8 @@ const allowedOrigins = [
     'https://domlea.com',
     process.env.CLIENT_URL || "http://localhost:3000"
 ];
+
+app.use(helmet());
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -47,12 +50,12 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+// });
 
 // Routes
 app.get('/', (req, res) => {
@@ -61,6 +64,25 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/domains', domainRoutes);
 app.use('/api/users', userRoutes);
+
+// 🚫 Block suspicious/malicious paths
+app.use((req, res, next) => {
+    const blockedPatterns = /\.(xyz|php|exe|sh|zip|rar)$/i;
+
+    if (blockedPatterns.test(req.path)) {
+        return res.status(404).send("Not Found");
+    }
+
+    next();
+});
+
+
+// ❌ Handle unknown routes (VERY IMPORTANT)
+app.use((req, res) => {
+    res.status(404).json({
+        message: "Route not found"
+    });
+});
 
 app.use((err, req, res) => {
     console.error('Global error:', err);
